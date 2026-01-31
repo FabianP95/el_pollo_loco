@@ -1,12 +1,14 @@
 const canvas = document.getElementById('canvas');
-let character = new MovableObject();
 
+
+let world = new World();
 
 
 function init() {
-    character.src = '../img/2_character_pepe/2_walk/W-22.png';
+    
     let ctx = canvas.getContext("2d");
     
-    console.log(character);
-    
+    console.log(world['character'], world.character);
+  
+        
 }

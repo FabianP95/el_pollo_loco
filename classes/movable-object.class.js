@@ -1,15 +1,15 @@
-class MovableObject{
+class MovableObject {
       x;
       y;
       img;
 
-      constructor(){
 
+
+      moveRight() {
 
       }
 
-      moveRight(){
-        
-        
+      moveLeft() {
+
       }
 }
