@@ -1,15 +1,10 @@
-const canvas = document.getElementById('canvas');
+let canvas = document.getElementById('canvas');
+let world;
 
 
 
 
 
 function init() {
-    let world = new World(canvas);
-
-
-
-    console.log(world.draw);
-    
-
+    world = new World(canvas);
 }
