@@ -1,10 +1,10 @@
 class MovableObject {
       x = 50;
-      y = 100;
+      y = 410;
       img;
 
-      height = 50;
-      width = 50;
+      height = 70;
+      width = 70;
 
       loadImg(path) {
             
