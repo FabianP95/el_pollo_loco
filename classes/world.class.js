@@ -34,12 +34,10 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
-
 
         let self = this;
         requestAnimationFrame(() => {
@@ -55,6 +53,17 @@ class World {
     };
 
     addToMap(movableObj) {
+        if (movableObj.otherDirection) {
+            this.ctx.save();
+            this.ctx.translate(movableObj.width, 0);
+            this.ctx.scale(-1, 1);
+            movableObj.x = movableObj.x * -1;
+        }
         this.ctx.drawImage(movableObj.img, movableObj.x, movableObj.y, movableObj.width, movableObj.height);
+        if (movableObj.otherDirection) {
+            movableObj.x = movableObj.x * -1;
+            this.ctx.restore();
+            
+        }
     };
 };
