@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    x = 0;
+    x = 100;
     height = 250;
     width = 150;
     world;
@@ -25,6 +25,7 @@ class Character extends MovableObject {
                 this.x -= this.speed;
                 this.otherDirection = true;
              }
+             this.world.camera_x = -this.x;
         }, standardFps);
 
         setInterval(() => {
