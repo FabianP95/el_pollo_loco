@@ -18,6 +18,7 @@ class Endboss extends MovableObject {
         this.x = 1200;
         this.y = canvasHeight -30 - this.height;
         this.animate()
+        
     }
 
      animate() {
