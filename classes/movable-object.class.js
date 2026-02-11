@@ -7,6 +7,12 @@ class MovableObject {
       otherDirection = false;
       speedY = 0;
       acceleration = 2.5;
+      hitboxOffset = {
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+      }
 
 
       loadImg(path) {
@@ -31,12 +37,18 @@ class MovableObject {
 
       drawHitbox(ctx) {
             if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
-                  
-                  
+
+
                   ctx.beginPath();
                   ctx.lineWidth = '1';
                   ctx.strokeStyle = 'blue';
                   ctx.rect(this.x, this.y, this.width, this.height);
+                  ctx.stroke();
+
+                  ctx.beginPath();
+                  ctx.lineWidth = '1';
+                  ctx.strokeStyle = 'red';
+                  ctx.rect(this.x + this.hitboxOffset.left, this.y + this.hitboxOffset.bottom, this.width - this.hitboxOffset.right, this.height - this.hitboxOffset.top);
                   ctx.stroke();
             }
       }
@@ -76,6 +88,13 @@ class MovableObject {
 
       jump() {
             this.speedY = 30;
+      }
+
+      isColliding(movableObj) {
+            return this.x + this.width > movableObj.x &&
+                  this.y + this.height > movableObj.y &&
+                  this.x < movableObj.x &&
+                  this.y < movableObj.y + movableObj.height
       }
 
 

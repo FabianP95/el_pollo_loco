@@ -14,6 +14,13 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-38.png', 'img/2_character_pepe/3_jump/J-39.png'
     ]
 
+    hitboxOffset = {
+        top: 105,
+        bottom: 105,
+        left: 30,
+        right: 60
+    }
+
 
     constructor() {
         super().loadImg('img/2_character_pepe/2_walk/W-21.png');
