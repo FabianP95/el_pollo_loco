@@ -14,6 +14,7 @@ class MovableObject {
             this.img.src = path;
       }
 
+
       loadImages(arr) {
             arr.forEach((path) => {
                   let img = new Image();
@@ -21,6 +22,25 @@ class MovableObject {
                   this.imageCache[path] = img;
             });
       }
+
+
+      draw(ctx) {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+      }
+
+
+      drawHitbox(ctx) {
+            if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+                  
+                  
+                  ctx.beginPath();
+                  ctx.lineWidth = '1';
+                  ctx.strokeStyle = 'blue';
+                  ctx.rect(this.x, this.y, this.width, this.height);
+                  ctx.stroke();
+            }
+      }
+
 
       applyGravity() {
             setInterval(() => {
@@ -31,19 +51,21 @@ class MovableObject {
             }, 1000 / 25);
       }
 
+
       isAboveGround() {
             return this.y < 190;
       }
 
+
       moveLeft() {
             this.x -= this.speed;
-            
       }
+
 
       moveRight() {
             this.x += this.speed;
-            
       }
+
 
       playWalkingAnimation(images) {
             let i = this.currentImage % images.length;
@@ -55,4 +77,6 @@ class MovableObject {
       jump() {
             this.speedY = 30;
       }
+
+
 }

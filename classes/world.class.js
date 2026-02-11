@@ -1,5 +1,5 @@
 class World {
-    
+
     character = new Character();
     level = level1;
     enemies = level1.enemies;
@@ -47,16 +47,27 @@ class World {
 
     addToMap(movableObj) {
         if (movableObj.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(movableObj.width, 0);
-            this.ctx.scale(-1, 1);
-            movableObj.x = movableObj.x * -1;
+            this.flipImg(movableObj)
         }
-        this.ctx.drawImage(movableObj.img, movableObj.x, movableObj.y, movableObj.width, movableObj.height);
+        movableObj.drawHitbox(this.ctx);
+        movableObj.draw(this.ctx);
+
         if (movableObj.otherDirection) {
-            movableObj.x = movableObj.x * -1;
-            this.ctx.restore();
+            this.flipImgBack(movableObj)
 
         }
     };
+
+    flipImg(movableObj) {
+        this.ctx.save();
+        this.ctx.translate(movableObj.width, 0);
+        this.ctx.scale(-1, 1);
+        movableObj.x = movableObj.x * -1;
+    }
+
+
+    flipImgBack(movableObj) {
+        movableObj.x = movableObj.x * -1;
+        this.ctx.restore();
+    }
 };
