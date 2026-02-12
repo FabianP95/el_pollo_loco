@@ -50,14 +50,17 @@ class Character extends MovableObject {
         }, standardFps);
 
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isDead()) {
                 this.playWalkingAnimation(this.jumpingImg);
-                this.touchedGround = true;
-            } else {
-                if (this.world.keyboard.right || this.world.keyboard.left) {
-                    this.playWalkingAnimation(this.walkingImg);
+            } else
+                if (this.isAboveGround()) {
+                    this.playWalkingAnimation(this.jumpingImg);
+                    
+                } else {
+                    if (this.world.keyboard.right || this.world.keyboard.left) {
+                        this.playWalkingAnimation(this.walkingImg);
+                    }
                 }
-            }
         }, 50);
 
     }

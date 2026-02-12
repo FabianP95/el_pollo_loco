@@ -77,12 +77,16 @@ class World {
         setInterval(() => {
             this.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    
-                    
+                    this.character.hit()
+
+                    console.log( enemy);
+
                 }
             })
         }, 200);
     }
+
+    
 
 
 };

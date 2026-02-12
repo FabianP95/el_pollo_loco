@@ -14,6 +14,8 @@ class MovableObject {
             right: 0
       }
 
+      lifepoints = 100;
+
 
       loadImg(path) {
             this.img = new Image(); //  <img id="character"> -> this.img = document.getElementById('character')
@@ -95,6 +97,17 @@ class MovableObject {
                   this.y + this.height > movableObj.y &&
                   this.x < movableObj.x &&
                   this.y < movableObj.y + movableObj.height
+      }
+
+      hit() {
+            this.lifepoints -= 5;
+            if (this.lifepoints < 0) {
+                  this.lifepoints = 0;
+            }
+      }
+
+      isDead() {
+            return this.lifepoints == 0;
       }
 
 
