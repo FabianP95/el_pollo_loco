@@ -14,6 +14,16 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-38.png', 'img/2_character_pepe/3_jump/J-39.png'
     ]
 
+    deadImg = ['img/2_character_pepe/5_dead/D-51.png', 'img/2_character_pepe/5_dead/D-52.png', 'img/2_character_pepe/5_dead/D-53.png',
+        'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-55.png', 'img/2_character_pepe/5_dead/D-56.png', 'img/2_character_pepe/5_dead/D-57.png'
+
+    ]
+
+    hitImg = ['img/2_character_pepe/4_hurt/H-41.png',
+        'img/2_character_pepe/4_hurt/H-42.png',
+        'img/2_character_pepe/4_hurt/H-43.png'
+    ]
+
     hitboxOffset = {
         top: 105,
         bottom: 105,
@@ -22,10 +32,14 @@ class Character extends MovableObject {
     }
 
 
+
+
     constructor() {
         super().loadImg('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.walkingImg);
         this.loadImages(this.jumpingImg);
+        this.loadImages(this.deadImg);
+        this.loadImages(this.hitImg);
         this.animate();
         this.applyGravity();
     }
@@ -50,17 +64,19 @@ class Character extends MovableObject {
         }, standardFps);
 
         setInterval(() => {
-            if (this.isDead()) {
-                this.playWalkingAnimation(this.jumpingImg);
+            if (this.isHit()) {
+                this.playAnimation(this.hitImg);
             } else
-                if (this.isAboveGround()) {
-                    this.playWalkingAnimation(this.jumpingImg);
-                    
-                } else {
-                    if (this.world.keyboard.right || this.world.keyboard.left) {
-                        this.playWalkingAnimation(this.walkingImg);
+                if (this.isDead()) {
+                    this.playAnimation(this.deadImg);
+                } else
+                    if (this.isAboveGround()) {
+                        this.playAnimation(this.jumpingImg);
+                    } else {
+                        if (this.world.keyboard.right || this.world.keyboard.left) {
+                            this.playAnimation(this.walkingImg);
+                        }
                     }
-                }
         }, 50);
 
     }

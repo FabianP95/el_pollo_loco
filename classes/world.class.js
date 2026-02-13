@@ -11,6 +11,8 @@ class World {
     keyboard;
     camera_x = 0;
 
+    statusBar = level1.statusBar;
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
@@ -30,7 +32,11 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
+        this.ctx.translate(-this.camera_x, 0);
+        /* this.addObjectsToMap(this.statusBar); */
+        this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
+
         this.ctx.translate(-this.camera_x, 0);
 
         let self = this;
@@ -77,16 +83,14 @@ class World {
         setInterval(() => {
             this.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    this.character.hit()
-
-                    console.log( enemy);
-
+                    this.character.hit();
+                    this.statusBar.setPercentage(this.character.energy);
                 }
             })
         }, 200);
     }
 
-    
+
 
 
 };

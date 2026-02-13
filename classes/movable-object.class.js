@@ -1,8 +1,6 @@
-class MovableObject {
-      x = 50;
-      y = 90;
-      imageCache = {};
-      currentImage = 0;
+class MovableObject extends DrawableObject {
+     
+      
       speed = 0.2;
       otherDirection = false;
       speedY = 0;
@@ -13,49 +11,9 @@ class MovableObject {
             left: 0,
             right: 0
       }
-
-      lifepoints = 100;
-
-
-      loadImg(path) {
-            this.img = new Image(); //  <img id="character"> -> this.img = document.getElementById('character')
-            this.img.src = path;
-      }
-
-
-      loadImages(arr) {
-            arr.forEach((path) => {
-                  let img = new Image();
-                  img.src = path;
-                  this.imageCache[path] = img;
-            });
-      }
-
-
-      draw(ctx) {
-            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-      }
-
-
-      drawHitbox(ctx) {
-            if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
-
-
-                  ctx.beginPath();
-                  ctx.lineWidth = '1';
-                  ctx.strokeStyle = 'blue';
-                  ctx.rect(this.x, this.y, this.width, this.height);
-                  ctx.stroke();
-
-                  ctx.beginPath();
-                  ctx.lineWidth = '1';
-                  ctx.strokeStyle = 'red';
-                  ctx.rect(this.x + this.hitboxOffset.left, this.y + this.hitboxOffset.bottom, this.width - this.hitboxOffset.right, this.height - this.hitboxOffset.top);
-                  ctx.stroke();
-            }
-      }
-
-
+      energy = 100;
+      lastHit = 0;
+      
       applyGravity() {
             setInterval(() => {
                   if (this.isAboveGround() || this.speedY > 0) {
@@ -81,7 +39,7 @@ class MovableObject {
       }
 
 
-      playWalkingAnimation(images) {
+      playAnimation(images) {
             let i = this.currentImage % images.length;
             let path = images[i];
             this.img = this.imageCache[path];
@@ -100,14 +58,22 @@ class MovableObject {
       }
 
       hit() {
-            this.lifepoints -= 5;
-            if (this.lifepoints < 0) {
-                  this.lifepoints = 0;
+            this.energy -= 5;
+            if (this.energy < 0) {
+                  this.energy = 0;
+            } else {
+                  this.lastHit = new Date().getTime();
             }
       }
 
       isDead() {
-            return this.lifepoints == 0;
+            return this.energy == 0;
+      }
+
+      isHit() {
+            let timePassed = new Date().getTime() - this.lastHit; // difference in ms, get time measures ms from the date 1.1.1970 till now
+            timePassed = timePassed / 1000; // in sec
+            return timePassed < 0.3;
       }
 
 
