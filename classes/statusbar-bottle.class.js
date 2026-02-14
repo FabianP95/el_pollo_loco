@@ -1,16 +1,4 @@
-class Statusbar extends DrawableObject {
-
-    percentage = 100;
-
-    healthBarImg = [
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
-    ]
-
+class StatusBarBottle extends DrawableObject {
     bottleBarImg = [
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
@@ -20,35 +8,19 @@ class Statusbar extends DrawableObject {
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png'
     ]
 
-    coinBarImg = [
-        'img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
-        'img/7_statusbars/1_statusbar/1_statusbar_coin/green/20.png',
-        'img/7_statusbars/1_statusbar/1_statusbar_coin/green/40.png',
-        'img/7_statusbars/1_statusbar/1_statusbar_coin/green/60.png',
-        'img/7_statusbars/1_statusbar/1_statusbar_coin/green/80.png',
-        'img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png'
-    ]
-
     constructor() {
-        super().loadImages(this.healthBarImg);
-        this.loadImages(this.bottleBarImg);
-        this.loadImages(this.coinBarImg);
+        super().loadImages(this.bottleBarImg);
         this.x = 20;
-        this.y = 0;
+        this.y = 55 ;
         this.height = 60;
         this.width = 200;
-        this.setPercentage(100);
-
+        this.setPercentage(0);
     }
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.healthBarImg[this.updateBar()];
+        let path = this.bottleBarImg[0];
         this.img = this.imageCache[path];
-
-
-
-
     }
 
     updateBar() {
@@ -67,6 +39,4 @@ class Statusbar extends DrawableObject {
                 return 0;
         }
     }
-
-
 }

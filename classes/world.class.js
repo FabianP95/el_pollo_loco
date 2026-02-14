@@ -1,17 +1,21 @@
 class World {
 
     character = new Character();
-    level = level1;
+level = level1;
     enemies = level1.enemies;
     clouds = level1.clouds;
     backgroundObjects = level1.backgroundObjects;
-
+    coins = level1.coins;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
 
-    statusBar = level1.statusBar;
+    statusBarHealth = new StatusbarHealth();
+    statusBarBottle = new StatusBarBottle();
+    statusBarCoin = new StatusBarCoin();
+
+    
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -27,14 +31,21 @@ class World {
     }
 
     draw() {
+
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.coins);
+
         this.ctx.translate(-this.camera_x, 0);
-        /* this.addObjectsToMap(this.statusBar); */
+        this.addToMap(this.statusBarHealth);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarCoin);
         this.ctx.translate(this.camera_x, 0);
+
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);
@@ -84,7 +95,9 @@ class World {
             this.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
+
+
+                    this.statusBarHealth.setPercentage(this.character.energy);
                 }
             })
         }, 200);
