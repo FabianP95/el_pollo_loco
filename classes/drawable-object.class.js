@@ -26,11 +26,18 @@ class DrawableObject {
     }
 
     drawHitbox(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin) {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'green';
+            ctx.moveTo(0,431)
+            ctx.lineTo(1420, 431);
             ctx.stroke();
 
             ctx.beginPath();

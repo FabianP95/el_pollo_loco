@@ -1,22 +1,27 @@
 class Coin extends DrawableObject {
 
     coinImg = ['img/8_coin/coin_1.png', 'img/8_coin/coin_2.png']
-
+    hitboxOffset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+    }
     constructor() {
         super().loadImages(this.coinImg);
         this.loadImg('img/8_coin/coin_1.png');
         this.width = 75;
         this.height = 75;
         this.x = 150 + Math.random() * 200;
-        this.y = 100;
-        this.animate()
+        this.y = 385;
+        this.animate();
 
     }
 
     animate() {
-        setInterval(() => {
+        /* setInterval(() => {
             this.bouncing();
-        }, 1000);
+        }, 300); */
 
 
         setInterval(() => {
@@ -25,13 +30,13 @@ class Coin extends DrawableObject {
     }
 
     bouncing() {
-        console.log(this.y);
-        
-        if (this.y >= 100) {
-            this.y += 10;
-        }
-        if (this.y <= 130) {
-            this.y -= 10;
+        switch (true) {
+            case (this.y == 385):
+                this.y -= 2;
+                break;
+            case (this.y == 383):
+                this.y += 2;
+                break;
         }
     }
 }
