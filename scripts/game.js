@@ -1,5 +1,6 @@
 let canvas = document.getElementById('canvas');
 let world;
+let start;
 let canvasHeight = 480;
 let canvasWidth = 720;
 let standardFps = 1000 / 60;
@@ -8,24 +9,28 @@ let keyboard = new Keyboard();
 
 
 
+function startScreen() {
+     start = new StartScreen(canvas);
+}
 
-function init() {
+
+function startGame() {
     world = new World(canvas, keyboard);
 };
 
 
 document.addEventListener('keydown', (event) => {
     switch (event.keyCode) {
-        case 37 && 65:
+        case 65:
             keyboard.left = true;
             break;
-        case 38 && 87:
+        case 87:
             keyboard.up = true;
             break;
-        case 39 && 68:
+        case 68:
             keyboard.right = true;
             break;
-        case 40 && 83:
+        case 83:
             keyboard.down = true;
             break;
         case 32:
@@ -40,16 +45,16 @@ document.addEventListener('keydown', (event) => {
 
 document.addEventListener('keyup', (event) => {
     switch (event.keyCode) {
-        case 37 && 65:
+        case 65:
             keyboard.left = false;
             break;
-        case 38 && 87:
+        case 87:
             keyboard.up = false;
             break;
-        case 39 && 68:
+        case 68:
             keyboard.right = false;
             break;
-        case 40 && 83:
+        case 83:
             keyboard.down = false;
             break;
         case 32:

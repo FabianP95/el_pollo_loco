@@ -17,6 +17,7 @@
     <script src="classes/statusbar-coin.class.js"></script>
     <script src="classes/statusbar-health.class.js"></script>
     <script src="classes/coin.class.js"></script>
+    <script src="classes/bottles.class.js"></script>
     <script src="classes/chicken.class.js"></script>
     <script src="classes/background_object.class.js"></script>
     <script src="classes/cloud.class.js"></script>
@@ -24,7 +25,9 @@
     <script src="classes/endboss.class.js"></script>
     <script src="classes/throwable-object.class.js"></script>
     <script src="classes/level.class.js"></script>
+    
     <script src="classes/world.class.js" ></script>
+    <script src="classes/startScreen.class.js"></script>
     <script src="classes/levels/level1.js" defer></script>
 
 
@@ -38,12 +41,14 @@
 
 </head>
 
-<body onload="init()">
+<body onload="startScreen()">
     <h1>El pollo loco</h1>
 
     <canvas id="canvas" class="canvas" width="720px" height="480px">
         Your browser does not support the canvas tag.
     </canvas>
+
+    <button onclick="startGame()"></button>
 
 
 

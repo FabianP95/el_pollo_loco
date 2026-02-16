@@ -6,6 +6,7 @@ class World {
     clouds = level1.clouds;
     backgroundObjects = level1.backgroundObjects;
     coins = level1.coins;
+    collectibleBottle = level1.bottles;
     
     bottles = [];
     canvas;
@@ -33,8 +34,6 @@ class World {
     }
 
     draw() {
-
-
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.backgroundObjects);
@@ -42,6 +41,7 @@ class World {
         this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.bottles);
+        this.addObjectsToMap(this.collectibleBottle);
 
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBarHealth);
