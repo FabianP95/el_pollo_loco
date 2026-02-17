@@ -1,5 +1,11 @@
 const modal = document.getElementById('startDialog');
 
-function closeModal() {
+let gameStarted = false;
+
+function startGame() {
+    gameStarted = true;
+    loadLevel();
     modal.classList.add('close-modal');
+    initGame();
+
 }

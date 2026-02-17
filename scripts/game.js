@@ -14,29 +14,31 @@ function startScreen() {
 }
 
 
-function startGame() {
+function initGame() {
     world = new World(canvas, keyboard);
 };
 
 
 document.addEventListener('keydown', (event) => {
-    switch (event.keyCode) {
-        case 65:
+    console.log(event.code);
+    
+    switch (event.code) {
+        case 'KeyA':
             keyboard.left = true;
             break;
-        case 87:
+        case 'KeyW':
             keyboard.up = true;
             break;
-        case 68:
+        case 'KeyD':
             keyboard.right = true;
             break;
-        case 83:
+        case 'KeyS':
             keyboard.down = true;
             break;
-        case 32:
+        case 'Space':
             keyboard.space = true;
             break;
-        case 71:
+        case 'KeyG':
             keyboard.throw = true;
             break;
     }
@@ -44,23 +46,23 @@ document.addEventListener('keydown', (event) => {
 
 
 document.addEventListener('keyup', (event) => {
-    switch (event.keyCode) {
-        case 65:
+    switch (event.code) {
+        case 'KeyA':
             keyboard.left = false;
             break;
-        case 87:
+        case 'KeyW':
             keyboard.up = false;
             break;
-        case 68:
+        case 'KeyD':
             keyboard.right = false;
             break;
-        case 83:
+        case 'KeyS':
             keyboard.down = false;
             break;
-        case 32:
+        case 'Space':
             keyboard.space = false;
             break;
-        case 71:
+        case 'KeyG':
             keyboard.throw = false;
             break;
     }
