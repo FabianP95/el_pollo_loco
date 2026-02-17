@@ -3,8 +3,66 @@ body {
     align-items: center;
     flex-direction: column;
     font-family: 'Rye', 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-image: url('/assets/background-img/landscape.jpg');
+    background-position: center;
+}
+
+.game-title {
+    margin-top: min(50px, 5%);
+    margin-bottom: min(50px, 5%);
 }
 
 .canvas {
     background-color: black;
+    border-radius: 20px;
+    border: 1px solid white;
+}
+
+dialog[open] {
+    display: flex;
+}
+
+.dialogWindow {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    margin-top: 16%;
+}
+
+.close-modal {
+    visibility: hidden ;
+    opacity: 0;
+}
+
+.modal {
+    position: relative;
+    left: 50%;
+    align-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    translate: -50%;
+    height: 340px;
+    width: 520px;
+    background: rgba(255, 255, 255, 0.07);
+    /* transparent fill */
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(4px);
+    /* optional extra frost */
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 20px;
+}
+
+.start-btn{
+    font-family: 'Rye';
+    color: white;
+    font-size: 16px;
+    background-color: rgb(0, 143, 69);
+    border: 1px solid #512b0c;
+    border-radius: 20px;
+
+
 }

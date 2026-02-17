@@ -7,6 +7,7 @@
     <title>El pollo loco</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/styles/fonts.css">
+    <link rel="stylesheet" href="/styles/standard.css">
 
 
 
@@ -26,16 +27,16 @@
     <script src="classes/endboss.class.js"></script>
     <script src="classes/throwable-object.class.js"></script>
     <script src="classes/level.class.js"></script>
-    
-    <script src="classes/world.class.js" ></script>
+
+    <script src="classes/world.class.js"></script>
     <script src="classes/startScreen.class.js"></script>
     <script src="classes/levels/level1.js" defer></script>
 
 
 
 
-    
-    <script src="/script.js"></script>
+
+
 
 
 
@@ -43,18 +44,29 @@
 </head>
 
 <body onload="startScreen()">
-    <h1>El pollo loco</h1>
+    <header>
+        <h1 class="game-title">El pollo loco</h1>
+    </header>
+    <main>
+        <canvas id="canvas" class="canvas" width="720px" height="480px">
+            Your browser does not support the canvas tag.
+        </canvas>
+        <dialog id="startDialog" class="dialogWindow" open>
+            <div class="modal"><button class="start-btn" onclick="startGame(), closeModal()">Start the game</button>
+            </div>
+        </dialog>
+    </main>
+    <footer>
+        <a href="./html/legal_notice.html">Impressum</a>
+    </footer>
 
-    <canvas id="canvas" class="canvas" width="720px" height="480px">
-        Your browser does not support the canvas tag.
-    </canvas>
 
-    <button onclick="startGame()"></button>
 
 
 
 
 </body>
 <script src="./scripts/game.js"></script>
+<script src="/script.js"></script>
 
 </html>
