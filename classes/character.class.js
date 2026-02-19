@@ -31,6 +31,13 @@ class Character extends MovableObject {
         right: 60
     }
 
+    jumpSound = new Audio('../assets/audio/pepe/pepe-jump.mp3');
+    hitSound = new Audio('../assets/audio/pepe/pepe-hit.mp3');
+    deadSound = new Audio('../assets/audio/pepe/pepe-dead.mp3');
+
+    hasPlayed = false;
+
+
 
 
 
@@ -58,6 +65,7 @@ class Character extends MovableObject {
             if (this.world.keyboard.space && !this.isAboveGround()) {
                 this.jump();
 
+
             }
             this.world.camera_x = -this.x + 100;
 
@@ -66,9 +74,11 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isHit()) {
                 this.playAnimation(this.hitImg);
+                this.hitSound.play();
             } else
                 if (this.isDead()) {
                     this.playAnimation(this.deadImg);
+                    this.playDeadSound();
                 } else
                     if (this.isAboveGround()) {
                         this.playAnimation(this.jumpingImg);
@@ -79,6 +89,13 @@ class Character extends MovableObject {
                     }
         }, 50);
 
+    }
+
+    playDeadSound() {
+        if (!this.hasPlayed) {
+            this.deadSound.play();
+            this.hasPlayed = true;
+        }
     }
 
 
