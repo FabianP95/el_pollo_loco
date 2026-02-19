@@ -34,6 +34,7 @@ class Character extends MovableObject {
     jumpSound = new Audio('../assets/audio/pepe/pepe-jump.mp3');
     hitSound = new Audio('../assets/audio/pepe/pepe-hit.mp3');
     deadSound = new Audio('../assets/audio/pepe/pepe-dead.mp3');
+    walkSound = new Audio('../assets/audio/pepe/pepe-walk.mp3');
 
     hasPlayed = false;
 
@@ -56,10 +57,12 @@ class Character extends MovableObject {
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
                 this.otherDirection = false;
                 this.moveRight();
+                this.walkSound.play();
             }
             if (this.world.keyboard.left && this.x > 0) {
                 this.otherDirection = true;
                 this.moveLeft();
+                this.walkSound.play();
             }
 
             if (this.world.keyboard.space && !this.isAboveGround()) {

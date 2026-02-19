@@ -7,7 +7,7 @@ class World {
     backgroundObjects = level1.backgroundObjects;
     coins = level1.coins;
     collectibleBottle = level1.bottles;
-    
+
     bottles = [];
     canvas;
     ctx;
@@ -17,7 +17,7 @@ class World {
     statusBarHealth = new StatusbarHealth();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
-
+    backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
 
 
     constructor(canvas, keyboard) {
@@ -27,6 +27,7 @@ class World {
         this.draw();
         this.setWorld();
         this.runChecks();
+        this.playWorldMusic();
     }
 
     setWorld() {
@@ -109,12 +110,18 @@ class World {
         })
     }
 
-    checkThrow(){
+    checkThrow() {
         if (this.keyboard.throw) {
             let bottle = new ThrowableObject(this.character.x, this.character.y);
             this.bottles.push(bottle);
         }
-        
+
+    }
+
+    playWorldMusic(){
+        this.backgroundMusic.volume = 0.05;
+        this.backgroundMusic.loop = true;
+        this.backgroundMusic.play();
     }
 
 
