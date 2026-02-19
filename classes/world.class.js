@@ -19,46 +19,69 @@ class World {
     statusBarCoin = new StatusBarCoin();
     backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
 
+    gameEnd = new GameOver();
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
+
+
         this.draw();
         this.setWorld();
         this.runChecks();
-        this.playWorldMusic();
+        /* this.playWorldMusic(); */
+
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    draw() {
+    drawGameOver() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.backgroundObjects);
-        this.addObjectsToMap(this.enemies);
-        this.addObjectsToMap(this.clouds);
-        this.addObjectsToMap(this.coins);
-        this.addObjectsToMap(this.bottles);
-        this.addObjectsToMap(this.collectibleBottle);
+        this.addToMap(this.gameEnd);
+        let self = this;
+        requestAnimationFrame(() => {
+            self.drawGameOver();
+        });
 
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBarHealth);
-        this.addToMap(this.statusBarBottle);
-        this.addToMap(this.statusBarCoin);
-        this.ctx.translate(this.camera_x, 0);
+    }
 
-        this.addToMap(this.character);
+    draw() {
+        if (this.character.energy == 0) {
+            this.drawGameOver();
+        } else {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.translate(this.camera_x, 0);
+            this.addObjectsToMap(this.backgroundObjects);
+            this.addObjectsToMap(this.enemies);
+            this.addObjectsToMap(this.clouds);
+            this.addObjectsToMap(this.coins);
+            this.addObjectsToMap(this.bottles);
+            this.addObjectsToMap(this.collectibleBottle);
 
-        this.ctx.translate(-this.camera_x, 0);
+            this.ctx.translate(-this.camera_x, 0);
+            this.addToMap(this.statusBarHealth);
+            this.addToMap(this.statusBarBottle);
+            this.addToMap(this.statusBarCoin);
+            this.ctx.translate(this.camera_x, 0);
 
+            this.addToMap(this.character);
+
+
+
+            this.ctx.translate(-this.camera_x, 0);
+
+        }
         let self = this;
         requestAnimationFrame(() => {
             self.draw();
         });
     };
+
 
     addObjectsToMap(objects) {
         objects.forEach(o => {
@@ -118,8 +141,8 @@ class World {
 
     }
 
-    playWorldMusic(){
-        this.backgroundMusic.volume = 0.05;
+    playWorldMusic() {
+        this.backgroundMusic.volume = 0.01;
         this.backgroundMusic.loop = true;
         this.backgroundMusic.play();
     }
