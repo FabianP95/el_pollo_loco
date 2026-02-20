@@ -4,11 +4,11 @@ function loadLevel() {
         if (gameStarted) {
                 level1 = new Level([
                         new Chicken(),
-                        /* new Chicken(),
-                        new Chicken(), */
+                        new Chicken(),
+                        new Chicken(),
                         new LittleChicken(),
-                        /* new LittleChicken(),
-                        new LittleChicken(), */
+                        new LittleChicken(),
+                        new LittleChicken(),
                         new Endboss()
                 ],
                         [
@@ -46,17 +46,17 @@ function loadLevel() {
                                 new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 720 * 4),
                         ],
                         [new Coin(),
-                        /* new Coin(),
                         new Coin(),
                         new Coin(),
-                        new Coin() */
+                        new Coin(),
+                        new Coin()
                         ],
                         [
                                 new Bottle(),
-                                /* new Bottle(),
                                 new Bottle(),
                                 new Bottle(),
-                                new Bottle() */
+                                new Bottle(),
+                                new Bottle()
                         ]
                 );
         }

@@ -13,7 +13,7 @@ class LittleChicken extends MovableObject {
         this.y = canvasHeight - 48 - this.height;
         this.loadImages(this.walkingImg);
         this.speed = 0.2 + Math.random() * 0.15;
-        /* this.animate(); */
+        this.animate();
     }
 
     animate() {
