@@ -126,12 +126,35 @@ class World {
 
     collisionWithEnemy() {
         this.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+
+
+
+
+
+
+
+
+            if (this.character.isColliding(enemy) && this.character.isJumpingOn(enemy)) {
+                if (enemy instanceof Endboss) {
+                    return
+                } else {
+                    
+                }
+                
+
+            }
+            if (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy)) {
+
+
                 this.character.hit();
                 this.statusBarHealth.setPercentage(this.character.energy);
+
+
             }
         })
     }
+
+
 
     checkThrow() {
         if (this.keyboard.throw) {

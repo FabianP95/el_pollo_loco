@@ -5,8 +5,8 @@ class LittleChicken extends MovableObject {
         'img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
     deadImg = ['img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
-    
 
+    energy = 50;
     constructor() {
         super().loadImg('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.x = 450 + Math.random() * 400;
@@ -20,10 +20,16 @@ class LittleChicken extends MovableObject {
         setInterval(() => {
             this.moveLeft();
         }, standardFps);
-
-        setInterval(() => {
-            this.playAnimation(this.walkingImg);
-        }, 150);
+        if (this.energy == 0) {
+            setInterval(() => {
+                this.playAnimation(this.deadImg[0]);
+            }, 150);
+        } else {
+            setInterval(() => {
+                this.playAnimation(this.walkingImg);
+            }, 150);
+        }
+       
     }
 
 }

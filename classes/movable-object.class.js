@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
       acceleration = 2.5;
       energy = 100;
       lastHit = 0;
-      
+
       applyGravity() {
             setInterval(() => {
                   if (this.isAboveGround() || this.speedY > 0) {
@@ -22,7 +22,7 @@ class MovableObject extends DrawableObject {
                   return true
             } else {
                   return this.y < 190;
-            }    
+            }
       }
 
 
@@ -40,11 +40,19 @@ class MovableObject extends DrawableObject {
       }
 
       isColliding(movableObj) {
-            return this.x + this.width > movableObj.x &&
+            return this.x + this.width - this.hitboxOffset.right > movableObj.x + movableObj.hitboxOffset.left &&
+                  this.x < movableObj.x + movableObj.width - movableObj.hitboxOffset.right &&
                   this.y + this.height > movableObj.y &&
-                  this.x < movableObj.x &&
-                  this.y < movableObj.y + movableObj.height
+                  this.y < movableObj.y + movableObj.height 
       }
+
+      isJumpingOn(movableObj) {
+            if (movableObj instanceof Endboss) {
+                  return
+            }
+            return this.y + this.height < movableObj.y + movableObj.height &&
+            this.speedY < 0; 
+      };
 
       hit() {
             this.energy -= 5;

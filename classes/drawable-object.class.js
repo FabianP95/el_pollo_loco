@@ -32,25 +32,26 @@ class DrawableObject {
     }
 
     drawHitbox(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle || this instanceof LittleChicken) {
-            ctx.beginPath();
-            ctx.lineWidth = '1';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-
+        if (this instanceof Character || this instanceof Chicken /* || this instanceof Endboss || this instanceof Coin || this instanceof Bottle || this instanceof LittleChicken */) {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'green';
-            ctx.moveTo(0, 431)
-            ctx.lineTo(1420, 431);
+            ctx.moveTo(this.x + this.hitboxOffset.left, this.y + this.height - 10)
+            ctx.lineTo(this.x  + this.width - this.hitboxOffset.right, this.y + this.height - 10);
             ctx.stroke();
 
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'red';
-            ctx.rect(this.x + this.hitboxOffset.left, this.y + this.hitboxOffset.top, this.width - this.hitboxOffset.right, this.height - this.hitboxOffset.bottom);
+            ctx.moveTo(this.x + this.hitboxOffset.left, this.y + this.height - 10)
+            ctx.lineTo(this.x  + this.width - this.hitboxOffset.right, this.y + this.height - 10);
             ctx.stroke();
+
+           /*  ctx.beginPath();
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.x + this.hitboxOffset.left, this.y + this.hitboxOffset.top, this.width - this.hitboxOffset.right, this.height - this.hitboxOffset.bottom);
+            ctx.stroke(); */
         }
     }
 
