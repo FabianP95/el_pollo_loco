@@ -6,6 +6,12 @@ class DrawableObject {
     width;
     currentImage = 0;
     img;
+    hitboxOffset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0
+    }
 
     loadImg(path) {
         this.img = new Image(); //  <img id="character"> -> this.img = document.getElementById('character')
@@ -26,7 +32,7 @@ class DrawableObject {
     }
 
     drawHitbox(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle || this instanceof LittleChicken) {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'blue';
@@ -36,14 +42,14 @@ class DrawableObject {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'green';
-            ctx.moveTo(0,431)
+            ctx.moveTo(0, 431)
             ctx.lineTo(1420, 431);
             ctx.stroke();
 
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'red';
-            ctx.rect(this.x + this.hitboxOffset.left, this.y + this.hitboxOffset.bottom, this.width - this.hitboxOffset.right, this.height - this.hitboxOffset.top);
+            ctx.rect(this.x + this.hitboxOffset.left, this.y + this.hitboxOffset.top, this.width - this.hitboxOffset.right, this.height - this.hitboxOffset.bottom);
             ctx.stroke();
         }
     }

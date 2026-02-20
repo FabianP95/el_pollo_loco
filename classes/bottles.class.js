@@ -2,10 +2,10 @@ class Bottle extends DrawableObject {
 
     bottleImg = ['img/6_salsa_bottle/1_salsa_bottle_on_ground.png']
     hitboxOffset = {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0
+        top: 15,
+        bottom: 22,
+        left: 30,
+        right: 44
     }
 
     constructor() {

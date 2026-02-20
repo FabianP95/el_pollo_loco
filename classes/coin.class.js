@@ -2,11 +2,12 @@ class Coin extends DrawableObject {
 
     coinImg = ['img/8_coin/coin_1.png', 'img/8_coin/coin_2.png']
     hitboxOffset = {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0
+        top: 25,
+        bottom: 50,
+        left: 24,
+        right: 48
     }
+    
     constructor() {
         super().loadImages(this.coinImg);
         this.loadImg('img/8_coin/coin_1.png');

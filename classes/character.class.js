@@ -25,10 +25,10 @@ class Character extends MovableObject {
     ]
 
     hitboxOffset = {
-        top: 105,
+        top: 95,
         bottom: 105,
-        left: 30,
-        right: 60
+        left: 22,
+        right: 44
     }
 
     jumpSound = new Audio('../assets/audio/pepe/pepe-jump.mp3');

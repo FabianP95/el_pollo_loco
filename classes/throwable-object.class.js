@@ -13,7 +13,14 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ];
 
-    bottleImg = ['img/6_salsa_bottle/salsa_bottle.png']
+    bottleImg = ['img/6_salsa_bottle/salsa_bottle.png'];
+
+    hitboxOffset = {
+        top: 10,
+        bottom: 10,
+        left: 10,
+        right: 10
+    };
 
     constructor(x, y) {
         super().loadImages(this.rotationImg);
