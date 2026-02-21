@@ -17,6 +17,7 @@ class World {
     statusBarHealth = new StatusbarHealth();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
+    statusBarBoss = new StatusBarBoss();
     backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
 
     gameEnd = new GameOver();
@@ -67,6 +68,7 @@ class World {
             this.addToMap(this.statusBarHealth);
             this.addToMap(this.statusBarBottle);
             this.addToMap(this.statusBarCoin);
+            this.addToMap(this.statusBarBoss);
             this.ctx.translate(this.camera_x, 0);
 
             this.addToMap(this.character);
@@ -133,12 +135,13 @@ class World {
 
 
 
+console.log(enemy.energy);
 
             if (this.character.isColliding(enemy) && this.character.isJumpingOn(enemy)) {
                 if (enemy instanceof Endboss) {
                     return
                 } else {
-                    
+                    enemy.energy = 0;
                 }
                 
 
