@@ -21,6 +21,7 @@ class World {
     backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
 
     gameEnd = new GameOver();
+    gameWon = new GameWon();
 
 
     constructor(canvas, keyboard) {
@@ -48,7 +49,16 @@ class World {
         requestAnimationFrame(() => {
             self.drawGameOver();
         });
+    }
 
+    drawGameWon() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.addObjectsToMap(this.backgroundObjects);
+        this.addToMap(this.gameWon);
+        let self = this;
+        requestAnimationFrame(() => {
+            self.drawGameWon();
+        });
     }
 
     draw() {
@@ -135,7 +145,7 @@ class World {
 
 
 
-console.log(enemy.energy);
+            console.log(enemy.energy);
 
             if (this.character.isColliding(enemy) && this.character.isJumpingOn(enemy)) {
                 if (enemy instanceof Endboss) {
@@ -143,7 +153,7 @@ console.log(enemy.energy);
                 } else {
                     enemy.energy = 0;
                 }
-                
+
 
             }
             if (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy)) {
