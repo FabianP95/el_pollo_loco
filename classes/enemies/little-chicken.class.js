@@ -8,12 +8,14 @@ class LittleChicken extends MovableObject {
 
     deadSound = new Audio('../assets/audio/enemies/chicken/chicken-die.wav');
 
-    energy = 50;
+
     constructor() {
         super().loadImg('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        this.loadImages(this.walkingImg);
+        this.loadImages(this.deadImg);
         this.x = 450 + Math.random() * 400;
         this.y = canvasHeight - 48 - this.height;
-        this.loadImages(this.walkingImg);
+        this.energy = 50;
         this.speed = 0.2 + Math.random() * 0.15;
         this.animate();
     }
@@ -21,17 +23,24 @@ class LittleChicken extends MovableObject {
     animate() {
         setInterval(() => {
             this.moveLeft();
+            if (this.energy == 0) {
+                this.goUnderground()
+            } else {
+                this.moveLeft();
+            }
         }, standardFps);
-        if (this.energy == 0) {
-            setInterval(() => {
-                this.playAnimation(this.deadImg[0]);
-            }, 150);
-        } else {
-            setInterval(() => {
+
+        setInterval(() => {
+            if (this.energy == 0) {
+                this.animateDeath(this.deadImg);
+                if (!this.hasPlayed) {
+                    this.playSound(this.deadSound, 0.15);
+                    this.hasPlayed = true;
+                }
+            } else {
                 this.playAnimation(this.walkingImg);
-            }, 150);
-        }
-       
+            }
+        }, 150);
     }
 
 }

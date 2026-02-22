@@ -4,8 +4,10 @@ class MovableObject extends DrawableObject {
       otherDirection = false;
       speedY = 0;
       acceleration = 2.5;
-      energy = 100;
+      energy = 50;
       lastHit = 0;
+
+      hasPlayed = false;
 
       applyGravity() {
             setInterval(() => {
@@ -45,7 +47,7 @@ class MovableObject extends DrawableObject {
             return this.x + this.width - this.hitboxOffset.right > movableObj.x + movableObj.hitboxOffset.left &&
                   this.x < movableObj.x + movableObj.width - movableObj.hitboxOffset.right &&
                   this.y + this.height > movableObj.y &&
-                  this.y < movableObj.y + movableObj.height 
+                  this.y < movableObj.y + movableObj.height
       }
 
       isJumpingOn(movableObj) {
@@ -53,9 +55,9 @@ class MovableObject extends DrawableObject {
                   return
             }
             return this.y + this.height < movableObj.y + movableObj.height &&
-            this.speedY < 0; 
+                  this.speedY < 0;
       };
-      
+
 
       hit() {
             this.energy -= 5;
@@ -76,14 +78,24 @@ class MovableObject extends DrawableObject {
             return timePassed < 0.3;
       }
 
-      goUnderground(){
-            this.y += 20;
+      goUnderground() {
+            this.y += 1;
       }
 
       playSound(sound, volume) {
-        sound.volume = volume;
-        sound.play();
-    }
+            sound.volume = volume;
+            sound.play();
+      }
+
+      animateDeath(images) {
+            let i = this.currentImage % images.length;
+            let path = images[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+            if (this.currentImage >= images.length) {
+                  this.currentImage = images.length - 1; 
+            }
+      }
 
 
 }

@@ -49,6 +49,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.hurtImg);
         this.loadImages(this.attackImg);
         this.loadImages(this.deadImg);
+        this.energy = 150;
         this.x = 2050;
         this.y = canvasHeight - 30 - this.height;
         this.animate()
@@ -59,9 +60,16 @@ class Endboss extends MovableObject {
 
         setInterval(() => {
             if (this.energy == 0) {
+                this.animateDeath(this.deadImg);
+                if (!this.hasPlayed) {
+                    this.playSound(this.deadSound, 0.15);
+                    this.hasPlayed = true;
+                }
                 this.goUnderground();
+            } else {
+                this.playAnimation(this.walkingImg);
             }
-            this.playAnimation(this.deadImg);
+
         }, 150)
     }
 

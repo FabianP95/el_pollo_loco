@@ -48,7 +48,7 @@ class Character extends MovableObject {
     deadSound = new Audio('../assets/audio/pepe/pepe-dead.mp3');
     walkSound = new Audio('../assets/audio/pepe/pepe-walk.mp3');
 
-    hasPlayed = false;
+    
 
     constructor() {
         super().loadImg('img/2_character_pepe/2_walk/W-21.png');
@@ -57,6 +57,7 @@ class Character extends MovableObject {
         this.loadImages(this.deadImg);
         this.loadImages(this.hitImg);
         this.animate();
+        this.energy = 100;
         this.applyGravity();
     }
 
