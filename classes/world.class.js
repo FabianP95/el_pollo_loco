@@ -10,6 +10,8 @@ class World {
 
     collectedCoins = [];
     collectedBottles = [];
+    valueCoin = 20;
+    valueBottles = 20;
 
     canvas;
     ctx;
@@ -20,6 +22,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     statusBarBoss = new StatusBarBoss();
+
     backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
 
     gameEnd = new GameOver();
@@ -149,8 +152,18 @@ class World {
                 if (collected instanceof Bottle) {
                     let bottle = new ThrowableObject();
                     collectedArr.push(bottle);
+                    if (this.valueBottles >= 100) {
+                        this.valueBottles = 100;
+                    }
+                    this.statusBarBottle.setPercentage(this.valueBottles);
+                    this.valueBottles += 20;
                 } else {
                     collectedArr.push(collected);
+                    if (this.valueCoin >= 100) {
+                        this.valueCoin = 100;
+                    }
+                    this.statusBarCoin.setPercentage(this.valueCoin);
+                    this.valueCoin += 20;
                 }
                 collected.width = 0;
             }
