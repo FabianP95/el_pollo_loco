@@ -8,8 +8,9 @@ class World {
     coins = level1.coins;
     collectibleBottle = level1.bottles;
 
+    collectedCoins = [];
+    collectedBottles = [];
 
-    bottles = [];
     canvas;
     ctx;
     keyboard;
@@ -63,39 +64,32 @@ class World {
     }
 
     draw() {
-        console.log(this.enemies[6].energy);
-
-
         if (this.character.energy == 0) {
             this.drawGameOver();
-        } if (this.enemies[6].energy == 0) {
-            
-                this.drawGameWon();
-            
         } else {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.ctx.translate(this.camera_x, 0);
-            this.addObjectsToMap(this.backgroundObjects);
-            this.addObjectsToMap(this.enemies);
-            this.addObjectsToMap(this.clouds);
-            this.addObjectsToMap(this.coins);
-            this.addObjectsToMap(this.bottles);
-            this.addObjectsToMap(this.collectibleBottle);
+            if (this.enemies[6].energy == 0) {
+                this.drawGameWon();
+            } else {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.translate(this.camera_x, 0);
+                this.addObjectsToMap(this.backgroundObjects);
+                this.addObjectsToMap(this.enemies);
+                this.addObjectsToMap(this.clouds);
+                this.addObjectsToMap(this.coins);
+                this.addObjectsToMap(this.collectedBottles);
+                this.addObjectsToMap(this.collectibleBottle);
 
-            this.ctx.translate(-this.camera_x, 0);
-            this.addToMap(this.statusBarHealth);
-            this.addToMap(this.statusBarBottle);
-            this.addToMap(this.statusBarCoin);
-            this.addToMap(this.statusBarBoss);
-            this.ctx.translate(this.camera_x, 0);
+                this.ctx.translate(-this.camera_x, 0);
+                this.addToMap(this.statusBarHealth);
+                this.addToMap(this.statusBarBottle);
+                this.addToMap(this.statusBarCoin);
+                this.addToMap(this.statusBarBoss);
+                this.ctx.translate(this.camera_x, 0);
 
-            this.addToMap(this.character);
+                this.addToMap(this.character);
 
-
-
-            this.ctx.translate(-this.camera_x, 0);
-
-
+                this.ctx.translate(-this.camera_x, 0);
+            }
         }
         let self = this;
         requestAnimationFrame(() => {
@@ -142,14 +136,30 @@ class World {
         setInterval(() => {
             this.collisionWithEnemy();
             this.checkThrow();
-            this.collisionThrow()
+            this.collisionThrow();
+            this.collectingItems(this.coins, this.collectedCoins);
+            this.collectingItems(this.collectibleBottle, this.collectedBottles);
         }, 50);
 
     }
 
+    collectingItems(collectible, collectedArr) {
+        collectible.forEach((collected) => {
+            if (this.character.isColliding(collected)) {  
+                if (collected instanceof Bottle) {
+                    let bottle = new ThrowableObject();
+                    collectedArr.push(bottle);
+                } else {
+                    collectedArr.push(collected);
+                }
+                collected.width = 0;
+            }
+        })
+    }
+
     collisionThrow() {
-        if (this.bottles.length != 0) {
-            this.bottles.forEach((bottle) => {
+        if (this.collectedBottles.length != 0) {
+            this.collectedBottles.forEach((bottle) => {
                 this.enemies.forEach((enemy) => {
                     if (bottle.isColliding(enemy)) {
                         enemy.hit();
@@ -174,7 +184,6 @@ class World {
                     this.character.hit();
                     this.statusBarHealth.setPercentage(this.character.energy);
                     return;
-
             }
         })
     }
@@ -183,8 +192,7 @@ class World {
     checkThrow() {
         if (this.keyboard.throw) {
             let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.hitboxOffset.right - 10, this.character.y + (this.character.height * 0.5), this.character.otherDirection);
-            this.bottles.push(bottle);
-
+            this.collectedBottles.push(bottle);
         }
     }
 
@@ -193,8 +201,5 @@ class World {
         this.backgroundMusic.loop = true;
         this.backgroundMusic.play();
     }
-
-
-
 
 };
