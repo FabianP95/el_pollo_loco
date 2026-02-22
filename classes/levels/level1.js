@@ -3,12 +3,12 @@ let level1;
 function loadLevel() {
         if (gameStarted) {
                 level1 = new Level([
-                        /* new Chicken(),
+                        new Chicken(),
                         new Chicken(),
                         new Chicken(),
                         new LittleChicken(),
                         new LittleChicken(),
-                        new LittleChicken(), */
+                        new LittleChicken(),
                         new Endboss()
                 ],
                         [

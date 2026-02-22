@@ -8,6 +8,7 @@ class World {
     coins = level1.coins;
     collectibleBottle = level1.bottles;
 
+
     bottles = [];
     canvas;
     ctx;
@@ -62,8 +63,15 @@ class World {
     }
 
     draw() {
+        console.log(this.enemies[6].energy);
+
+
         if (this.character.energy == 0) {
             this.drawGameOver();
+        } if (this.enemies[6].energy == 0) {
+            
+                this.drawGameWon();
+            
         } else {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.translate(this.camera_x, 0);
@@ -145,8 +153,6 @@ class World {
                 this.enemies.forEach((enemy) => {
                     if (bottle.isColliding(enemy)) {
                         enemy.hit();
-                        console.log(enemy.energy);
-                        
                     }
                 })
             })
