@@ -40,6 +40,9 @@ class MovableObject extends DrawableObject {
       }
 
       isColliding(movableObj) {
+            if (movableObj.energy == 0) {
+                  return false;
+            }
             return this.x + this.width - this.hitboxOffset.right > movableObj.x + movableObj.hitboxOffset.left &&
                   this.x < movableObj.x + movableObj.width - movableObj.hitboxOffset.right &&
                   this.y + this.height > movableObj.y &&
@@ -53,6 +56,7 @@ class MovableObject extends DrawableObject {
             return this.y + this.height < movableObj.y + movableObj.height &&
             this.speedY < 0; 
       };
+      
 
       hit() {
             this.energy -= 5;
@@ -71,6 +75,10 @@ class MovableObject extends DrawableObject {
             let timePassed = new Date().getTime() - this.lastHit; // difference in ms, get time measures ms from the date 1.1.1970 till now
             timePassed = timePassed / 1000; // in sec
             return timePassed < 0.3;
+      }
+
+      goUnderground(){
+            this.y += 20;
       }
 
 

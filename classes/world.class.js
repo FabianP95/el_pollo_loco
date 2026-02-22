@@ -87,6 +87,7 @@ class World {
 
             this.ctx.translate(-this.camera_x, 0);
 
+
         }
         let self = this;
         requestAnimationFrame(() => {
@@ -133,48 +134,52 @@ class World {
         setInterval(() => {
             this.collisionWithEnemy();
             this.checkThrow();
+            this.collisionThrow()
         }, 50);
+
+    }
+
+    collisionThrow() {
+        if (this.bottles.length != 0) {
+            this.bottles.forEach((bottle) => {
+                this.enemies.forEach((enemy) => {
+                    if (bottle.isColliding(enemy)) {
+                        enemy.hit();
+                        console.log(enemy.energy);
+                        
+                    }
+                })
+            })
+        }
+
     }
 
     collisionWithEnemy() {
         this.enemies.forEach((enemy) => {
-
-
-
-
-
-
-
-            console.log(enemy.energy);
-
-            if (this.character.isColliding(enemy) && this.character.isJumpingOn(enemy)) {
-                if (enemy instanceof Endboss) {
-                    return
-                } else {
-                    enemy.energy = 0;
-                }
-
-
-            }
-            if (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy)) {
-
-
-                this.character.hit();
-                this.statusBarHealth.setPercentage(this.character.energy);
-
+            switch (true) {
+                case (this.character.isColliding(enemy) && this.character.isJumpingOn(enemy)):
+                    if (enemy instanceof Endboss) {
+                        return
+                    } else {
+                        enemy.energy = 0;
+                    }
+                    return;
+                case (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy)):
+                    this.character.hit();
+                    this.statusBarHealth.setPercentage(this.character.energy);
+                    return;
 
             }
         })
     }
 
 
-
     checkThrow() {
         if (this.keyboard.throw) {
-            let bottle = new ThrowableObject(this.character.x, this.character.y);
+            let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.hitboxOffset.right - 10, this.character.y + (this.character.height * 0.5), this.character.otherDirection);
             this.bottles.push(bottle);
-        }
 
+        }
     }
 
     playWorldMusic() {

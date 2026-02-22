@@ -22,24 +22,40 @@ class ThrowableObject extends MovableObject {
         right: 10
     };
 
-    constructor(x, y) {
+    damage = 50;
+
+
+
+    constructor(x, y, direction) {
         super().loadImages(this.rotationImg);
         this.loadImages(this.splashImg);
         this.loadImg(this.bottleImg[0]);
         this.x = x;
         this.y = y;
+        this.direction = direction;
         this.width = 75;
         this.height = 75;
-        this.throw(x, y);
+        this.throw(x, y, direction);
+        
+        
     }
 
     throw() {
-        this.speedY = 30;
+        if (this.direction) {
+            this.speedY = 20;
+            this.x = this.x - 70;
+            setInterval(() => {
+                this.x -= 15;
+            }, 25)
+        } else {
+            this.speedY = 20;
+            setInterval(() => {
+                this.x += 15;
+            }, 25)
+        }
         this.applyGravity();
         this.animate();
-        setInterval(() => {
-            this.x += 10;
-        }, 25)
+
     }
 
     animate() {

@@ -8,8 +8,8 @@ function loadLevel() {
                         new Chicken(),
                         new LittleChicken(),
                         new LittleChicken(),
-                        new LittleChicken(),
-                        new Endboss() */
+                        new LittleChicken(), */
+                        new Endboss()
                 ],
                         [
                                 new Cloud()

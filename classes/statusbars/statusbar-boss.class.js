@@ -14,13 +14,13 @@ class StatusBarBoss extends DrawableObject {
         this.y = 55;
         this.height = 60;
         this.width = 200;
-        this.setPercentage(0);
+        this.setPercentage(100);
 
     }
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.bossHealthBarImg[0];
+        let path = this.bossHealthBarImg[this.updateBar()];
         this.img = this.imageCache[path];
     }
 

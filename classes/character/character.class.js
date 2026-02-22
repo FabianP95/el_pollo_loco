@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    x = 100;
+    x = 300;
     y = 190;
     height = 250;
     width = 150;
@@ -78,7 +78,7 @@ class Character extends MovableObject {
 
 
             }
-            this.world.camera_x = -this.x + 100;
+            this.world.camera_x = - this.x + 200;
 
         }, standardFps);
 
@@ -89,6 +89,7 @@ class Character extends MovableObject {
             } else
                 if (this.isDead()) {
                     this.playAnimation(this.deadImg);
+                    this.goUnderground();
                     this.playDeadSound();
                 } else
                     if (this.isAboveGround()) {

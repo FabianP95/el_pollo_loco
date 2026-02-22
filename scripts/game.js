@@ -2,7 +2,7 @@ let canvas = document.getElementById('canvas');
 let world;
 let start;
 let canvasHeight = 480;
-let canvasWidth = 720;
+let canvasWidth = 1050;
 let standardFps = 1000 / 60;
 let keyboard = new Keyboard();
 
