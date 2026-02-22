@@ -24,6 +24,9 @@ class ThrowableObject extends MovableObject {
 
     damage = 50;
 
+    hitBottleSound = new Audio('../assets/audio/items/bottle-hit.mp3');
+    throwBottleSound = new Audio('../assets/audio/items/bottle-throw.mp3');
+
 
 
     constructor(x, y, direction) {

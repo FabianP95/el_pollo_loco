@@ -7,7 +7,8 @@ class Coin extends DrawableObject {
         left: 24,
         right: 48
     }
-    
+    collectCoinSound = new Audio('../assets/audio/items/collect-coin.mp3');
+
     constructor() {
         super().loadImages(this.coinImg);
         this.loadImg('img/8_coin/coin_1.png');

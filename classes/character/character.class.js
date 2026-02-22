@@ -7,7 +7,7 @@ class Character extends MovableObject {
     speed = 10;
 
     idleImg = ['img/2_character_pepe/1_idle/idle/I-1.png', 'img/2_character_pepe/1_idle/idle/I-2.png', 'img/2_character_pepe/1_idle/idle/I-3.png',
-        'img/2_character_pepe/1_idle/idle/I-4.png', 'img/2_character_pepe/1_idle/idle/I-5.png', 'img/2_character_pepe/1_idle/idle/I-6.png', 
+        'img/2_character_pepe/1_idle/idle/I-4.png', 'img/2_character_pepe/1_idle/idle/I-5.png', 'img/2_character_pepe/1_idle/idle/I-6.png',
         'img/2_character_pepe/1_idle/idle/I-7.png', 'img/2_character_pepe/1_idle/idle/I-8.png', 'img/2_character_pepe/1_idle/idle/I-9.png',
         'img/2_character_pepe/1_idle/idle/I-10.png'
     ];
@@ -65,18 +65,14 @@ class Character extends MovableObject {
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
                 this.otherDirection = false;
                 this.moveRight();
-                this.walkSound.play();
             }
             if (this.world.keyboard.left && this.x > 0) {
                 this.otherDirection = true;
-                this.moveLeft();
-                this.walkSound.play();
+                this.moveLeft();    
             }
 
             if (this.world.keyboard.space && !this.isAboveGround()) {
                 this.jump();
-
-
             }
             this.world.camera_x = - this.x + 200;
 
@@ -85,30 +81,25 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isHit()) {
                 this.playAnimation(this.hitImg);
-                this.hitSound.play();
+                this.playSound(this.hitSound, 0.25);
             } else
                 if (this.isDead()) {
                     this.playAnimation(this.deadImg);
                     this.goUnderground();
-                    this.playDeadSound();
+                    if (!this.hasPlayed) {
+                        this.playSound(this.deadSound, 0.25);
+                        this.hasPlayed = true;
+                    }
                 } else
                     if (this.isAboveGround()) {
                         this.playAnimation(this.jumpingImg);
+                        this.playSound(this.jumpSound, 0.25);
                     } else {
                         if (this.world.keyboard.right || this.world.keyboard.left) {
                             this.playAnimation(this.walkingImg);
+                            this.playSound(this.walkSound, 0.25);
                         }
                     }
         }, 50);
-
     }
-
-    playDeadSound() {
-        if (!this.hasPlayed) {
-            this.deadSound.play();
-            this.hasPlayed = true;
-        }
-    }
-
-
 }

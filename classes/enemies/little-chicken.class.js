@@ -6,6 +6,8 @@ class LittleChicken extends MovableObject {
     ];
     deadImg = ['img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
 
+    deadSound = new Audio('../assets/audio/enemies/chicken/chicken-die.wav');
+
     energy = 50;
     constructor() {
         super().loadImg('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');

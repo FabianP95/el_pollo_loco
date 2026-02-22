@@ -36,7 +36,6 @@ class MovableObject extends DrawableObject {
 
       jump() {
             this.speedY = 30;
-            this.jumpSound.play();
       }
 
       isColliding(movableObj) {
@@ -80,6 +79,11 @@ class MovableObject extends DrawableObject {
       goUnderground(){
             this.y += 20;
       }
+
+      playSound(sound, volume) {
+        sound.volume = volume;
+        sound.play();
+    }
 
 
 }

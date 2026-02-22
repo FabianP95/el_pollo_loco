@@ -7,6 +7,7 @@ class Bottle extends DrawableObject {
         left: 30,
         right: 44
     }
+    collectBottleSound = new Audio('../assets/audio/items/collect-bottle.mp3');
 
     constructor() {
         super().loadImg('img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
