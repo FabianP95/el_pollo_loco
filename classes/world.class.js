@@ -183,6 +183,9 @@ class World {
                 this.enemies.forEach((enemy) => {
                     if (bottle.isColliding(enemy)) {
                         enemy.hit();
+                        bottle.shattered = true;
+                        
+                        
                     }
                 })
             })
@@ -213,6 +216,8 @@ class World {
         if (this.keyboard.throw) {
             let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.hitboxOffset.right - 10, this.character.y + (this.character.height * 0.5), this.character.otherDirection);
             this.collectedBottles.push(bottle);
+            console.log(bottle.shattered);
+            
         }
     }
 

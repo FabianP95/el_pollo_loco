@@ -1,4 +1,6 @@
 class ThrowableObject extends MovableObject {
+    shattered = false
+
     rotationImg = ['img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
@@ -39,8 +41,8 @@ class ThrowableObject extends MovableObject {
         this.width = 75;
         this.height = 75;
         this.throw(x, y, direction);
-        
-        
+
+
     }
 
     throw() {
@@ -63,7 +65,20 @@ class ThrowableObject extends MovableObject {
 
     animate() {
         setInterval(() => {
-            this.playAnimation(this.rotationImg);
+             switch (true) {
+            case this.shattered:
+                this.animateDeath(this.splashImg);
+                this.x = this.x
+                setTimeout(() => {
+                    /* this.width = 0; */
+                    console.log('yay');
+                    
+                }, 1000);
+                break;
+        
+            default:this.playAnimation(this.rotationImg);
+                break;
+        }
         }, 50)
     }
 }
