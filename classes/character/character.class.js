@@ -85,12 +85,19 @@ class Character extends MovableObject {
                 this.playSound(this.hitSound, 0.25);
             } else
                 if (this.isDead()) {
-                    this.playAnimation(this.deadImg);
+                   
+                    
+                    this.animateDeath(this.deadImg);
+                    
+                    
                     this.goUnderground();
                     if (!this.hasPlayed) {
                         this.playSound(this.deadSound, 0.25);
                         this.hasPlayed = true;
                     }
+                    setTimeout(() => {
+                        this.world.switchToScreen("lost");
+                    }, 5000);
                 } else
                     if (this.isAboveGround()) {
                         this.playAnimation(this.jumpingImg);
@@ -101,6 +108,6 @@ class Character extends MovableObject {
                             this.playSound(this.walkSound, 0.25);
                         }
                     }
-        }, 50);
+        }, 150);
     }
 }

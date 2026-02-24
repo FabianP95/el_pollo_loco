@@ -1,6 +1,7 @@
 class Endboss extends MovableObject {
     height = 400;
     width = 250;
+    world;
     alertImg = ['img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G6.png',
         'img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -29,7 +30,7 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
-    
+
 
     hitboxOffset = {
         top: 55,
@@ -53,23 +54,24 @@ class Endboss extends MovableObject {
         this.x = 2050;
         this.y = canvasHeight - 30 - this.height;
         this.animate()
-
     }
 
     animate() {
 
         setInterval(() => {
-            if (this.energy == 0) {
+            if (this.isDead()) {
                 this.animateDeath(this.deadImg);
                 if (!this.hasPlayed) {
                     this.playSound(this.deadSound, 0.15);
                     this.hasPlayed = true;
                 }
                 this.goUnderground();
+                setTimeout(() => {
+                        this.world.switchToScreen("won");
+                    }, 1000);
             } else {
                 this.playAnimation(this.walkingImg);
             }
-
         }, 150)
     }
 

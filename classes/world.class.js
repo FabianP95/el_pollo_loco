@@ -18,6 +18,8 @@ class World {
     keyboard;
     camera_x = 0;
 
+    switch;
+
     statusBarHealth = new StatusbarHealth();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
@@ -44,6 +46,7 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.enemies[6].world = this;        
     }
 
     drawGameOver() {
@@ -67,10 +70,13 @@ class World {
     }
 
     draw() {
-        if (this.character.energy == 0) {
+        if (this.switch == "lost") {
+
             this.drawGameOver();
         } else {
-            if (this.enemies[6].energy == 0) {
+            if (this.switch == "won") {
+
+
                 this.drawGameWon();
             } else {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -148,7 +154,7 @@ class World {
 
     collectingItems(collectible, collectedArr) {
         collectible.forEach((collected) => {
-            if (this.character.isColliding(collected)) {  
+            if (this.character.isColliding(collected)) {
                 if (collected instanceof Bottle) {
                     let bottle = new ThrowableObject();
                     collectedArr.push(bottle);
@@ -214,5 +220,16 @@ class World {
         this.backgroundMusic.loop = true;
         this.backgroundMusic.play();
     }
+
+    switchToScreen(n) {
+        if (n == "won") {
+            this.switch = "won";
+        }
+        if (n == "lost") {
+            this.switch = "lost";
+        }
+    }
+
+
 
 };

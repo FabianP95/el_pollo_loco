@@ -30,7 +30,7 @@ class Chicken extends MovableObject {
     animate() {
         setInterval(() => {
             this.moveLeft();
-            if (this.energy == 0) {
+            if (this.isDead()) {
                 this.goUnderground()
                 return
             } else {
@@ -39,7 +39,7 @@ class Chicken extends MovableObject {
         }, standardFps);
 
         setInterval(() => {
-            if (this.energy == 0) {
+            if (this.isDead()) {
                 this.animateDeath(this.deadImg);
                 if (!this.hasPlayed) {
                     this.playSound(this.deadSound, 0.15);
