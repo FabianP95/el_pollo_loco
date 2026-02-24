@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
     world;
     walking = "forward";
     triggered = false;
+    attack = false;
 
     alertImg = ['img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -63,6 +64,10 @@ class Endboss extends MovableObject {
     animate() {
         setInterval(() => {
             switch (true) {
+                case this.attack:
+                    this.x -= 40;
+                    this.playAnimation(this.attackImg);
+                    break;
                 case this.isHit():
                     this.otherDirection = false;
                     this.playAnimation(this.hurtImg);
@@ -89,6 +94,7 @@ class Endboss extends MovableObject {
             }
         }, 150)
     }
+    
 
     walkingAround() {
         this.setWalkingSwitch();

@@ -236,6 +236,14 @@ class World {
         if (distance <= 500) {
             this.enemies[6].triggered = true;
         }
+        if (distance <= 300) {
+             this.enemies[6].attack = true;
+             setTimeout(() => {
+                this.enemies[6].attack = false;
+             }, 500);
+        }
+      
+        
     }
 
 
