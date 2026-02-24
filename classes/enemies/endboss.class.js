@@ -3,6 +3,8 @@ class Endboss extends MovableObject {
     width = 250;
     world;
     walking = "forward";
+    triggered = false;
+
     alertImg = ['img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G6.png',
         'img/4_enemie_boss_chicken/2_alert/G7.png',
@@ -33,7 +35,6 @@ class Endboss extends MovableObject {
     ];
 
 
-
     hitboxOffset = {
         top: 55,
         bottom: 65,
@@ -46,14 +47,14 @@ class Endboss extends MovableObject {
     deadSound = new Audio('../assets/audio/enemies/boss/boss-dead.mp3');
 
     constructor() {
-        super().loadImg(this.alertImg[0]);
+        super().loadImg(this.walkingImg[0]);
         this.loadImages(this.alertImg);
         this.loadImages(this.walkingImg);
         this.loadImages(this.hurtImg);
         this.loadImages(this.attackImg);
         this.loadImages(this.deadImg);
         this.energy = 150;
-        this.speed = 10;
+        this.speed = 30;
         this.x = 2050;
         this.y = canvasHeight - 30 - this.height;
         this.animate()
@@ -61,19 +62,30 @@ class Endboss extends MovableObject {
 
     animate() {
         setInterval(() => {
-            if (this.isDead()) {
-                this.animateDeath(this.deadImg);
-                if (!this.hasPlayed) {
-                    this.playSound(this.deadSound, 0.15);
-                    this.hasPlayed = true;
-                }
-                this.goUnderground();
-                setTimeout(() => {
-                    this.world.switchToScreen("won");
-                }, 1000);
-            } else {
-                this.playAnimation(this.walkingImg);
-                this.walkingAround();
+            switch (true) {
+                case this.isHit():
+                    this.otherDirection = false;
+                    this.playAnimation(this.hurtImg);
+                    break;
+                case this.isDead():
+                    this.animateDeath(this.deadImg);
+                    if (!this.hasPlayed) {
+                        this.playSound(this.deadSound, 0.15);
+                        this.hasPlayed = true;
+                    }
+                    this.goUnderground();
+                    setTimeout(() => {
+                        this.world.switchToScreen("won");
+                    }, 1000);
+                    break;
+                case this.triggered:
+                    this.otherDirection = false;
+                    this.playAnimation(this.alertImg);
+                    break;
+                default:
+                    this.playAnimation(this.walkingImg);
+                    this.walkingAround();
+                    break;
             }
         }, 150)
     }
@@ -92,13 +104,15 @@ class Endboss extends MovableObject {
         }
     }
 
-    setWalkingSwitch(){
-        if (this.x == 2050) {
+    setWalkingSwitch() {
+        if (this.x >= 2050) {
             this.walking = "forward";
         }
-        if (this.x == 1650) {
+        if (this.x <= 1650) {
             this.walking = "back";
         }
     }
+
+
 
 }

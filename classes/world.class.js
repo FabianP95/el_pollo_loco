@@ -46,7 +46,7 @@ class World {
 
     setWorld() {
         this.character.world = this;
-        this.enemies[6].world = this;        
+        this.enemies[6].world = this;
     }
 
     drawGameOver() {
@@ -148,6 +148,7 @@ class World {
             this.collisionThrow();
             this.collectingItems(this.coins, this.collectedCoins);
             this.collectingItems(this.collectibleBottle, this.collectedBottles);
+            this.distanceToEndboss();
         }, 50);
 
     }
@@ -227,6 +228,13 @@ class World {
         }
         if (n == "lost") {
             this.switch = "lost";
+        }
+    }
+
+    distanceToEndboss() {
+        let distance = this.enemies[6].x - this.character.x;
+        if (distance <= 500) {
+            this.enemies[6].triggered = true;
         }
     }
 
