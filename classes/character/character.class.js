@@ -5,6 +5,8 @@ class Character extends MovableObject {
     width = 150;
     world;
     speed = 10;
+    idle = false;
+    longIdle = false;
 
     idleImg = ['img/2_character_pepe/1_idle/idle/I-1.png', 'img/2_character_pepe/1_idle/idle/I-2.png', 'img/2_character_pepe/1_idle/idle/I-3.png',
         'img/2_character_pepe/1_idle/idle/I-4.png', 'img/2_character_pepe/1_idle/idle/I-5.png', 'img/2_character_pepe/1_idle/idle/I-6.png',
@@ -12,7 +14,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-10.png'
     ];
 
-    idleLongImg = ['img/2_character_pepe/1_idle/long_idle/I-11.png', '.img/2_character_pepe/1_idle/long_idle/I-12.png', 'img/2_character_pepe/1_idle/long_idle/I-13.png',
+    idleLongImg = ['img/2_character_pepe/1_idle/long_idle/I-11.png', 'img/2_character_pepe/1_idle/long_idle/I-12.png', 'img/2_character_pepe/1_idle/long_idle/I-13.png',
         'img/2_character_pepe/1_idle/long_idle/I-14.png', 'img/2_character_pepe/1_idle/long_idle/I-15.png', 'img/2_character_pepe/1_idle/long_idle/I-16.png',
         'img/2_character_pepe/1_idle/long_idle/I-17.png', 'img/2_character_pepe/1_idle/long_idle/I-18.png', 'img/2_character_pepe/1_idle/long_idle/I-19.png',
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
@@ -48,7 +50,7 @@ class Character extends MovableObject {
     deadSound = new Audio('../assets/audio/pepe/pepe-dead.mp3');
     walkSound = new Audio('../assets/audio/pepe/pepe-walk.mp3');
 
-    
+
 
     constructor() {
         super().loadImg('img/2_character_pepe/2_walk/W-21.png');
@@ -56,6 +58,8 @@ class Character extends MovableObject {
         this.loadImages(this.jumpingImg);
         this.loadImages(this.deadImg);
         this.loadImages(this.hitImg);
+        this.loadImages(this.idleImg);
+        this.loadImages(this.idleLongImg);
         this.animate();
         this.energy = 100;
         this.applyGravity();
@@ -69,7 +73,7 @@ class Character extends MovableObject {
             }
             if (this.world.keyboard.left && this.x > 0) {
                 this.otherDirection = true;
-                this.moveLeft();    
+                this.moveLeft();
             }
 
             if (this.world.keyboard.space && !this.isAboveGround()) {
@@ -80,16 +84,13 @@ class Character extends MovableObject {
         }, standardFps);
 
         setInterval(() => {
-            if (this.isHit()) {
-                this.playAnimation(this.hitImg);
-                this.playSound(this.hitSound, 0.25);
-            } else
-                if (this.isDead()) {
-                   
-                    
+            switch (true) {
+                case this.isHit():
+                    this.playAnimation(this.hitImg);
+                    this.playSound(this.hitSound, 0.25);
+                    break;
+                case this.isDead():
                     this.animateDeath(this.deadImg);
-                    
-                    
                     this.goUnderground();
                     if (!this.hasPlayed) {
                         this.playSound(this.deadSound, 0.25);
@@ -98,16 +99,22 @@ class Character extends MovableObject {
                     setTimeout(() => {
                         this.world.switchToScreen("lost");
                     }, 5000);
-                } else
-                    if (this.isAboveGround()) {
-                        this.playAnimation(this.jumpingImg);
-                        this.playSound(this.jumpSound, 0.25);
-                    } else {
-                        if (this.world.keyboard.right || this.world.keyboard.left) {
-                            this.playAnimation(this.walkingImg);
-                            this.playSound(this.walkSound, 0.25);
-                        }
-                    }
+                    break;
+                case this.isAboveGround():
+                    this.playAnimation(this.jumpingImg);
+                    this.playSound(this.jumpSound, 0.25);
+                    break;
+                case this.world.keyboard.right || this.world.keyboard.left:
+                    this.playAnimation(this.walkingImg);
+                    this.playSound(this.walkSound, 0.25);
+                    break;
+                case this.idle: this.animateDeath(this.idleImg);
+                    break;
+                case this.longIdle: this.playAnimation(this.idleLongImg);
+                    break;
+                default:
+                    break;
+            }
         }, 150);
     }
 }

@@ -5,7 +5,7 @@ let canvasHeight = 480;
 let canvasWidth = 1050;
 let standardFps = 1000 / 60;
 let keyboard = new Keyboard();
-
+let lastInputTime = null;
 
 
 
@@ -20,6 +20,7 @@ function initGame() {
 
 
 document.addEventListener('keydown', (event) => {
+    lastInputTime = Date.now();
     switch (event.code) {
         case 'KeyA':
             keyboard.left = true;

@@ -65,20 +65,23 @@ class ThrowableObject extends MovableObject {
 
     animate() {
         setInterval(() => {
-             switch (true) {
-            case this.shattered:
-                this.animateDeath(this.splashImg);
-                this.x = this.x
-                setTimeout(() => {
-                    /* this.width = 0; */
-                    console.log('yay');
-                    
-                }, 1000);
-                break;
-        
-            default:this.playAnimation(this.rotationImg);
-                break;
-        }
+            switch (true) {
+                case this.shattered:
+                    this.animateDeath(this.splashImg);
+                    this.x = this.x;
+                    this.y = this.y;
+
+
+                    setTimeout(() => {
+                        /* this.width = 0; */
+
+
+                    }, 1000);
+                    break;
+
+                default: this.playAnimation(this.rotationImg);
+                    break;
+            }
         }, 50)
     }
 }

@@ -149,6 +149,7 @@ class World {
             this.collectingItems(this.coins, this.collectedCoins);
             this.collectingItems(this.collectibleBottle, this.collectedBottles);
             this.distanceToEndboss();
+            this.setIdleSwitches();
         }, 50);
 
     }
@@ -184,8 +185,6 @@ class World {
                     if (bottle.isColliding(enemy)) {
                         enemy.hit();
                         bottle.shattered = true;
-                        
-                        
                     }
                 })
             })
@@ -216,8 +215,6 @@ class World {
         if (this.keyboard.throw) {
             let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.hitboxOffset.right - 10, this.character.y + (this.character.height * 0.5), this.character.otherDirection);
             this.collectedBottles.push(bottle);
-            console.log(bottle.shattered);
-            
         }
     }
 
@@ -242,13 +239,34 @@ class World {
             this.enemies[6].triggered = true;
         }
         if (distance <= 300) {
-             this.enemies[6].attack = true;
-             setTimeout(() => {
+            this.enemies[6].attack = true;
+            setTimeout(() => {
                 this.enemies[6].attack = false;
-             }, 500);
+            }, 500);
         }
-      
-        
+    }
+
+    setIdleSwitches() {
+        let time = this.timePassed();
+        console.log(time);
+        switch (true) {
+            case time == 5:
+                this.character.idle = true;
+                this.character.longIdle = false;
+                break;
+            case time == 8:
+                console.log('long');
+                this.character.idle = false;
+                this.character.longIdle = true;
+                break;
+            case time <= 4: this.character.idle = false;
+                this.character.longIdle = false;
+                break;
+        }
+    }
+
+    timePassed() {
+        return ((Date.now() - lastInputTime) / 1000).toFixed(0);
     }
 
 
