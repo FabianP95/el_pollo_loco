@@ -23,7 +23,7 @@ class World {
     statusBarHealth = new StatusbarHealth();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
-    statusBarBoss = new StatusBarBoss();
+    statusBarBoss = new StatusBarBoss(50,50);
 
     backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
 
@@ -185,6 +185,9 @@ class World {
                     if (bottle.isColliding(enemy)) {
                         enemy.hit();
                         bottle.shattered = true;
+                        if (enemy instanceof Endboss) {
+                            this.statusBarBoss.setPercentage(enemy.energy)
+                        }
                     }
                 })
             })
@@ -248,14 +251,12 @@ class World {
 
     setIdleSwitches() {
         let time = this.timePassed();
-        console.log(time);
         switch (true) {
             case time == 5:
                 this.character.idle = true;
                 this.character.longIdle = false;
                 break;
             case time == 8:
-                console.log('long');
                 this.character.idle = false;
                 this.character.longIdle = true;
                 break;

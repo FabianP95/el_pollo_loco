@@ -8,8 +8,10 @@ class StatusBarBoss extends DrawableObject {
         'img/7_statusbars/2_statusbar_endboss/blue/blue100.png'
     ]
 
-    constructor() {
+    constructor(number1, number2) {
         super().loadImages(this.bossHealthBarImg);
+        console.log(number1, number2);
+        
         this.x = 400;
         this.y = 55;
         this.height = 60;
