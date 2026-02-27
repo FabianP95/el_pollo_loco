@@ -40,7 +40,7 @@ class ThrowableObject extends MovableObject {
         this.direction = direction;
         this.width = 75;
         this.height = 75;
-        this.throw(x, y, direction);
+        this.animate();
 
 
     }
@@ -59,8 +59,6 @@ class ThrowableObject extends MovableObject {
             }, 25)
         }
         this.applyGravity();
-        this.animate();
-
     }
 
     animate() {
@@ -68,20 +66,19 @@ class ThrowableObject extends MovableObject {
             switch (true) {
                 case this.shattered:
                     this.animateDeath(this.splashImg);
-                    this.x = this.x;
-                    this.y = this.y;
-
-
                     setTimeout(() => {
                         /* this.width = 0; */
-
-
                     }, 1000);
                     break;
 
                 default: this.playAnimation(this.rotationImg);
+
                     break;
             }
         }, 50)
+        this.throw();
     }
+
+    
+
 }

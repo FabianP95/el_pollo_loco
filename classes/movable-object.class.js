@@ -82,10 +82,7 @@ class MovableObject extends DrawableObject {
             this.y += 1;
       }
 
-      playSound(sound, volume) {
-            sound.volume = volume;
-            sound.play();
-      }
+      
 
       animateDeath(images) {
             let i = this.currentImage % images.length;

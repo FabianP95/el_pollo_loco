@@ -62,5 +62,10 @@ class DrawableObject {
         this.currentImage++;
     }
 
+    playSound(sound, volume) {
+            sound.volume = volume;
+            sound.play();
+      }
+
    
 }

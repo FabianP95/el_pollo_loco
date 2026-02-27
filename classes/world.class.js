@@ -13,6 +13,7 @@ class World {
     bottleCounter = 0;
     valueCoin = 0;
     valueBottles = 0;
+    
 
     canvas;
     ctx;
@@ -153,9 +154,9 @@ class World {
             this.collectingItems(this.collectibleBottle, this.collectedBottles);
             this.distanceToEndboss();
             this.setIdleSwitches();
-            console.log(this.enemies[6].energy);
-            
-        }, 150);
+
+
+        }, 50);
 
     }
 
@@ -163,26 +164,22 @@ class World {
         collectible.forEach((collected) => {
             if (this.character.isColliding(collected)) {
                 if (collected instanceof Bottle) {
-                    let bottle = new ThrowableObject();
-                    collectedArr.push(bottle);
-                    if (this.valueBottles >= 100) {
-                        this.valueBottles = 100;
-                    }
                     this.valueBottles += 20;
                     this.bottleCounter++;
                     this.statusBarBottle.setPercentage(this.valueBottles);
-                } else {
+                    collected.playSound(collected.collectBottleSound, 0.4)
+                }
+                if (collected instanceof Coin) {
                     collectedArr.push(collected);
                     if (this.valueCoin >= 100) {
                         this.valueCoin = 100;
                     }
-                    
                     this.valueCoin += 20;
                     this.statusBarCoin.setPercentage(this.valueCoin);
+                    collected.playSound(collected.collectCoinSound, 0.4)
                 }
                 collected.width = 0;
                 collected.y += 2000;
-
             }
         })
     }
@@ -194,11 +191,14 @@ class World {
                     if (bottle.isColliding(enemy)) {
                         enemy.hit();
                         bottle.shattered = true;
+                        setTimeout(() => {
+                            this.collectedBottles = [];
+                        }, 250);
                         if (enemy instanceof Endboss) {
                             this.statusBarBoss.setPercentage(enemy.energy)
-                            
-                            
                         }
+                        bottle.playSound(bottle.hitBottleSound, 0.3)
+
                     }
                 })
             })
@@ -227,13 +227,12 @@ class World {
 
     checkThrow() {
         if (this.keyboard.throw && this.bottleCounter > 0) {
-
             let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.hitboxOffset.right - 10, this.character.y + (this.character.height * 0.5), this.character.otherDirection);
             this.collectedBottles.push(bottle);
             this.valueBottles -= 20;
             this.statusBarBottle.setPercentage(this.valueBottles);
             this.bottleCounter--;
-
+            bottle.playSound(bottle.throwBottleSound, 0.3)
 
 
 
