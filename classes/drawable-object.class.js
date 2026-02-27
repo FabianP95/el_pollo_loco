@@ -32,8 +32,8 @@ class DrawableObject {
     }
 
     drawHitbox(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof ThrowableObject /* || this instanceof Endboss || this instanceof Coin || this instanceof Bottle || this instanceof LittleChicken */) {
-            /* ctx.beginPath();
+        if ( this instanceof Chicken || this instanceof ThrowableObject) {
+            ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'green';
             ctx.moveTo(this.x + this.hitboxOffset.left, this.y + this.height - 10)
@@ -45,7 +45,7 @@ class DrawableObject {
             ctx.strokeStyle = 'red';
             ctx.moveTo(this.x + this.hitboxOffset.left, this.y + this.height - 10)
             ctx.lineTo(this.x  + this.width - this.hitboxOffset.right, this.y + this.height - 10);
-            ctx.stroke(); */
+            ctx.stroke();
 
             ctx.beginPath();
             ctx.lineWidth = '1';

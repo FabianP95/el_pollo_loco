@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
     walking = "forward";
     triggered = false;
     attack = false;
+    statusBarBossHealth;
 
     alertImg = ['img/4_enemie_boss_chicken/2_alert/G5.png',
         'img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -54,15 +55,19 @@ class Endboss extends MovableObject {
         this.loadImages(this.hurtImg);
         this.loadImages(this.attackImg);
         this.loadImages(this.deadImg);
+
         this.energy = 100;
         this.speed = 30;
         this.x = 2050;
         this.y = canvasHeight - 30 - this.height;
+
+       
         this.animate()
     }
 
     animate() {
         setInterval(() => {
+            this.placeStatusbar();
             switch (true) {
                 case this.attack:
                     this.x -= 40;
@@ -94,7 +99,7 @@ class Endboss extends MovableObject {
             }
         }, 150)
     }
-    
+
 
     walkingAround() {
         this.setWalkingSwitch();
@@ -117,6 +122,11 @@ class Endboss extends MovableObject {
         if (this.x <= 1650) {
             this.walking = "back";
         }
+    }
+
+    placeStatusbar() {
+        this.statusBarBossHealth.x = this.x;
+        this.statusBarBossHealth.y =  this.y -10;
     }
 
 

@@ -23,7 +23,7 @@ class World {
     statusBarHealth = new StatusbarHealth();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
-    statusBarBoss = new StatusBarBoss(50,50);
+    statusBarBoss = new StatusBarBoss();
 
     backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
 
@@ -47,6 +47,7 @@ class World {
     setWorld() {
         this.character.world = this;
         this.enemies[6].world = this;
+        this.enemies[6].statusBarBossHealth = this.statusBarBoss;
     }
 
     drawGameOver() {
@@ -87,12 +88,12 @@ class World {
                 this.addObjectsToMap(this.coins);
                 this.addObjectsToMap(this.collectedBottles);
                 this.addObjectsToMap(this.collectibleBottle);
-
+                this.addToMap(this.statusBarBoss);
                 this.ctx.translate(-this.camera_x, 0);
                 this.addToMap(this.statusBarHealth);
                 this.addToMap(this.statusBarBottle);
                 this.addToMap(this.statusBarCoin);
-                this.addToMap(this.statusBarBoss);
+
                 this.ctx.translate(this.camera_x, 0);
 
                 this.addToMap(this.character);
