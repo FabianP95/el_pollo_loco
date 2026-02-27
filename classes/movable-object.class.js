@@ -6,12 +6,13 @@ class MovableObject extends DrawableObject {
       acceleration = 2.5;
       energy = 50;
       lastHit = 0;
-
       hasPlayed = false;
 
       applyGravity() {
             setInterval(() => {
                   if (this.isAboveGround() || this.speedY > 0) {
+                        
+                        
                         this.y -= this.speedY;
                         this.speedY -= this.acceleration;
                   }
@@ -73,8 +74,8 @@ class MovableObject extends DrawableObject {
       }
 
       isHit() {
-            let timePassed = new Date().getTime() - this.lastHit; // difference in ms, get time measures ms from the date 1.1.1970 till now
-            timePassed = timePassed / 1000; // in sec
+            let timePassed = new Date().getTime() - this.lastHit; 
+            timePassed = timePassed / 1000; 
             return timePassed < 0.3;
       }
 
@@ -83,7 +84,6 @@ class MovableObject extends DrawableObject {
       }
 
       
-
       animateDeath(images) {
             let i = this.currentImage % images.length;
             let path = images[i];

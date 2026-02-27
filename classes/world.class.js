@@ -269,7 +269,7 @@ class World {
     }
 
     setIdleSwitches() {
-        let time = this.timePassed();
+        let time = this.timePassed(lastInputTime);
         switch (true) {
             case time == 5:
                 this.character.idle = true;
@@ -285,8 +285,8 @@ class World {
         }
     }
 
-    timePassed() {
-        return ((Date.now() - lastInputTime) / 1000).toFixed(0);
+    timePassed(n) {
+        return ((Date.now() - n) / 1000).toFixed(0);
     }
 
 
