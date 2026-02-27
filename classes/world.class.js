@@ -10,8 +10,9 @@ class World {
 
     collectedCoins = [];
     collectedBottles = [];
-    valueCoin = 20;
-    valueBottles = 20;
+    bottleCounter = 0;
+    valueCoin = 0;
+    valueBottles = 0;
 
     canvas;
     ctx;
@@ -89,6 +90,7 @@ class World {
                 this.addObjectsToMap(this.collectedBottles);
                 this.addObjectsToMap(this.collectibleBottle);
                 this.addToMap(this.statusBarBoss);
+
                 this.ctx.translate(-this.camera_x, 0);
                 this.addToMap(this.statusBarHealth);
                 this.addToMap(this.statusBarBottle);
@@ -151,7 +153,9 @@ class World {
             this.collectingItems(this.collectibleBottle, this.collectedBottles);
             this.distanceToEndboss();
             this.setIdleSwitches();
-        }, 50);
+            console.log(this.enemies[6].energy);
+            
+        }, 150);
 
     }
 
@@ -164,17 +168,21 @@ class World {
                     if (this.valueBottles >= 100) {
                         this.valueBottles = 100;
                     }
-                    this.statusBarBottle.setPercentage(this.valueBottles);
                     this.valueBottles += 20;
+                    this.bottleCounter++;
+                    this.statusBarBottle.setPercentage(this.valueBottles);
                 } else {
                     collectedArr.push(collected);
                     if (this.valueCoin >= 100) {
                         this.valueCoin = 100;
                     }
-                    this.statusBarCoin.setPercentage(this.valueCoin);
+                    
                     this.valueCoin += 20;
+                    this.statusBarCoin.setPercentage(this.valueCoin);
                 }
                 collected.width = 0;
+                collected.y += 2000;
+
             }
         })
     }
@@ -188,6 +196,8 @@ class World {
                         bottle.shattered = true;
                         if (enemy instanceof Endboss) {
                             this.statusBarBoss.setPercentage(enemy.energy)
+                            
+                            
                         }
                     }
                 })
@@ -216,9 +226,18 @@ class World {
 
 
     checkThrow() {
-        if (this.keyboard.throw) {
+        if (this.keyboard.throw && this.bottleCounter > 0) {
+
             let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.hitboxOffset.right - 10, this.character.y + (this.character.height * 0.5), this.character.otherDirection);
             this.collectedBottles.push(bottle);
+            this.valueBottles -= 20;
+            this.statusBarBottle.setPercentage(this.valueBottles);
+            this.bottleCounter--;
+
+
+
+
+
         }
     }
 
