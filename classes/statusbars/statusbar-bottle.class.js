@@ -1,3 +1,9 @@
+/**
+ * StatusBarBottle class displays the collected bottles status bar.
+ * Extends DrawableObject to inherit drawing capability.
+ * @class
+ * @extends DrawableObject
+ */
 class StatusBarBottle extends DrawableObject {
     bottleBarImg = [
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
@@ -8,6 +14,11 @@ class StatusBarBottle extends DrawableObject {
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png'
     ]
 
+    /**
+     * Creates a new bottle status bar.
+     * Initializes position and loads bottle bar images.
+     * @constructor
+     */
     constructor() {
         super().loadImages(this.bottleBarImg);
         this.x = 20;
@@ -17,6 +28,12 @@ class StatusBarBottle extends DrawableObject {
         this.setPercentage(0);
     }
 
+    /**
+     * Updates the bottle bar image based on the given percentage.
+     * @function
+     * @param {number} percentage - Bottle percentage to display (0-100)
+     * @returns {void}
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.bottleBarImg[this.updateBar()];

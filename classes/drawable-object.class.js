@@ -1,11 +1,23 @@
+/**
+ * DrawableObject class serves as the base class for all objects that can be drawn on the canvas.
+ * @class
+ */
 class DrawableObject {
+    /** @type {Object} - Cache for loaded images */
     imageCache = {};
+    /** @type {number} - X position on canvas */
     x = 50;
+    /** @type {number} - Y position on canvas */
     y = 90;
+    /** @type {number|undefined} - Height of the object */
     height;
+    /** @type {number|undefined} - Width of the object */
     width;
+    /** @type {number} - Current image frame index in animation */
     currentImage = 0;
+    /** @type {Image|undefined} - Current image being displayed */
     img;
+    /** @type {Object} - Offset values for hitbox calculation */
     hitboxOffset = {
         top: 0,
         bottom: 0,
@@ -13,12 +25,24 @@ class DrawableObject {
         right: 0
     }
 
+    /**
+     * Loads a single image and assigns it to the img property.
+     * @function
+     * @param {string} path - The path to the image file
+     * @returns {void}
+     */
     loadImg(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
 
+    /**
+     * Loads multiple images into the imageCache for animation purposes.
+     * @function
+     * @param {string[]} arr - Array of image paths to load
+     * @returns {void}
+     */
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -28,10 +52,23 @@ class DrawableObject {
     }
 
 
+    /**
+     * Draws the current image on the canvas at the object's position.
+     * @function
+     * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas
+     * @returns {void}
+     */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
+    /**
+     * Draws a hitbox around the object for debugging purposes.
+     * Only draws hitbox for Character and Coin objects.
+     * @function
+     * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas
+     * @returns {void}
+     */
     drawHitbox(ctx) {
         if (this instanceof Character || this instanceof Coin) {
             ctx.beginPath();
@@ -42,6 +79,13 @@ class DrawableObject {
         }
     }
 
+    /**
+     * Plays an animation by cycling through images from the provided array.
+     * Increments the currentImage index to show the next frame.
+     * @function
+     * @param {string[]} images - Array of image paths to cycle through
+     * @returns {void}
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -50,11 +94,24 @@ class DrawableObject {
     }
 
 
+    /**
+     * Plays a sound with the specified volume level.
+     * @function
+     * @param {Audio} sound - The audio object to play
+     * @param {number} volume - Volume level (0.0 to 1.0)
+     * @returns {void}
+     */
     playSound(sound, volume) {
         sound.volume = volume;
         sound.play();
     }
 
+    /**
+     * Updates and returns a bar index based on the current percentage.
+     * Used to determine which status bar image to display.
+     * @function
+     * @returns {number} - Bar index from 0 to 5 based on percentage ranges
+     */
     updateBar() {
         switch (true) {
             case (this.percentage > 80 && this.percentage <= 100):

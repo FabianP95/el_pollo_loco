@@ -1,3 +1,9 @@
+/**
+ * Character class represents the player-controlled character in the game.
+ * Extends MovableObject to inherit physics and collision detection.
+ * @class
+ * @extends MovableObject
+ */
 class Character extends MovableObject {
     x = 100;
     y = 190;
@@ -56,6 +62,11 @@ class Character extends MovableObject {
     deadSound = new Audio('../assets/audio/pepe/pepe-dead.mp3');
     walkSound = new Audio('../assets/audio/pepe/pepe-walk.mp3');
 
+    /**
+     * Creates a new Character instance.
+     * Initializes all animation images, sounds, and physics properties.
+     * @constructor
+     */
     constructor() {
         super().loadImg('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.walkingImg);
@@ -70,6 +81,11 @@ class Character extends MovableObject {
         this.applyGravity();
     }
 
+    /**
+     * Sets up animation intervals for character movement and animation updates.
+     * @function
+     * @returns {void}
+     */
     animate() {
         setInterval(() => {
             this.moveCharacter();
@@ -79,6 +95,12 @@ class Character extends MovableObject {
         }, 100);
     }
 
+    /**
+     * Decides which animation to play based on character state.
+     * Prioritizes hurt/death states, then jumping, then walking/idle.
+     * @function
+     * @returns {void}
+     */
     decideAnimation() {
         if (this.isHit() || this.isDead()) {
             this.handleHurtState();
@@ -96,6 +118,12 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Handles idle animation states (regular or long idle).
+     * Plays different animations based on idle or longIdle flags.
+     * @function
+     * @returns {void}
+     */
     handleIdleState() {
         if (this.idle) {
             this.stopAtLastImage(this.idleImg);
@@ -105,16 +133,33 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Plays walking animation and walking sound.
+     * Called when character is moving horizontally.
+     * @function
+     * @returns {void}
+     */
     handleWalkingAnimation() {
         this.playAnimation(this.walkingImg);
         this.playSound(this.walkSound, 0.25);
     }
 
+    /**
+     * Plays jumping up animation and jump sound.
+     * Called when character is ascending during a jump.
+     * @function
+     * @returns {void}
+     */
     handleJumpingUpAnimation() {
         this.stopAtLastImage(this.jumpingUpImg);
         this.playSound(this.jumpSound, 0.25);
     }
 
+    /**
+     * Handles character hurt state - either animation for being hit or death animation.
+     * @function
+     * @returns {void}
+     */
     handleHurtState() {
         if (this.isDead()) {
             this.handleDeathAnimation();
@@ -125,6 +170,12 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Handles character death animation and transition to game over screen.
+     * Plays death animation, sound, and triggers screen switch after delay.
+     * @function
+     * @returns {void}
+     */
     handleDeathAnimation() {
         this.stopAtLastImage(this.deadImg);
         this.goUnderground();
@@ -138,6 +189,12 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Updates character position based on keyboard input and camera position.
+     * Manages walking and jumping movement every frame.
+     * @function
+     * @returns {void}
+     */
     moveCharacter() {
         if (this.isDead()) {
             return
@@ -148,6 +205,12 @@ class Character extends MovableObject {
         this.timeOut = this.world.timePassed(this.timeLastJump);
     }
 
+    /**
+     * Handles character jumping movement.
+     * Manages jump initiation, falling state, and jump cooldown.
+     * @function
+     * @returns {void}
+     */
     handleJumpingMovement() {
         if (this.world.keyboard.space && !this.isAboveGround() && this.timeOut > 1.5) {
             this.jump();
@@ -161,6 +224,12 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Handles character walking movement based on keyboard input.
+     * Ensures character stays within level bounds and updates facing direction.
+     * @function
+     * @returns {void}
+     */
     handleWalkingMovement() {
         if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
             this.otherDirection = false;

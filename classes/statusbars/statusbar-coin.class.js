@@ -1,3 +1,9 @@
+/**
+ * StatusBarCoin class displays the collected coins status bar.
+ * Extends DrawableObject to inherit drawing capability.
+ * @class
+ * @extends DrawableObject
+ */
 class StatusBarCoin extends DrawableObject {
     coinBarImg = [
         'img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
@@ -8,6 +14,11 @@ class StatusBarCoin extends DrawableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png'
     ]
 
+    /**
+     * Creates a new coin status bar.
+     * Initializes position and loads coin bar images.
+     * @constructor
+     */
     constructor() {
         super().loadImages(this.coinBarImg);
         this.x = 20;
@@ -17,6 +28,12 @@ class StatusBarCoin extends DrawableObject {
         this.setPercentage(0);
     }
 
+    /**
+     * Updates the coin bar image based on the given percentage.
+     * @function
+     * @param {number} percentage - Coin percentage to display (0-100)
+     * @returns {void}
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.coinBarImg[this.updateBar()];

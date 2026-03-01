@@ -1,3 +1,9 @@
+/**
+ * Coin class represents collectible coins in the game.
+ * Extends DrawableObject to inherit drawing capability.
+ * @class
+ * @extends DrawableObject
+ */
 class Coin extends DrawableObject {
 
     coinImg = ['img/8_coin/coin_1.png', 'img/8_coin/coin_2.png']
@@ -9,6 +15,11 @@ class Coin extends DrawableObject {
     }
     collectCoinSound = new Audio('../assets/audio/items/collect-coin.mp3');
 
+    /**
+     * Creates a new Coin instance.
+     * Initializes coin images and random position in the game world.
+     * @constructor
+     */
     constructor() {
         super().loadImages(this.coinImg);
         this.loadImg('img/8_coin/coin_1.png');
@@ -19,6 +30,12 @@ class Coin extends DrawableObject {
         this.animate();
     }
 
+    /**
+     * Starts the coin animation loop.
+     * Cycles through coin rotation images at regular intervals.
+     * @function
+     * @returns {void}
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.coinImg);

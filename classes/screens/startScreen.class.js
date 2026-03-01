@@ -1,3 +1,7 @@
+/**
+ * StartScreen class displays the game start screen.
+ * @class
+ */
 class StartScreen {
     startScreenImg = 'img/9_intro_outro_screens/start/startscreen_1.png';
     width = canvasWidth;
@@ -7,12 +11,23 @@ class StartScreen {
     ctx;
     img;
 
+    /**
+     * Creates a new StartScreen instance.
+     * Initializes the canvas context and starts displaying the start screen.
+     * @constructor
+     * @param {HTMLCanvasElement} canvas - The canvas to draw the start screen on
+     */
     constructor(canvas) {
         this.ctx = canvas.getContext("2d");
         this.loadImg();
         this.showStartScreen();
     }
 
+    /**
+     * Continuously displays the start screen using animation frames.
+     * @function
+     * @returns {void}
+     */
     showStartScreen() {
         this.ctx.clearRect(0, 0, this.width, this.height);
         this.drawStartScreen();
@@ -22,10 +37,20 @@ class StartScreen {
         });
     }
 
+    /**
+     * Draws the start screen image on the canvas.
+     * @function
+     * @returns {void}
+     */
     drawStartScreen() {
         this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
+    /**
+     * Loads the start screen image into memory.
+     * @function
+     * @returns {void}
+     */
     loadImg() {
         this.img = new Image();
         this.img.src = this.startScreenImg;

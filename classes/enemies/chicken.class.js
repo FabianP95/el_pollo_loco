@@ -1,3 +1,9 @@
+/**
+ * Chicken class represents a normal-sized enemy chicken in the game.
+ * Extends MovableObject to inherit physics and movement.
+ * @class
+ * @extends MovableObject
+ */
 class Chicken extends MovableObject {
     height = 70;
     width = 70;
@@ -15,6 +21,11 @@ class Chicken extends MovableObject {
 
     deadSound = new Audio('../assets/audio/enemies/chicken/chicken-die.wav');
 
+    /**
+     * Creates a new Chicken enemy instance.
+     * Initializes position, images, and animation.
+     * @constructor
+     */
     constructor() {
         super().loadImg('img/3_enemies_chicken/chicken_normal/1_walk/3_w.png');
         this.loadImages(this.deadImg);
@@ -26,6 +37,11 @@ class Chicken extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Sets up animation intervals for chicken movement and animation.
+     * @function
+     * @returns {void}
+     */
     animate() {
         setInterval(() => {
             this.handleLittleEnemiesMovement();

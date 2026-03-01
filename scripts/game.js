@@ -9,16 +9,36 @@ let lastInputTime = null;
 
 
 
+/**
+ * Displays the start screen when the page loads.
+ * Creates a new StartScreen instance and displays it on the canvas.
+ * @function
+ * @returns {void}
+ */
 function startScreen() {
      start = new StartScreen(canvas);
 }
 
 
+/**
+ * Initializes the game world.
+ * Creates a new World instance with the canvas and keyboard input handler.
+ * @function
+ * @returns {void}
+ */
 function initGame() {
     world = new World(canvas, keyboard);
 };
 
 
+/**
+ * Handles keydown events for game controls.
+ * Maps specific keyboard keys to their corresponding actions in the keyboard object.
+ * Keys: A (left), D (right), W (up), S (down), Space (jump), G (throw).
+ * @event
+ * @param {KeyboardEvent} event - The keyboard event object
+ * @returns {void}
+ */
 document.addEventListener('keydown', (event) => {
     lastInputTime = Date.now();
     switch (event.code) {
@@ -44,6 +64,13 @@ document.addEventListener('keydown', (event) => {
 });
 
 
+/**
+ * Handles keyup events for game controls.
+ * Resets the corresponding keyboard action when a key is released.
+ * @event
+ * @param {KeyboardEvent} event - The keyboard event object
+ * @returns {void}
+ */
 document.addEventListener('keyup', (event) => {
     switch (event.code) {
         case 'KeyA':

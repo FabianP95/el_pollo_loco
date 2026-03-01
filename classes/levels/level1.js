@@ -2,6 +2,12 @@ let level1;
 
 
 
+/**
+ * Loads Level 1 with all enemies, clouds, background objects, coins, and bottles.
+ * Populates the game world with randomly positioned game elements.
+ * @function
+ * @returns {void}
+ */
 function loadLevel() {
         if (gameStarted) {
                 level1 = new Level([
@@ -59,6 +65,14 @@ function loadLevel() {
         }
 }
 
+/**
+ * Creates an array of game objects with the specified amount.
+ * Used to create multiple instances of enemies, coins, or bottles.
+ * @function
+ * @param {number} amount - The number of objects to create
+ * @param {class} enemy - The class to instantiate
+ * @returns {Array} Array of new instances
+ */
 function amountOfElementInWorld(amount, enemy) {
         return Array.from({ length: amount }, () => new enemy());
 }
