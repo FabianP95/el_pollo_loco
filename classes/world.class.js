@@ -53,6 +53,8 @@ class World {
     }
 
     drawGameOver() {
+      
+        
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.gameEnd);
@@ -78,8 +80,6 @@ class World {
             this.drawGameOver();
         } else {
             if (this.switch == "won") {
-
-
                 this.drawGameWon();
             } else {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -146,18 +146,30 @@ class World {
     }
 
     runChecks() {
+        this.runDamageChecks();
+        this.runCollectingChecks();
         setInterval(() => {
-            this.collisionWithEnemy();
             this.checkThrow();
-            this.collisionThrow();
-            this.collectingItems(this.coins, this.collectedCoins);
-            this.collectingItems(this.collectibleBottle, this.collectedBottles);
-            this.distanceToEndboss();
             this.setIdleSwitches();
+            console.log(1);
+            
+        }, 150);
 
+    }
 
+    runDamageChecks(){
+        setInterval(() => {
+             this.distanceToEndboss();
+             this.collisionThrow();
+             this.collisionWithEnemy();
+        }, 90);
+    }
+
+    runCollectingChecks(){
+        setInterval(() => {
+             this.collectingItems(this.coins, this.collectedCoins);
+            this.collectingItems(this.collectibleBottle, this.collectedBottles);
         }, 50);
-
     }
 
     collectingItems(collectible, collectedArr) {
@@ -233,10 +245,6 @@ class World {
             this.statusBarBottle.setPercentage(this.valueBottles);
             this.bottleCounter--;
             bottle.playSound(bottle.throwBottleSound, 0.3)
-
-
-
-
         }
     }
 
@@ -271,22 +279,22 @@ class World {
     setIdleSwitches() {
         let time = this.timePassed(lastInputTime);
         switch (true) {
-            case time == 5:
+            case time == 5.0:
                 this.character.idle = true;
                 this.character.longIdle = false;
                 break;
-            case time == 8:
+            case time == 8.0:
                 this.character.idle = false;
                 this.character.longIdle = true;
                 break;
-            case time <= 4: this.character.idle = false;
+            case time <= 4.0: this.character.idle = false;
                 this.character.longIdle = false;
                 break;
         }
     }
 
     timePassed(n) {
-        return ((Date.now() - n) / 1000).toFixed(0);
+        return ((Date.now() - n) / 1000).toFixed(1);
     }
 
 

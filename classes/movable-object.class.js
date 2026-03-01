@@ -11,8 +11,6 @@ class MovableObject extends DrawableObject {
       applyGravity() {
             setInterval(() => {
                   if (this.isAboveGround() || this.speedY > 0) {
-                        
-                        
                         this.y -= this.speedY;
                         this.speedY -= this.acceleration;
                   }
@@ -65,7 +63,7 @@ class MovableObject extends DrawableObject {
             if (this.energy < 0) {
                   this.energy = 0;
             } else {
-                  this.lastHit = new Date().getTime();
+                  this.lastHit = new Date().getTime();    
             }
       }
 
@@ -74,16 +72,17 @@ class MovableObject extends DrawableObject {
       }
 
       isHit() {
-            let timePassed = new Date().getTime() - this.lastHit; 
-            timePassed = timePassed / 1000; 
-            return timePassed < 0.3;
+            let timePassed = new Date().getTime() - this.lastHit;
+            timePassed = timePassed / 1000;
+
+            return timePassed < 0.1;
       }
 
       goUnderground() {
             this.y += 1;
       }
 
-      
+
       animateDeath(images) {
             let i = this.currentImage % images.length;
             let path = images[i];

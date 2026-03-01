@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    x = 300;
+    x = 100;
     y = 190;
     height = 250;
     width = 150;
@@ -9,7 +9,7 @@ class Character extends MovableObject {
     longIdle = false;
     falling = false;
     timeLastJump = null;
-    timeOut = 3;
+    timeOut = 1.5;
 
     idleImg = ['img/2_character_pepe/1_idle/idle/I-1.png', 'img/2_character_pepe/1_idle/idle/I-2.png', 'img/2_character_pepe/1_idle/idle/I-3.png',
         'img/2_character_pepe/1_idle/idle/I-4.png', 'img/2_character_pepe/1_idle/idle/I-5.png', 'img/2_character_pepe/1_idle/idle/I-6.png',
@@ -31,7 +31,8 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-34.png'
     ];
 
-    jumpingDownImg = ['img/2_character_pepe/3_jump/J-35.png', 'img/2_character_pepe/3_jump/J-36.png', 'img/2_character_pepe/3_jump/J-37.png',
+    jumpingDownImg = ['img/2_character_pepe/3_jump/J-35.png', 'img/2_character_pepe/3_jump/J-35.png', 'img/2_character_pepe/3_jump/J-36.png', 'img/2_character_pepe/3_jump/J-36.png',
+        'img/2_character_pepe/3_jump/J-36.png', 'img/2_character_pepe/3_jump/J-37.png', 'img/2_character_pepe/3_jump/J-37.png',
         'img/2_character_pepe/3_jump/J-38.png', 'img/2_character_pepe/3_jump/J-39.png'];
 
     deadImg = ['img/2_character_pepe/5_dead/D-51.png', 'img/2_character_pepe/5_dead/D-52.png', 'img/2_character_pepe/5_dead/D-53.png',
@@ -85,7 +86,7 @@ class Character extends MovableObject {
                 this.moveLeft();
             }
 
-            if (this.world.keyboard.space && !this.isAboveGround() && this.timeOut > 2) {
+            if (this.world.keyboard.space && !this.isAboveGround() && this.timeOut > 1.5) {
                 this.jump();
                 this.timeLastJump = Date.now();
             }
@@ -93,10 +94,11 @@ class Character extends MovableObject {
             if (this.speedY <= 0 && this.isAboveGround()) {
                 this.falling = true;
             }
-             if (this.speedY <= 0 && !this.isAboveGround()) {
+            if (this.speedY <= 0 && !this.isAboveGround()) {
                 this.falling = false;
             }
             this.timeOut = this.world.timePassed(this.timeLastJump);
+
         }, standardFps);
 
         setInterval(() => {
@@ -134,6 +136,7 @@ class Character extends MovableObject {
                 default:
                     break;
             }
-        }, 30);
+        }, 100);
     }
+
 }
