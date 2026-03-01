@@ -13,34 +13,19 @@ class LittleChicken extends MovableObject {
         super().loadImg('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.walkingImg);
         this.loadImages(this.deadImg);
-        this.x = 450 + Math.random() * 400;
+        this.x = 850 + Math.random() * 2000;
         this.y = canvasHeight - 48 - this.height;
-        this.energy = 50;
+        this.energy = 5;
         this.speed = 0.2 + Math.random() * 0.15;
         this.animate();
     }
 
     animate() {
         setInterval(() => {
-            this.moveLeft();
-            if (this.isDead()) {
-                this.goUnderground()
-            } else {
-                this.moveLeft();
-            }
+            this.handleLittleEnemiesMovement();
         }, standardFps);
-
         setInterval(() => {
-            if (this.isDead()) {
-                this.animateDeath(this.deadImg);
-                if (!this.hasPlayed) {
-                    this.playSound(this.deadSound, 0.15);
-                    this.hasPlayed = true;
-                }
-            } else {
-                this.playAnimation(this.walkingImg);
-            }
+            this.handleLittleEnemiesAnimation();
         }, 150);
     }
-
 }

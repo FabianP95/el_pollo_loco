@@ -41,8 +41,6 @@ class ThrowableObject extends MovableObject {
         this.width = 75;
         this.height = 75;
         this.animate();
-
-
     }
 
     throw() {
@@ -65,20 +63,15 @@ class ThrowableObject extends MovableObject {
         setInterval(() => {
             switch (true) {
                 case this.shattered:
-                    this.animateDeath(this.splashImg);
-                    setTimeout(() => {
-                        /* this.width = 0; */
-                    }, 1000);
+                    this.stopAtLastImage(this.splashImg);
                     break;
-
                 default: this.playAnimation(this.rotationImg);
-
                     break;
             }
         }, 50)
         this.throw();
     }
 
-    
+
 
 }

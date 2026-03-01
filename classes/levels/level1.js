@@ -1,18 +1,23 @@
 let level1;
 
+
+
 function loadLevel() {
         if (gameStarted) {
                 level1 = new Level([
-                        new Chicken(),
-                        new Chicken(),
-                        new Chicken(),
-                        new LittleChicken(),
-                        new LittleChicken(),
-                        new LittleChicken(),
+                        ...amountOfElementInWorld(6, LittleChicken),
+                        ...amountOfElementInWorld(6, Chicken),
                         new Endboss()
                 ],
                         [
-                                new Cloud()
+                                new Cloud(400, 0),
+                                new Cloud(800, 50),
+                                new Cloud(1300, 20),
+                                new Cloud(1800, 80),
+                                new Cloud(2800, 0),
+                                new Cloud(4000, 0),
+                                new Cloud(10000, 30),
+                                new Cloud(6000, 40),
                         ],
                         [
                                 new BackgroundObject('img/5_background/layers/air.png', -720),
@@ -45,21 +50,15 @@ function loadLevel() {
                                 new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 720 * 4),
                                 new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 720 * 4),
                         ],
-                        [new Coin(),
-                        new Coin(),
-                        new Coin(),
-                        new Coin(),
-                        new Coin()
+                        [...amountOfElementInWorld(5, Coin),
                         ],
                         [
-                                new Bottle(),
-                                new Bottle(),
-                                new Bottle(),
-                                new Bottle(),
-                                new Bottle()
+                                ...amountOfElementInWorld(5, Bottle),
                         ]
                 );
         }
 }
 
-
+function amountOfElementInWorld(amount, enemy) {
+        return Array.from({ length: amount }, () => new enemy());
+}

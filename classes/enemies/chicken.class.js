@@ -5,7 +5,7 @@ class Chicken extends MovableObject {
         'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
     deadImg = ['img/3_enemies_chicken/chicken_normal/2_dead/dead.png']
-    
+
     hitboxOffset = {
         top: 0,
         bottom: 8,
@@ -15,12 +15,11 @@ class Chicken extends MovableObject {
 
     deadSound = new Audio('../assets/audio/enemies/chicken/chicken-die.wav');
 
-
     constructor() {
         super().loadImg('img/3_enemies_chicken/chicken_normal/1_walk/3_w.png');
         this.loadImages(this.deadImg);
-        this.x = 550 + Math.random() * 200;
-        this.energy = 50;
+        this.x = 650 + Math.random() * 2000;
+        this.energy = 5;
         this.y = canvasHeight - 40 - this.height;
         this.loadImages(this.walkingImg);
         this.speed = 0.2 + Math.random() * 0.25;
@@ -29,29 +28,11 @@ class Chicken extends MovableObject {
 
     animate() {
         setInterval(() => {
-            this.moveLeft();
-            if (this.isDead()) {
-                this.goUnderground()
-                return
-            } else {
-                this.moveLeft();
-            }
+            this.handleLittleEnemiesMovement();
         }, standardFps);
-
         setInterval(() => {
-            if (this.isDead()) {
-                this.animateDeath(this.deadImg);
-                if (!this.hasPlayed) {
-                    this.playSound(this.deadSound, 0.15);
-                    this.hasPlayed = true;
-                }
-            } else {
-                this.playAnimation(this.walkingImg);
-            }
+            this.handleLittleEnemiesAnimation();
         }, 150);
-
-
     }
-
 
 }

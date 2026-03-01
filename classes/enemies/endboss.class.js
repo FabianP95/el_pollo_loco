@@ -55,51 +55,64 @@ class Endboss extends MovableObject {
         this.loadImages(this.hurtImg);
         this.loadImages(this.attackImg);
         this.loadImages(this.deadImg);
-
         this.energy = 100;
         this.speed = 30;
-        this.x = 2050;
+        this.x = 2650;
         this.y = canvasHeight - 30 - this.height;
-
-       
         this.animate()
     }
 
     animate() {
         setInterval(() => {
             this.placeStatusbar();
-            switch (true) {
-                case this.attack:
-                    this.x -= 40;
-                    this.playAnimation(this.attackImg);
-                    break;
-                case this.isHit():
-                    this.otherDirection = false;
-                    this.playAnimation(this.hurtImg);
-                    break;
-                case this.isDead():
-                    this.animateDeath(this.deadImg);
-                    if (!this.hasPlayed) {
-                        this.playSound(this.deadSound, 0.15);
-                        this.hasPlayed = true;
-                    }
-                    this.goUnderground();
-                    setTimeout(() => {
-                        this.world.switchToScreen("won");
-                    }, 1000);
-                    break;
-                case this.triggered:
-                    this.otherDirection = false;
-                    this.playAnimation(this.alertImg);
-                    break;
-                default:
-                    this.playAnimation(this.walkingImg);
-                    this.walkingAround();
-                    break;
+            if (this.attack) {
+                this.handleAttack;
+            }
+            if (this.isHit()) {
+                this.handleEndbossHit();
+            }
+            if (this.isDead()) {
+                this.handleEndbossDeath();
+            }
+            if (this.triggered) {
+                this.handleEndbossTriggered();
+            } else {
+                this.handleEndbossWalking();
             }
         }, 150)
     }
 
+    handleEndbossWalking() {
+        this.playAnimation(this.walkingImg);
+        this.walkingAround();
+    }
+
+    handleAttack() {
+        this.x -= 40;
+        this.playAnimation(this.attackImg);
+    }
+
+    handleEndbossHit() {
+        this.otherDirection = false;
+        this.playAnimation(this.hurtImg);
+    }
+
+    handleEndbossTriggered() {
+        this.otherDirection = false;
+        this.playAnimation(this.alertImg);
+    }
+
+    handleEndbossDeath() {
+        this.stopAtLastImage(this.deadImg);
+        if (!this.hasPlayed) {
+            this.playSound(this.deadSound, 0.15);
+            this.hasPlayed = true;
+        }
+        this.goUnderground();
+        setTimeout(() => {
+            this.world.switchToScreen("won");
+        }, 1000);
+    }
 
     walkingAround() {
         this.setWalkingSwitch();
@@ -116,19 +129,16 @@ class Endboss extends MovableObject {
     }
 
     setWalkingSwitch() {
-        if (this.x >= 2050) {
+        if (this.x >= 2650) {
             this.walking = "forward";
         }
-        if (this.x <= 1650) {
+        if (this.x <= 2250) {
             this.walking = "back";
         }
     }
 
     placeStatusbar() {
         this.statusBarBossHealth.x = this.x;
-        this.statusBarBossHealth.y =  this.y -10;
+        this.statusBarBossHealth.y = this.y - 10;
     }
-
-
-
 }

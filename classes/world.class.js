@@ -7,13 +7,14 @@ class World {
     backgroundObjects = level1.backgroundObjects;
     coins = level1.coins;
     collectibleBottle = level1.bottles;
+    endboss = this.enemies.find(enemy => enemy instanceof Endboss);
 
     collectedCoins = [];
     collectedBottles = [];
     bottleCounter = 0;
     valueCoin = 0;
     valueBottles = 0;
-    
+
 
     canvas;
     ctx;
@@ -37,24 +38,19 @@ class World {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
-
-
         this.draw();
         this.setWorld();
         this.runChecks();
         /* this.playWorldMusic(); */
-
     }
 
     setWorld() {
         this.character.world = this;
-        this.enemies[6].world = this;
-        this.enemies[6].statusBarBossHealth = this.statusBarBoss;
+        this.endboss.world = this;
+        this.endboss.statusBarBossHealth = this.statusBarBoss;
     }
 
     drawGameOver() {
-      
-        
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.gameEnd);
@@ -76,32 +72,12 @@ class World {
 
     draw() {
         if (this.switch == "lost") {
-
             this.drawGameOver();
         } else {
             if (this.switch == "won") {
                 this.drawGameWon();
             } else {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.ctx.translate(this.camera_x, 0);
-                this.addObjectsToMap(this.backgroundObjects);
-                this.addObjectsToMap(this.enemies);
-                this.addObjectsToMap(this.clouds);
-                this.addObjectsToMap(this.coins);
-                this.addObjectsToMap(this.collectedBottles);
-                this.addObjectsToMap(this.collectibleBottle);
-                this.addToMap(this.statusBarBoss);
-
-                this.ctx.translate(-this.camera_x, 0);
-                this.addToMap(this.statusBarHealth);
-                this.addToMap(this.statusBarBottle);
-                this.addToMap(this.statusBarCoin);
-
-                this.ctx.translate(this.camera_x, 0);
-
-                this.addToMap(this.character);
-
-                this.ctx.translate(-this.camera_x, 0);
+                this.addWholeWorld();
             }
         }
         let self = this;
@@ -110,11 +86,37 @@ class World {
         });
     };
 
+    addWholeWorld() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.clouds);
+        this.addCollectiblesToMap();
+        this.addToMap(this.statusBarBoss);
+        this.ctx.translate(-this.camera_x, 0);
+        this.addStatusBarsToMap();
+        this.ctx.translate(this.camera_x, 0);
+        this.addToMap(this.character);
+        this.ctx.translate(-this.camera_x, 0);
+    }
+
+    addCollectiblesToMap() {
+        this.addObjectsToMap(this.collectibleBottle);
+        this.addObjectsToMap(this.collectedBottles);
+        this.addObjectsToMap(this.coins);
+    }
+
+    addStatusBarsToMap() {
+        this.addToMap(this.statusBarHealth);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarCoin);
+    }
+
 
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o)
-
         });
     };
 
@@ -124,8 +126,6 @@ class World {
         }
         movableObj.drawHitbox(this.ctx);
         movableObj.draw(this.ctx);
-
-
         if (movableObj.otherDirection) {
             this.flipImgBack(movableObj)
 
@@ -151,23 +151,21 @@ class World {
         setInterval(() => {
             this.checkThrow();
             this.setIdleSwitches();
-            console.log(1);
-            
-        }, 150);
+        }, 100);
 
     }
 
-    runDamageChecks(){
+    runDamageChecks() {
         setInterval(() => {
-             this.distanceToEndboss();
-             this.collisionThrow();
-             this.collisionWithEnemy();
-        }, 90);
+            this.distanceToEndboss();
+            this.collisionThrow();
+            this.collisionWithEnemy();
+        }, 50);
     }
 
-    runCollectingChecks(){
+    runCollectingChecks() {
         setInterval(() => {
-             this.collectingItems(this.coins, this.collectedCoins);
+            this.collectingItems(this.coins, this.collectedCoins);
             this.collectingItems(this.collectibleBottle, this.collectedBottles);
         }, 50);
     }
@@ -176,24 +174,32 @@ class World {
         collectible.forEach((collected) => {
             if (this.character.isColliding(collected)) {
                 if (collected instanceof Bottle) {
-                    this.valueBottles += 20;
-                    this.bottleCounter++;
-                    this.statusBarBottle.setPercentage(this.valueBottles);
-                    collected.playSound(collected.collectBottleSound, 0.4)
+                    let bottle = collected;
+                    this.handleCollectedBottle(bottle)
                 }
                 if (collected instanceof Coin) {
-                    collectedArr.push(collected);
-                    if (this.valueCoin >= 100) {
-                        this.valueCoin = 100;
-                    }
-                    this.valueCoin += 20;
-                    this.statusBarCoin.setPercentage(this.valueCoin);
-                    collected.playSound(collected.collectCoinSound, 0.4)
+                    let coin = collected;
+                    this.handleCollectedCoin(coin)
                 }
-                collected.width = 0;
-                collected.y += 2000;
+                this.removeElementfromArray(collected);
             }
         })
+    }
+
+    handleCollectedBottle(collected) {
+        this.valueBottles += 20;
+        this.bottleCounter++;
+        this.statusBarBottle.setPercentage(this.valueBottles);
+        collected.playSound(collected.collectBottleSound, 0.4)
+    }
+
+    handleCollectedCoin(collected) {
+        if (this.valueCoin >= 100) {
+            this.valueCoin = 100;
+        }
+        this.valueCoin += 20;
+        this.statusBarCoin.setPercentage(this.valueCoin);
+        collected.playSound(collected.collectCoinSound, 0.4)
     }
 
     collisionThrow() {
@@ -201,21 +207,25 @@ class World {
             this.collectedBottles.forEach((bottle) => {
                 this.enemies.forEach((enemy) => {
                     if (bottle.isColliding(enemy)) {
-                        enemy.hit();
-                        bottle.shattered = true;
-                        setTimeout(() => {
-                            this.collectedBottles = [];
-                        }, 250);
-                        if (enemy instanceof Endboss) {
-                            this.statusBarBoss.setPercentage(enemy.energy)
-                        }
-                        bottle.playSound(bottle.hitBottleSound, 0.3)
-
+                        let hittingBottle = bottle;
+                        let hittedEnemy = enemy;
+                        this.handleBottleHasHitEnemy(hittingBottle, hittedEnemy);
                     }
                 })
             })
         }
+    }
 
+    handleBottleHasHitEnemy(hittingBottle, enemy) {
+        enemy.hit();
+        if (enemy instanceof Endboss) {
+            this.statusBarBoss.setPercentage(enemy.energy)
+        }
+        hittingBottle.playSound(hittingBottle.hitBottleSound, 0.3)
+        hittingBottle.shattered = true;
+        setTimeout(() => {
+            this.collectedBottles = [];
+        }, 250);
     }
 
     collisionWithEnemy() {
@@ -264,14 +274,14 @@ class World {
     }
 
     distanceToEndboss() {
-        let distance = this.enemies[6].x - this.character.x;
+        let distance = this.endboss.x - this.character.x;
         if (distance <= 500) {
-            this.enemies[6].triggered = true;
+            this.endboss.triggered = true;
         }
         if (distance <= 300) {
-            this.enemies[6].attack = true;
+            this.endboss.attack = true;
             setTimeout(() => {
-                this.enemies[6].attack = false;
+                this.endboss.attack = false;
             }, 500);
         }
     }
@@ -298,5 +308,14 @@ class World {
     }
 
 
-
+    removeElementfromArray(element) {
+        if (element instanceof Coin) {
+            let position = this.coins.indexOf(element);
+            this.coins.splice(position, 1);
+        }
+        if (element instanceof Bottle) {
+            let position = this.collectibleBottle.indexOf(element);
+            this.collectibleBottle.splice(position, 1);
+        }
+    }
 };

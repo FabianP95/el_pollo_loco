@@ -14,7 +14,7 @@ class DrawableObject {
     }
 
     loadImg(path) {
-        this.img = new Image(); //  <img id="character"> -> this.img = document.getElementById('character')
+        this.img = new Image();
         this.img.src = path;
     }
 
@@ -27,26 +27,13 @@ class DrawableObject {
         });
     }
 
+
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
     drawHitbox(ctx) {
-        if ( this instanceof Chicken || this instanceof ThrowableObject) {
-            ctx.beginPath();
-            ctx.lineWidth = '1';
-            ctx.strokeStyle = 'green';
-            ctx.moveTo(this.x + this.hitboxOffset.left, this.y + this.height - 10)
-            ctx.lineTo(this.x  + this.width - this.hitboxOffset.right, this.y + this.height - 10);
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.lineWidth = '1';
-            ctx.strokeStyle = 'red';
-            ctx.moveTo(this.x + this.hitboxOffset.left, this.y + this.height - 10)
-            ctx.lineTo(this.x  + this.width - this.hitboxOffset.right, this.y + this.height - 10);
-            ctx.stroke();
-
+        if (this instanceof Character || this instanceof Coin) {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'red';
@@ -62,10 +49,26 @@ class DrawableObject {
         this.currentImage++;
     }
 
-    playSound(sound, volume) {
-            sound.volume = volume;
-            sound.play();
-      }
 
-   
+    playSound(sound, volume) {
+        sound.volume = volume;
+        sound.play();
+    }
+
+    updateBar() {
+        switch (true) {
+            case (this.percentage > 80 && this.percentage <= 100):
+                return 5;
+            case (this.percentage > 60 && this.percentage <= 80):
+                return 4;
+            case (this.percentage > 40 && this.percentage <= 60):
+                return 3;
+            case (this.percentage > 20 && this.percentage <= 40):
+                return 2;
+            case (this.percentage > 0 && this.percentage <= 20):
+                return 1;
+            case (this.percentage == 0):
+                return 0;
+        }
+    }
 }

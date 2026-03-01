@@ -26,7 +26,6 @@ class MovableObject extends DrawableObject {
             }
       }
 
-
       moveLeft() {
             this.x -= this.speed;
       }
@@ -46,7 +45,7 @@ class MovableObject extends DrawableObject {
             return this.x + this.width - this.hitboxOffset.right > movableObj.x + movableObj.hitboxOffset.left &&
                   this.x < movableObj.x + movableObj.width - movableObj.hitboxOffset.right &&
                   this.y + this.height > movableObj.y &&
-                  this.y < movableObj.y + movableObj.height
+                  this.y + this.hitboxOffset.top < movableObj.y + movableObj.height
       }
 
       isJumpingOn(movableObj) {
@@ -55,15 +54,14 @@ class MovableObject extends DrawableObject {
             }
             return this.y + this.height < movableObj.y + movableObj.height &&
                   this.speedY < 0;
-      };
-
+      }
 
       hit() {
             this.energy -= 5;
             if (this.energy < 0) {
                   this.energy = 0;
             } else {
-                  this.lastHit = new Date().getTime();    
+                  this.lastHit = new Date().getTime();
             }
       }
 
@@ -74,7 +72,6 @@ class MovableObject extends DrawableObject {
       isHit() {
             let timePassed = new Date().getTime() - this.lastHit;
             timePassed = timePassed / 1000;
-
             return timePassed < 0.1;
       }
 
@@ -83,7 +80,7 @@ class MovableObject extends DrawableObject {
       }
 
 
-      animateDeath(images) {
+      stopAtLastImage(images) {
             let i = this.currentImage % images.length;
             let path = images[i];
             this.img = this.imageCache[path];
@@ -93,7 +90,23 @@ class MovableObject extends DrawableObject {
             }
       }
 
+      handleLittleEnemiesMovement() {
+            if (this.isDead()) {
+                  this.goUnderground()
+            } else {
+                  this.moveLeft();
+            }
+      }
 
-
-
+      handleLittleEnemiesAnimation() {
+            if (this.isDead()) {
+                  this.stopAtLastImage(this.deadImg);
+                  if (!this.hasPlayed) {
+                        this.playSound(this.deadSound, 0.15);
+                        this.hasPlayed = true;
+                  }
+            } else {
+                  this.playAnimation(this.walkingImg);
+            }
+      }
 }
