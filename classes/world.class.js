@@ -20,7 +20,7 @@ class World {
     keyboard;
     camera_x = 0;
 
-    switch;
+    switch = "world";
 
     statusBarHealth = new StatusbarHealth();
     statusBarBottle = new StatusBarBottle();
@@ -102,7 +102,8 @@ class World {
             case this.switch == "lost":
                 this.drawGameOver();
                 break;
-            default: this.addWholeWorld();
+            case this.switch == "world":
+                this.addWholeWorld();
                 break;
         }
         let self = this;
@@ -174,7 +175,6 @@ class World {
         movableObj.draw(this.ctx);
         if (movableObj.otherDirection) {
             this.flipImgBack(movableObj)
-
         }
     };
 
@@ -201,6 +201,9 @@ class World {
         this.ctx.restore();
     }
 
+    /**
+     * Runs checks on events happening in the world.
+     */
     runChecks() {
         this.runDamageChecks();
         this.runCollectingChecks();
@@ -208,7 +211,6 @@ class World {
             this.checkThrow();
             this.setIdleSwitches();
         }, 100);
-
     }
 
     /**
