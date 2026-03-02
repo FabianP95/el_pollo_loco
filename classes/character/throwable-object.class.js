@@ -69,8 +69,6 @@ class ThrowableObject extends MovableObject {
     /**
      * Throws the bottle in the specified direction with initial velocity.
      * Sets up horizontal movement and applies gravity effect.
-     * @function
-     * @returns {void}
      */
     throw() {
         if (this.direction) {
@@ -92,8 +90,6 @@ class ThrowableObject extends MovableObject {
      * Sets up the bottle animation loop.
      * Switches between rotation and splash animation based on shattered state.
      * Immediately initiates the throw action.
-     * @function
-     * @returns {void}
      */
     animate() {
         setInterval(() => {

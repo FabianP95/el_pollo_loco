@@ -33,8 +33,6 @@ class LittleChicken extends MovableObject {
 
     /**
      * Sets up animation intervals for little chicken movement and animation.
-     * @function
-     * @returns {void}
      */
     animate() {
         setInterval(() => {

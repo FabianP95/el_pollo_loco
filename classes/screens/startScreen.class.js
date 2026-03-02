@@ -25,8 +25,6 @@ class StartScreen {
 
     /**
      * Continuously displays the start screen using animation frames.
-     * @function
-     * @returns {void}
      */
     showStartScreen() {
         this.ctx.clearRect(0, 0, this.width, this.height);
@@ -39,8 +37,6 @@ class StartScreen {
 
     /**
      * Draws the start screen image on the canvas.
-     * @function
-     * @returns {void}
      */
     drawStartScreen() {
         this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -48,8 +44,6 @@ class StartScreen {
 
     /**
      * Loads the start screen image into memory.
-     * @function
-     * @returns {void}
      */
     loadImg() {
         this.img = new Image();

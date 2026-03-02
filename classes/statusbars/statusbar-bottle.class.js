@@ -30,9 +30,7 @@ class StatusBarBottle extends DrawableObject {
 
     /**
      * Updates the bottle bar image based on the given percentage.
-     * @function
      * @param {number} percentage - Bottle percentage to display (0-100)
-     * @returns {void}
      */
     setPercentage(percentage) {
         this.percentage = percentage;

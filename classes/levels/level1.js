@@ -1,18 +1,13 @@
 let level1;
-
-
-
 /**
  * Loads Level 1 with all enemies, clouds, background objects, coins, and bottles.
  * Populates the game world with randomly positioned game elements.
- * @function
- * @returns {void}
  */
 function loadLevel() {
         if (gameStarted) {
                 level1 = new Level([
-                        ...amountOfElementInWorld(6, LittleChicken),
-                        ...amountOfElementInWorld(6, Chicken),
+                        ...amountOfElementInWorld(0, LittleChicken),
+                        ...amountOfElementInWorld(0, Chicken),
                         new Endboss()
                 ],
                         [

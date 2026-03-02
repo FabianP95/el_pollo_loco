@@ -39,8 +39,6 @@ class Chicken extends MovableObject {
 
     /**
      * Sets up animation intervals for chicken movement and animation.
-     * @function
-     * @returns {void}
      */
     animate() {
         setInterval(() => {

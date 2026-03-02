@@ -7,14 +7,13 @@ class World {
     backgroundObjects = level1.backgroundObjects;
     coins = level1.coins;
     collectibleBottle = level1.bottles;
-    endboss = this.enemies.find(enemy => enemy instanceof Endboss);
+    endboss;
 
     collectedCoins = [];
     collectedBottles = [];
     bottleCounter = 0;
     valueCoin = 0;
     valueBottles = 0;
-
 
     canvas;
     ctx;
@@ -54,10 +53,9 @@ class World {
     /**
      * Sets up world references for character and boss.
      * Connects game objects to the world instance for game logic.
-     * @function
-     * @returns {void}
      */
     setWorld() {
+        this.endboss = this.enemies.find(enemy => enemy instanceof Endboss);
         this.character.world = this;
         this.endboss.world = this;
         this.endboss.statusBarBossHealth = this.statusBarBoss;
@@ -66,8 +64,6 @@ class World {
     /**
      * Draws the game over screen.
      * Displays background and game over screen overlay in continuous loop.
-     * @function
-     * @returns {void}
      */
     drawGameOver() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -82,8 +78,6 @@ class World {
     /**
      * Draws the game won screen.
      * Displays background and victory screen overlay in continuous loop.
-     * @function
-     * @returns {void}
      */
     drawGameWon() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -99,18 +93,17 @@ class World {
      * Main draw loop that renders the game or end screens.
      * Checks game state and calls appropriate drawing method.
      * Runs continuously using requestAnimationFrame.
-     * @function
-     * @returns {void}
      */
     draw() {
-        if (this.switch == "lost") {
-            this.drawGameOver();
-        } else {
-            if (this.switch == "won") {
+        switch (true) {
+            case this.switch == "won":
                 this.drawGameWon();
-            } else {
-                this.addWholeWorld();
-            }
+                break;
+            case this.switch == "lost":
+                this.drawGameOver();
+                break;
+            default: this.addWholeWorld();
+                break;
         }
         let self = this;
         requestAnimationFrame(() => {
@@ -121,8 +114,6 @@ class World {
     /**
      * Renders all game objects in the correct order.
      * Handles camera translation and layers (backgrounds, enemies, collectibles, character, UI).
-     * @function
-     * @returns {void}
      */
     addWholeWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -141,8 +132,6 @@ class World {
 
     /**
      * Adds all collectible items (bottles and coins) to the map for drawing.
-     * @function
-     * @returns {void}
      */
     addCollectiblesToMap() {
         this.addObjectsToMap(this.collectibleBottle);
@@ -153,8 +142,6 @@ class World {
     /**
      * Adds all status bars to the canvas.
      * Includes health, bottle, coin, and boss health bars.
-     * @function
-     * @returns {void}
      */
     addStatusBarsToMap() {
         this.addToMap(this.statusBarHealth);
@@ -166,9 +153,7 @@ class World {
     /**
      * Adds multiple objects to the map for drawing.
      * Iterates through an array of objects and draws each one.
-     * @function
      * @param {DrawableObject[]} objects - Array of objects to draw
-     * @returns {void}
      */
     addObjectsToMap(objects) {
         objects.forEach(o => {
@@ -179,9 +164,7 @@ class World {
     /**
      * Adds a single object to the map for drawing.
      * Handles image flipping if object is facing the opposite direction.
-     * @function
      * @param {DrawableObject} movableObj - Object to draw
-     * @returns {void}
      */
     addToMap(movableObj) {
         if (movableObj.otherDirection) {
@@ -198,9 +181,7 @@ class World {
     /**
      * Flips an image horizontally for objects facing the opposite direction.
      * Saves canvas context and applies scaling transformation.
-     * @function
      * @param {DrawableObject} movableObj - Object to flip
-     * @returns {void}
      */
     flipImg(movableObj) {
         this.ctx.save();
@@ -213,9 +194,7 @@ class World {
     /**
      * Restores the canvas context after flipping an object.
      * Reverses the flip transformation.
-     * @function
      * @param {DrawableObject} movableObj - Object that was flipped
-     * @returns {void}
      */
     flipImgBack(movableObj) {
         movableObj.x = movableObj.x * -1;
@@ -235,8 +214,6 @@ class World {
     /**
      * Runs damage-related checks.
      * Checks for collisions with enemies and throws, and triggers endboss actions.
-     * @function
-     * @returns {void}
      */
     runDamageChecks() {
         setInterval(() => {
@@ -249,8 +226,6 @@ class World {
     /**
      * Runs collecting-related checks.
      * Checks if character collects coins or bottles.
-     * @function
-     * @returns {void}
      */
     runCollectingChecks() {
         setInterval(() => {
@@ -262,10 +237,8 @@ class World {
     /**
      * Checks if character is collecting items and handles them appropriately.
      * Removes collected items from the game world.
-     * @function
      * @param {DrawableObject[]} collectible - Array of items that can be collected
      * @param {DrawableObject[]} collectedArr - Array to store collected items
-     * @returns {void}
      */
     collectingItems(collectible, collectedArr) {
         collectible.forEach((collected) => {
@@ -286,9 +259,7 @@ class World {
     /**
      * Handles a bottle being collected by the character.
      * Increases bottle counter and updates the status bar.
-     * @function
      * @param {Bottle} collected - The bottle that was collected
-     * @returns {void}
      */
     handleCollectedBottle(collected) {
         this.valueBottles += 20;
@@ -300,9 +271,7 @@ class World {
     /**
      * Handles a coin being collected by the character.
      * Increases coin value and updates the status bar.
-     * @function
      * @param {Coin} collected - The coin that was collected
-     * @returns {void}
      */
     handleCollectedCoin(collected) {
         if (this.valueCoin >= 100) {
@@ -316,8 +285,6 @@ class World {
     /**
      * Checks for collisions between thrown bottles and enemies.
      * Triggers damage calculation when bottle hits an enemy.
-     * @function
-     * @returns {void}
      */
     collisionThrow() {
         if (this.collectedBottles.length != 0) {
@@ -336,10 +303,8 @@ class World {
     /**
      * Handles a thrown bottle hitting an enemy.
      * Reduces enemy health, plays hit sound, and shatters the bottle.
-     * @function
      * @param {ThrowableObject} hittingBottle - The bottle that hit
      * @param {MovableObject} enemy - The enemy that was hit
-     * @returns {void}
      */
     handleBottleHasHitEnemy(hittingBottle, enemy) {
         enemy.hit();
@@ -356,8 +321,6 @@ class World {
     /**
      * Checks for collisions between character and enemies.
      * Determines if character is jumping on enemy or taking damage.
-     * @function
-     * @returns {void}
      */
     collisionWithEnemy() {
         this.enemies.forEach((enemy) => {
@@ -381,8 +344,6 @@ class World {
     /**
      * Handles throwing a bottle when the throw key is pressed.
      * Creates a new throwable object and updates bottle inventory.
-     * @function
-     * @returns {void}
      */
     checkThrow() {
         if (this.keyboard.throw && this.bottleCounter > 0) {
@@ -398,8 +359,6 @@ class World {
     /**
      * Plays the background music for the game world.
      * Sets volume, enables looping, and starts playback.
-     * @function
-     * @returns {void}
      */
     playWorldMusic() {
         this.backgroundMusic.volume = 0.01;
@@ -409,9 +368,7 @@ class World {
 
     /**
      * Switches the game to a game over or game won screen.
-     * @function
      * @param {string} n - Screen type: "won" or "lost"
-     * @returns {void}
      */
     switchToScreen(n) {
         if (n == "won") {
@@ -425,11 +382,12 @@ class World {
     /**
      * Calculates distance to the endboss and triggers appropriate actions.
      * Triggers endboss behavior when character gets close enough.
-     * @function
-     * @returns {void}
      */
     distanceToEndboss() {
         let distance = this.endboss.x - this.character.x;
+        if (distance >= 500) {
+            this.endboss.triggered = false;
+        }
         if (distance <= 500) {
             this.endboss.triggered = true;
         }
@@ -444,8 +402,6 @@ class World {
     /**
      * Sets idle animation switches based on time since last player input.
      * Shows idle or long idle animations after keyboard inactivity.
-     * @function
-     * @returns {void}
      */
     setIdleSwitches() {
         let time = this.timePassed(lastInputTime);
@@ -466,7 +422,6 @@ class World {
 
     /**
      * Calculates the time passed since a given timestamp in seconds.
-     * @function
      * @param {number} n - Timestamp in milliseconds
      * @returns {number} - Time passed in seconds (fixed to 1 decimal place)
      */
@@ -478,9 +433,7 @@ class World {
     /**
      * Removes a collected item from the game world.
      * Removes coins or bottles from their respective arrays.
-     * @function
      * @param {DrawableObject} element - The element to remove (Coin or Bottle)
-     * @returns {void}
      */
     removeElementfromArray(element) {
         if (element instanceof Coin) {

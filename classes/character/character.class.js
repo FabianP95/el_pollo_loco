@@ -83,8 +83,6 @@ class Character extends MovableObject {
 
     /**
      * Sets up animation intervals for character movement and animation updates.
-     * @function
-     * @returns {void}
      */
     animate() {
         setInterval(() => {
@@ -98,8 +96,6 @@ class Character extends MovableObject {
     /**
      * Decides which animation to play based on character state.
      * Prioritizes hurt/death states, then jumping, then walking/idle.
-     * @function
-     * @returns {void}
      */
     decideAnimation() {
         if (this.isHit() || this.isDead()) {
@@ -121,8 +117,6 @@ class Character extends MovableObject {
     /**
      * Handles idle animation states (regular or long idle).
      * Plays different animations based on idle or longIdle flags.
-     * @function
-     * @returns {void}
      */
     handleIdleState() {
         if (this.idle) {
@@ -136,8 +130,6 @@ class Character extends MovableObject {
     /**
      * Plays walking animation and walking sound.
      * Called when character is moving horizontally.
-     * @function
-     * @returns {void}
      */
     handleWalkingAnimation() {
         this.playAnimation(this.walkingImg);
@@ -147,8 +139,6 @@ class Character extends MovableObject {
     /**
      * Plays jumping up animation and jump sound.
      * Called when character is ascending during a jump.
-     * @function
-     * @returns {void}
      */
     handleJumpingUpAnimation() {
         this.stopAtLastImage(this.jumpingUpImg);
@@ -157,8 +147,6 @@ class Character extends MovableObject {
 
     /**
      * Handles character hurt state - either animation for being hit or death animation.
-     * @function
-     * @returns {void}
      */
     handleHurtState() {
         if (this.isDead()) {
@@ -173,8 +161,6 @@ class Character extends MovableObject {
     /**
      * Handles character death animation and transition to game over screen.
      * Plays death animation, sound, and triggers screen switch after delay.
-     * @function
-     * @returns {void}
      */
     handleDeathAnimation() {
         this.stopAtLastImage(this.deadImg);
@@ -192,8 +178,6 @@ class Character extends MovableObject {
     /**
      * Updates character position based on keyboard input and camera position.
      * Manages walking and jumping movement every frame.
-     * @function
-     * @returns {void}
      */
     moveCharacter() {
         if (this.isDead()) {
@@ -208,8 +192,6 @@ class Character extends MovableObject {
     /**
      * Handles character jumping movement.
      * Manages jump initiation, falling state, and jump cooldown.
-     * @function
-     * @returns {void}
      */
     handleJumpingMovement() {
         if (this.world.keyboard.space && !this.isAboveGround() && this.timeOut > 1.5) {
@@ -227,8 +209,6 @@ class Character extends MovableObject {
     /**
      * Handles character walking movement based on keyboard input.
      * Ensures character stays within level bounds and updates facing direction.
-     * @function
-     * @returns {void}
      */
     handleWalkingMovement() {
         if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {

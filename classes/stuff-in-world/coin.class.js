@@ -33,8 +33,6 @@ class Coin extends DrawableObject {
     /**
      * Starts the coin animation loop.
      * Cycles through coin rotation images at regular intervals.
-     * @function
-     * @returns {void}
      */
     animate() {
         setInterval(() => {

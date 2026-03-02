@@ -76,25 +76,25 @@ class Endboss extends MovableObject {
     /**
      * Sets up animation intervals for endboss behavior and animations.
      * Manages all state transitions (walking, attack, hit, death, triggered).
-     * @function
-     * @returns {void}
      */
     animate() {
         setInterval(() => {
             this.placeStatusbar();
-            if (this.attack) {
-                this.handleAttack;
-            }
-            if (this.isHit()) {
-                this.handleEndbossHit();
-            }
-            if (this.isDead()) {
-                this.handleEndbossDeath();
-            }
-            if (this.triggered) {
-                this.handleEndbossTriggered();
-            } else {
-                this.handleEndbossWalking();
+            switch (true) {
+                case this.attack:
+                    this.handleAttack();
+                    break;
+                case this.isHit():
+                    this.handleEndbossHit();
+                    break;
+                case this.isDead():
+                    this.handleEndbossDeath();
+                    break;
+                case this.triggered:
+                    this.handleEndbossTriggered();
+                    break;
+                default: this.handleEndbossWalking();
+                    break;
             }
         }, 150)
     }
@@ -102,8 +102,6 @@ class Endboss extends MovableObject {
     /**
      * Handles endboss walking behavior when not triggered.
      * Plays walking animation and moves the boss.
-     * @function
-     * @returns {void}
      */
     handleEndbossWalking() {
         this.playAnimation(this.walkingImg);
@@ -113,8 +111,6 @@ class Endboss extends MovableObject {
     /**
      * Handles endboss attack behavior.
      * Moves forward and plays attack animation.
-     * @function
-     * @returns {void}
      */
     handleAttack() {
         this.x -= 40;
@@ -124,8 +120,6 @@ class Endboss extends MovableObject {
     /**
      * Handles endboss when hit by player.
      * Plays hurt animation.
-     * @function
-     * @returns {void}
      */
     handleEndbossHit() {
         this.otherDirection = false;
@@ -135,8 +129,6 @@ class Endboss extends MovableObject {
     /**
      * Handles endboss alert state when triggered by player proximity.
      * Plays alert animation.
-     * @function
-     * @returns {void}
      */
     handleEndbossTriggered() {
         this.otherDirection = false;
@@ -146,8 +138,6 @@ class Endboss extends MovableObject {
     /**
      * Handles endboss death animation and transition to game won screen.
      * Plays death animation and sound, then triggers screen switch.
-     * @function
-     * @returns {void}
      */
     handleEndbossDeath() {
         this.stopAtLastImage(this.deadImg);
@@ -164,8 +154,6 @@ class Endboss extends MovableObject {
     /**
      * Manages the walking pattern of the endboss.
      * Determines direction based on walking switch and moves accordingly.
-     * @function
-     * @returns {void}
      */
     walkingAround() {
         this.setWalkingSwitch();
@@ -184,8 +172,6 @@ class Endboss extends MovableObject {
     /**
      * Sets the walking direction based on boundary positions.
      * Switches between forward and back walking directions at defined boundaries.
-     * @function
-     * @returns {void}
      */
     setWalkingSwitch() {
         if (this.x >= 2650) {
@@ -199,8 +185,6 @@ class Endboss extends MovableObject {
     /**
      * Updates the status bar position to follow the endboss.
      * Keeps health bar above the boss.
-     * @function
-     * @returns {void}
      */
     placeStatusbar() {
         this.statusBarBossHealth.x = this.x;
