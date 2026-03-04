@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50" width="120" height="50" fill="none">
+  <defs>
+    <linearGradient id="charSpc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a1800"/>
+      <stop offset="50%" stop-color="#1a0d00"/>
+      <stop offset="100%" stop-color="#0e0700"/>
+    </linearGradient>
+    <linearGradient id="shimSpc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="transparent"/>
+      <stop offset="35%" stop-color="#ff8c00cc"/>
+      <stop offset="50%" stop-color="#ffcc44"/>
+      <stop offset="65%" stop-color="#ff8c00cc"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer black cartoon border -->
+  <rect x="1" y="1" width="118" height="48" rx="10" ry="10" fill="#000"/>
+
+  <!-- Charred wood body -->
+  <rect x="3" y="3" width="114" height="44" rx="8" ry="8" fill="url(#charSpc)"/>
+
+  <!-- Crack lines (more spread out for wide key) -->
+  <line x1="10"  y1="18" x2="30"  y2="38" stroke="rgba(0,0,0,0.3)"  stroke-width="1"/>
+  <line x1="45"  y1="8"  x2="65"  y2="25" stroke="rgba(0,0,0,0.22)" stroke-width="1"/>
+  <line x1="80"  y1="12" x2="110" y2="30" stroke="rgba(0,0,0,0.25)" stroke-width="1"/>
+  <line x1="20"  y1="40" x2="50"  y2="15" stroke="rgba(0,0,0,0.18)" stroke-width="0.8"/>
+  <line x1="70"  y1="38" x2="100" y2="14" stroke="rgba(0,0,0,0.18)" stroke-width="0.8"/>
+
+  <!-- Inner border glow -->
+  <rect x="3" y="3" width="114" height="44" rx="8" ry="8"
+    fill="none" stroke="#6b2f00" stroke-width="1.5"/>
+
+  <!-- Top hot-edge shimmer -->
+  <line x1="20" y1="4.5" x2="100" y2="4.5"
+    stroke="url(#shimSpc)" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Bottom shadow -->
+  <rect x="5" y="43" width="110" height="4" rx="4" ry="4" fill="rgba(0,0,0,0.5)"/>
+
+  <!-- Spacebar symbol: inverted-U bracket, glowing amber -->
+  <!-- outline/shadow pass -->
+  <path d="M34 30 L34 22 Q34 18 38 18 L82 18 Q86 18 86 22 L86 30"
+    stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+  <!-- main symbol -->
+  <path d="M34 30 L34 22 Q34 18 38 18 L82 18 Q86 18 86 22 L86 30"
+    stroke="#ffcc44" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
