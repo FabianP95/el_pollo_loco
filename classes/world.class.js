@@ -1,5 +1,4 @@
 class World {
-
     character = new Character();
     level = level1;
     enemies = level1.enemies;
@@ -8,30 +7,22 @@ class World {
     coins = level1.coins;
     collectibleBottle = level1.bottles;
     endboss;
-
     collectedCoins = [];
     collectedBottles = [];
     bottleCounter = 0;
     valueCoin = 0;
     valueBottles = 0;
-
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-
     switch = "world";
-
     statusBarHealth = new StatusbarHealth();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     statusBarBoss = new StatusBarBoss();
-
     backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
-
-    gameEnd = new GameOver();
-    gameWon = new GameWon();
-
+    gameEnd = new GameEndScreen();
 
     /**
      * Creates a new World instance with canvas and keyboard input.
@@ -59,33 +50,20 @@ class World {
         this.character.world = this;
         this.endboss.world = this;
         this.endboss.statusBarBossHealth = this.statusBarBoss;
+        this.gameEnd.world = this; 
     }
 
     /**
-     * Draws the game over screen.
-     * Displays background and game over screen overlay in continuous loop.
+     * Draws the game end screen.
+     * Displays background and victory or losing screen overlay in continuous loop.
      */
-    drawGameOver() {
+    drawEndscreen() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.gameEnd);
         let self = this;
         requestAnimationFrame(() => {
-            self.drawGameOver();
-        });
-    }
-
-    /**
-     * Draws the game won screen.
-     * Displays background and victory screen overlay in continuous loop.
-     */
-    drawGameWon() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.addObjectsToMap(this.backgroundObjects);
-        this.addToMap(this.gameWon);
-        let self = this;
-        requestAnimationFrame(() => {
-            self.drawGameWon();
+            self.drawEndscreen();
         });
     }
 
@@ -97,10 +75,10 @@ class World {
     draw() {
         switch (true) {
             case this.switch == "won":
-                this.drawGameWon();
+                this.drawEndscreen();
                 break;
             case this.switch == "lost":
-                this.drawGameOver();
+                this.drawEndscreen();
                 break;
             case this.switch == "world":
                 this.addWholeWorld();
@@ -120,9 +98,9 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.backgroundObjects);
-        this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
         this.addCollectiblesToMap();
+        this.addObjectsToMap(this.enemies);
         this.addToMap(this.statusBarBoss);
         this.ctx.translate(-this.camera_x, 0);
         this.addStatusBarsToMap();
@@ -149,7 +127,6 @@ class World {
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin);
     }
-
 
     /**
      * Adds multiple objects to the map for drawing.
@@ -190,7 +167,6 @@ class World {
         movableObj.x = movableObj.x * -1;
     }
 
-
     /**
      * Restores the canvas context after flipping an object.
      * Reverses the flip transformation.
@@ -209,7 +185,7 @@ class World {
         this.runCollectingChecks();
         setInterval(() => {
             this.checkThrow();
-            this.setIdleSwitches();
+            this.character.setIdleSwitches();
         }, 100);
     }
 
@@ -342,7 +318,6 @@ class World {
         })
     }
 
-
     /**
      * Handles throwing a bottle when the throw key is pressed.
      * Creates a new throwable object and updates bottle inventory.
@@ -374,11 +349,10 @@ class World {
      */
     switchToScreen(n) {
         if (n == "won") {
-            this.switch = "won";
-        }
+            this.switch = "won";}
         if (n == "lost") {
-            this.switch = "lost";
-        }
+            this.switch = "lost";}
+        allowInput = false
     }
 
     /**
@@ -402,27 +376,6 @@ class World {
     }
 
     /**
-     * Sets idle animation switches based on time since last player input.
-     * Shows idle or long idle animations after keyboard inactivity.
-     */
-    setIdleSwitches() {
-        let time = this.timePassed(lastInputTime);
-        switch (true) {
-            case time == 5.0:
-                this.character.idle = true;
-                this.character.longIdle = false;
-                break;
-            case time == 8.0:
-                this.character.idle = false;
-                this.character.longIdle = true;
-                break;
-            case time <= 4.0: this.character.idle = false;
-                this.character.longIdle = false;
-                break;
-        }
-    }
-
-    /**
      * Calculates the time passed since a given timestamp in seconds.
      * @param {number} n - Timestamp in milliseconds
      * @returns {number} - Time passed in seconds (fixed to 1 decimal place)
@@ -430,7 +383,6 @@ class World {
     timePassed(n) {
         return ((Date.now() - n) / 1000).toFixed(1);
     }
-
 
     /**
      * Removes a collected item from the game world.

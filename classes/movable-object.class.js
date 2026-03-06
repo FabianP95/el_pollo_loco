@@ -5,20 +5,12 @@
  * @extends DrawableObject
  */
 class MovableObject extends DrawableObject {
-
-      /** @type {number} - Speed of horizontal movement */
       speed = 0.2;
-      /** @type {boolean} - Whether object is facing the opposite direction */
       otherDirection = false;
-      /** @type {number} - Vertical speed for gravity calculations */
       speedY = 0;
-      /** @type {number} - Gravity acceleration value */
       acceleration = 2.5;
-      /** @type {number} - Energy/health value (0-100) */
       energy = 50;
-      /** @type {number} - Timestamp of the last hit taken */
       lastHit = 0;
-      /** @type {boolean} - Whether death sound has been played */
       hasPlayed = false;
 
       /**

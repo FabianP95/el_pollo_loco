@@ -37,12 +37,14 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-34.png'
     ];
 
-    jumpingDownImg = ['img/2_character_pepe/3_jump/J-35.png', 'img/2_character_pepe/3_jump/J-35.png', 'img/2_character_pepe/3_jump/J-36.png', 'img/2_character_pepe/3_jump/J-36.png',
-        'img/2_character_pepe/3_jump/J-36.png', 'img/2_character_pepe/3_jump/J-37.png', 'img/2_character_pepe/3_jump/J-37.png',
+    jumpingDownImg = ['img/2_character_pepe/3_jump/J-35.png',  'img/2_character_pepe/3_jump/J-35.png', 'img/2_character_pepe/3_jump/J-36.png', 'img/2_character_pepe/3_jump/J-36.png', 
+        'img/2_character_pepe/3_jump/J-37.png', 'img/2_character_pepe/3_jump/J-37.png', 
         'img/2_character_pepe/3_jump/J-38.png', 'img/2_character_pepe/3_jump/J-39.png'];
 
     deadImg = ['img/2_character_pepe/5_dead/D-51.png', 'img/2_character_pepe/5_dead/D-52.png', 'img/2_character_pepe/5_dead/D-53.png',
-        'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-55.png', 'img/2_character_pepe/5_dead/D-55.png', 'img/2_character_pepe/5_dead/D-55.png', 'img/2_character_pepe/5_dead/D-56.png', 'img/2_character_pepe/5_dead/D-56.png', 'img/2_character_pepe/5_dead/D-56.png',
+        'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-55.png', 
+        'img/2_character_pepe/5_dead/D-55.png', 'img/2_character_pepe/5_dead/D-55.png', 'img/2_character_pepe/5_dead/D-56.png', 'img/2_character_pepe/5_dead/D-56.png', 'img/2_character_pepe/5_dead/D-56.png',
+        
     ];
 
     hitImg = ['img/2_character_pepe/4_hurt/H-41.png',
@@ -99,7 +101,7 @@ class Character extends MovableObject {
      */
     decideAnimation() {
         if (this.isHit() || this.isDead()) {
-            this.handleHurtState();
+            this.handleHurtState(); 
         }
         if (this.isAboveGround() && !this.falling) {
             this.handleJumpingUpAnimation();
@@ -107,7 +109,7 @@ class Character extends MovableObject {
         if (this.isAboveGround() && this.falling) {
             this.stopAtLastImage(this.jumpingDownImg);
         }
-        if (this.world.keyboard.right || this.world.keyboard.left) {
+        if (this.world.keyboard.right && !this.isAboveGround() && !this.isHit() && !this.isDead() || this.world.keyboard.left && !this.isAboveGround() && !this.isHit() && !this.isDead()) {
             this.handleWalkingAnimation();
         } else {
             this.handleIdleState();
@@ -133,7 +135,8 @@ class Character extends MovableObject {
      */
     handleWalkingAnimation() {
         this.playAnimation(this.walkingImg);
-        this.playSound(this.walkSound, 0.25);
+         this.playSound(this.walkSound, 0.25);
+
     }
 
     /**
@@ -142,7 +145,6 @@ class Character extends MovableObject {
      */
     handleJumpingUpAnimation() {
         this.stopAtLastImage(this.jumpingUpImg);
-        this.playSound(this.jumpSound, 0.25);
     }
 
     /**
@@ -174,7 +176,6 @@ class Character extends MovableObject {
         }, 2000);
     }
 
-
     /**
      * Updates character position based on keyboard input and camera position.
      * Manages walking and jumping movement every frame.
@@ -196,6 +197,7 @@ class Character extends MovableObject {
     handleJumpingMovement() {
         if (this.world.keyboard.space && !this.isAboveGround() && this.timeOut > 1.5) {
             this.jump();
+            this.playSound(this.jumpSound, 0.25);
             this.timeLastJump = Date.now();
         }
         if (this.speedY <= 0 && this.isAboveGround()) {
@@ -214,10 +216,32 @@ class Character extends MovableObject {
         if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
             this.otherDirection = false;
             this.moveRight();
+           
         }
         if (this.world.keyboard.left && this.x > 0) {
             this.otherDirection = true;
             this.moveLeft();
+        }
+    }
+
+    /**
+     * Sets idle animation switches based on time since last player input.
+     * Shows idle or long idle animations after keyboard inactivity.
+     */
+    setIdleSwitches() {
+        let time = this.world.timePassed(lastInputTime);
+        switch (true) {
+            case time == 5.0:
+                this.idle = true;
+                this.longIdle = false;
+                break;
+            case time == 8.0:
+                this.idle = false;
+                this.longIdle = true;
+                break;
+            case time <= 4.0: this.idle = false;
+                this.longIdle = false;
+                break;
         }
     }
 

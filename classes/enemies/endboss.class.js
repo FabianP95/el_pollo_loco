@@ -96,7 +96,7 @@ class Endboss extends MovableObject {
                 default: this.handleEndbossWalking();
                     break;
             }
-        }, 150)
+        }, 100)
     }
 
     /**
@@ -115,6 +115,7 @@ class Endboss extends MovableObject {
     handleAttack() {
         this.x -= 40;
         this.playAnimation(this.attackImg);
+        this.playSound(this.introSound, 0.15);
     }
 
     /**
@@ -124,6 +125,7 @@ class Endboss extends MovableObject {
     handleEndbossHit() {
         this.otherDirection = false;
         this.playAnimation(this.hurtImg);
+        this.playSound(this.hitSound, 0.15);
     }
 
     /**
@@ -133,6 +135,7 @@ class Endboss extends MovableObject {
     handleEndbossTriggered() {
         this.otherDirection = false;
         this.playAnimation(this.alertImg);
+        
     }
 
     /**

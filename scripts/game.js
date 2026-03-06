@@ -6,6 +6,7 @@ let canvasWidth = 1050;
 let standardFps = 1000 / 60;
 let keyboard = new Keyboard();
 let lastInputTime = null;
+let allowInput = true;
 
 
 
@@ -16,7 +17,7 @@ let lastInputTime = null;
  * @returns {void}
  */
 function startScreen() {
-     start = new StartScreen(canvas);
+    start = new StartScreen(canvas);
 }
 
 
@@ -41,25 +42,27 @@ function initGame() {
  */
 document.addEventListener('keydown', (event) => {
     lastInputTime = Date.now();
-    switch (event.code) {
-        case 'KeyA':
-            keyboard.left = true;
-            break;
-        case 'KeyW':
-            keyboard.up = true;
-            break;
-        case 'KeyD':
-            keyboard.right = true;
-            break;
-        case 'KeyS':
-            keyboard.down = true;
-            break;
-        case 'Space':
-            keyboard.space = true;
-            break;
-        case 'KeyG':
-            keyboard.throw = true;
-            break;
+    if (allowInput) {
+        switch (event.code) {
+            case 'KeyA':
+                keyboard.left = true;
+                break;
+            case 'KeyW':
+                keyboard.up = true;
+                break;
+            case 'KeyD':
+                keyboard.right = true;
+                break;
+            case 'KeyS':
+                keyboard.down = true;
+                break;
+            case 'Space':
+                keyboard.space = true;
+                break;
+            case 'KeyG':
+                keyboard.throw = true;
+                break;
+        }
     }
 });
 
@@ -72,24 +75,26 @@ document.addEventListener('keydown', (event) => {
  * @returns {void}
  */
 document.addEventListener('keyup', (event) => {
-    switch (event.code) {
-        case 'KeyA':
-            keyboard.left = false;
-            break;
-        case 'KeyW':
-            keyboard.up = false;
-            break;
-        case 'KeyD':
-            keyboard.right = false;
-            break;
-        case 'KeyS':
-            keyboard.down = false;
-            break;
-        case 'Space':
-            keyboard.space = false;
-            break;
-        case 'KeyG':
-            keyboard.throw = false;
-            break;
+    if (allowInput) {
+        switch (event.code) {
+            case 'KeyA':
+                keyboard.left = false;
+                break;
+            case 'KeyW':
+                keyboard.up = false;
+                break;
+            case 'KeyD':
+                keyboard.right = false;
+                break;
+            case 'KeyS':
+                keyboard.down = false;
+                break;
+            case 'Space':
+                keyboard.space = false;
+                break;
+            case 'KeyG':
+                keyboard.throw = false;
+                break;
+        }
     }
 });

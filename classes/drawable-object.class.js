@@ -3,21 +3,13 @@
  * @class
  */
 class DrawableObject {
-    /** @type {Object} - Cache for loaded images */
     imageCache = {};
-    /** @type {number} - X position on canvas */
     x = 50;
-    /** @type {number} - Y position on canvas */
     y = 90;
-    /** @type {number|undefined} - Height of the object */
     height;
-    /** @type {number|undefined} - Width of the object */
     width;
-    /** @type {number} - Current image frame index in animation */
     currentImage = 0;
-    /** @type {Image|undefined} - Current image being displayed */
     img;
-    /** @type {Object} - Offset values for hitbox calculation */
     hitboxOffset = {
         top: 0,
         bottom: 0,
