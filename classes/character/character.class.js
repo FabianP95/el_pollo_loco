@@ -112,7 +112,10 @@ class Character extends MovableObject {
         if (this.world.keyboard.right && !this.isAboveGround() && !this.isHit() && !this.isDead() || this.world.keyboard.left && !this.isAboveGround() && !this.isHit() && !this.isDead()) {
             this.handleWalkingAnimation();
         } else {
-            this.handleIdleState();
+            if (!this.isHit() && !this.isDead()) {
+                this.handleIdleState();
+            }
+           
         }
     }
 
@@ -216,7 +219,6 @@ class Character extends MovableObject {
         if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
             this.otherDirection = false;
             this.moveRight();
-           
         }
         if (this.world.keyboard.left && this.x > 0) {
             this.otherDirection = true;

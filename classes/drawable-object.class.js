@@ -82,8 +82,10 @@ class DrawableObject {
      * @param {number} volume - Volume level (0.0 to 1.0)
      */
     playSound(sound, volume) {
-        sound.volume = volume;
-        sound.play();
+        if (!muteSound) {
+            sound.volume = volume;
+            sound.play();
+        }
     }
 
     /**

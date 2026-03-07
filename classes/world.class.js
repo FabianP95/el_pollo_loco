@@ -38,7 +38,6 @@ class World {
         this.draw();
         this.setWorld();
         this.runChecks();
-        /* this.playWorldMusic(); */
     }
 
     /**
@@ -50,7 +49,7 @@ class World {
         this.character.world = this;
         this.endboss.world = this;
         this.endboss.statusBarBossHealth = this.statusBarBoss;
-        this.gameEnd.world = this; 
+        this.gameEnd.world = this;
     }
 
     /**
@@ -84,6 +83,7 @@ class World {
                 this.addWholeWorld();
                 break;
         }
+        this.playWorldMusic();
         let self = this;
         requestAnimationFrame(() => {
             self.draw();
@@ -181,6 +181,8 @@ class World {
      * Runs checks on events happening in the world.
      */
     runChecks() {
+
+
         this.runDamageChecks();
         this.runCollectingChecks();
         setInterval(() => {
@@ -195,9 +197,11 @@ class World {
      */
     runDamageChecks() {
         setInterval(() => {
-            this.distanceToEndboss();
-            this.collisionThrow();
-            this.collisionWithEnemy();
+            if (!this.endboss.isDead()) {
+                this.distanceToEndboss();
+                this.collisionThrow();
+                this.collisionWithEnemy();
+            }
         }, 50);
     }
 
@@ -338,9 +342,13 @@ class World {
      * Sets volume, enables looping, and starts playback.
      */
     playWorldMusic() {
-        this.backgroundMusic.volume = 0.01;
-        this.backgroundMusic.loop = true;
-        this.backgroundMusic.play();
+        if (!muteSound) {
+            console.log(1);
+            
+            this.backgroundMusic.volume = 0.01;
+            this.backgroundMusic.loop = true;
+            this.backgroundMusic.play();
+        }
     }
 
     /**
@@ -349,9 +357,11 @@ class World {
      */
     switchToScreen(n) {
         if (n == "won") {
-            this.switch = "won";}
+            this.switch = "won";
+        }
         if (n == "lost") {
-            this.switch = "lost";}
+            this.switch = "lost";
+        }
         allowInput = false
     }
 

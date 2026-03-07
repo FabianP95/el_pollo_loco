@@ -45,21 +45,19 @@ document.addEventListener('keydown', (event) => {
     if (allowInput) {
         switch (event.code) {
             case 'KeyA':
+                addClasslist('btnA');
                 keyboard.left = true;
                 break;
-            case 'KeyW':
-                keyboard.up = true;
-                break;
             case 'KeyD':
+                addClasslist('btnD');
                 keyboard.right = true;
                 break;
-            case 'KeyS':
-                keyboard.down = true;
-                break;
             case 'Space':
+                addClasslist('btnSpace');
                 keyboard.space = true;
                 break;
             case 'KeyG':
+                addClasslist('btnG');
                 keyboard.throw = true;
                 break;
         }
@@ -78,22 +76,19 @@ document.addEventListener('keyup', (event) => {
     if (allowInput) {
         switch (event.code) {
             case 'KeyA':
-               
+                removeClasslist('btnA');
                 keyboard.left = false;
                 break;
-            case 'KeyW':
-                keyboard.up = false;
-                break;
             case 'KeyD':
+                removeClasslist('btnD');
                 keyboard.right = false;
                 break;
-            case 'KeyS':
-                keyboard.down = false;
-                break;
             case 'Space':
+                removeClasslist('btnSpace');
                 keyboard.space = false;
                 break;
             case 'KeyG':
+                removeClasslist('btnG');
                 keyboard.throw = false;
                 break;
         }

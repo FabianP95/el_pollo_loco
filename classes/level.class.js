@@ -4,17 +4,11 @@
  * @class
  */
 class Level {
-    /** @type {MovableObject[]} - Array of enemies in the level */
     enemies;
-    /** @type {Cloud[]} - Array of clouds in the level */
     clouds;
-    /** @type {BackgroundObject[]} - Array of background objects in the level */
     backgroundObjects;
-    /** @type {Coin[]} - Array of coins in the level */
     coins;
-    /** @type {Bottle[]} - Array of bottles in the level */
     bottles;
-    /** @type {number} - X coordinate marking the end of the level */
     level_end_x = 2700;
 
     /**
