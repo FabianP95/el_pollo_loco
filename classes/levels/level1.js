@@ -6,8 +6,8 @@ let level1;
 function loadLevel() {
         if (gameStarted) {
                 level1 = new Level([
-                        ...amountOfElementInWorld(0, LittleChicken),
-                        ...amountOfElementInWorld(0, Chicken),
+                        ...amountOfElementInWorld(5, LittleChicken),
+                        ...amountOfElementInWorld(5, Chicken),
                         new Endboss()
                 ],
                         [

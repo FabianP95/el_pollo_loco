@@ -78,6 +78,7 @@ document.addEventListener('keyup', (event) => {
     if (allowInput) {
         switch (event.code) {
             case 'KeyA':
+               
                 keyboard.left = false;
                 break;
             case 'KeyW':

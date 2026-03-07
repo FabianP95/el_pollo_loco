@@ -53,7 +53,7 @@
     <header>
         <h1 class="game-title">El pollo loco</h1>
     </header>
-    <main>
+    <main class="main-container">
         <canvas id="canvas" class="canvas" width="1050px" height="480px">
             Your browser does not support the canvas tag.
         </canvas>
@@ -61,34 +61,27 @@
             <div class="modal"><button class="start-btn" onclick="startGame()">Start the game</button>
             </div>
         </dialog>
-        <div class="button-row">
-
-    <button class="char-btn">
-      <img src="/assets/icons/charred-key-a.svg" alt="">
-      <img src="/assets/icons/charred-key-d.svg" alt="">
-      Walk
-    </button>
-
-    <button class="char-btn">
-      <img src="/assets/icons/charred-spacebar.svg" alt="">
-      Jump
-    </button>
-
-    <button class="char-btn">
-      <img src="/assets/icons/charred-key-g.svg" alt="">
-      Attack
-    </button>
-
-    <button class="char-btn">
-      <img src="/assets/icons/charred-key-d.svg" alt="">
-      Settings
-    </button>
-
-  </div>
+        <div class="control-display">
+            <h2>Controls:</h2>
+            <div class="button-row">
+                <button id="btnA" class="button">
+                    A
+                </button>
+                <button id="btnD" class="button">
+                    D
+                </button>
+                <button id="btnSpace" class="button">
+                    Space
+                </button>
+                <button id="btnG" class="button">
+                    G
+                </button>
+            </div>
         </div>
+
     </main>
     <footer>
-        <a href="./html/legal_notice.html">Impressum</a>
+        <a class="footer-link" href="./html/legal_notice.html">Impressum</a>
     </footer>
 
 

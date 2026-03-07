@@ -10,6 +10,11 @@ body {
     min-height: 100vh;
 }
 
+.main-container {
+    max-width: 1990px;
+    min-height: calc(100vh - 120px);
+}
+
 .game-title {
     margin-top: min(50px, 5%);
     margin-bottom: min(50px, 5%);
@@ -46,10 +51,8 @@ dialog[open] {
     height: 130px;
     width: 180px;
     background: rgba(255, 255, 255, 0.07);
-    /* transparent fill */
     border: 1px solid rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(4px);
-    /* optional extra frost */
     -webkit-backdrop-filter: blur(4px);
     border-radius: 20px;
 }
@@ -64,9 +67,14 @@ dialog[open] {
     border-radius: 20px;
 }
 
+.control-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
 .button-row {
-  
     display: flex;
     gap: 14px;
     justify-content: center;
@@ -75,80 +83,30 @@ dialog[open] {
     z-index: 1;
 }
 
-.char-btn {
-     font-family: 'Rye';
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 12px 22px;
-    border: none;
-    border-radius: 12px;
-    font-size: 17px;
-    letter-spacing: 0.5px;
-    color: #ffe8b0;
-    text-shadow:
-        0 1px 0 #000,
-        0 0 8px #ff6600aa;
-    white-space: nowrap;
-    transition: transform 0.1s ease, filter 0.15s ease;
-
-    
-    background:
-       
-        linear-gradient(180deg, rgba(255, 180, 60, 0.12) 0%, transparent 40%),
-        
-        linear-gradient(160deg, #2a1800 0%, #1a0d00 40%, #0e0700 100%);
-
-    /* Thick cartoon outline + ember glow */
-    box-shadow:
-        0 0 0 3px #1a0800,
-        0 0 0 5px #6b2f00,
-        0 0 0 6px #000,
-        0 6px 0 0 #000,
-        0 7px 0 0 #4a1a00,
-        inset 0 1px 0 rgba(255, 160, 40, 0.18),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
-        0 0 20px 4px rgba(255, 80, 0, 0.15);
+.button {
+    font-family: 'Rye';
+    padding: 10px 20px;
+    border-radius: 15px;
+    background-color: rgba(128, 128, 128, 0.2);
+    border: 1px solid rgba(240, 240, 240, 0.5);
+    font-size: 16px;
+    color: white;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
-/* Cracked texture overlay */
-.char-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    background-image:
-        repeating-linear-gradient(47deg,
-            transparent,
-            transparent 18px,
-            rgba(0, 0, 0, 0.18) 18px,
-            rgba(0, 0, 0, 0.18) 19px),
-        repeating-linear-gradient(-30deg,
-            transparent,
-            transparent 22px,
-            rgba(0, 0, 0, 0.12) 22px,
-            rgba(0, 0, 0, 0.12) 23px);
-    pointer-events: none;
+.hover {
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.char-btn:hover {
-    transform: translateY(-3px) scale(1.04);
-    filter: brightness(1.25);
-    box-shadow:
-        0 0 0 3px #1a0800,
-        0 0 0 5px #8b3f00,
-        0 0 0 6px #000,
-        0 8px 0 0 #000,
-        0 9px 0 0 #4a1a00,
-        inset 0 1px 0 rgba(255, 160, 40, 0.25),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.6),
-        0 0 35px 10px rgba(255, 100, 0, 0.3);
+.button.active {
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.25);
 }
 
-.btn-icon {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    filter: drop-shadow(0 0 3px #ff8800);
+.footer-link {
+    color: black;
+    font-size: 20px;
+}
+
+.footer-link:hover {
+    color: white;
 }

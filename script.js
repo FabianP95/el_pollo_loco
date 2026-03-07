@@ -11,5 +11,12 @@ function startGame() {
     loadLevel();
     modal.classList.add('close-modal');
     initGame();
+}
 
+function addClasslist(id) {
+    document.getElementById(id).classList.add('hover');
+}
+
+function removeClasslist(element) {
+    document.getElementById(id).classList.remove('hover');
 }
