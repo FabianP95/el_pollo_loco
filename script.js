@@ -7,12 +7,14 @@ let gameArea = document.getElementById('gameArea');
 let startBtn = document.getElementById('startBtn');
 let endAnimationId;
 let drawAnimation;
+let gameOverTimeoutId = null;
 
 /**
  * Initializes and starts the game.
  * Sets the gameStarted flag, loads the level, closes the start dialog modal, and initializes the game world.
  */
 function startGame() {
+    gameOverTimeoutId = null;
     startBtn.innerText = 'Start the game';
     gameStarted = true;
     loadLevel();
@@ -22,16 +24,15 @@ function startGame() {
 
 /**
  * Restarts the game after game over.
- * Stops the end screen animation and shows the restart modal.
+ * Shows the restart modal.
  * The button will call startGame() which handles full reinitialization.
  */
 function openRestartGame() {
-    // Stop the end screen animation
-    world.isEndScreenAnimating = false;
-    
-    // Cancel the running animation frames
-    cancelAnimationFrame(endAnimationId);
-    cancelAnimationFrame(drawAnimation);
+    if (gameOverTimeoutId !== null) {
+        return;
+    }
+    allowInput = true;
+    gameOverTimeoutId = true; 
     startBtn.innerText = 'Restart the game';
     gameStarted = false;
     modal.classList.remove('close-modal');

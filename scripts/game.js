@@ -8,8 +8,6 @@ let keyboard = new Keyboard();
 let lastInputTime = null;
 let allowInput = true;
 
-
-
 /**
  * Displays the start screen when the page loads.
  * Creates a new StartScreen instance and displays it on the canvas.

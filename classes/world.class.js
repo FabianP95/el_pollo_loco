@@ -23,6 +23,8 @@ class World {
     statusBarBoss = new StatusBarBoss();
     backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
     gameEnd = new GameEndScreen();
+    // Flag to prevent switchToScreen from being called multiple times
+    hasGameEnded = false;
 
     /**
      * Creates a new World instance with canvas and keyboard input.
@@ -351,11 +353,25 @@ class World {
         }
     }
 
+    /* *
+     * Stops all game animation frames when the game ends.
+     * Cancels both the main draw loop and end screen animation.
+     */
+    stopGameAnimation() {
+        cancelAnimationFrame(endAnimationId);
+        cancelAnimationFrame(drawAnimation);
+        this.isEndScreenAnimating = false;
+    }
+
     /**
      * Switches the game to a game over or game won screen.
      * @param {string} n - Screen type: "won" or "lost"
      */
     switchToScreen(n) {
+        if (this.hasGameEnded) {
+            return;
+        }
+        this.hasGameEnded = true;
         if (n == "won") {
             this.switch = "won";
         }
@@ -364,8 +380,11 @@ class World {
         }
         allowInput = false;
         setTimeout(() => {
-            openRestartGame();
+            this.stopGameAnimation();
         }, 200);
+        setTimeout(() => {
+            openRestartGame();
+        }, 400);
     }
 
     /**
