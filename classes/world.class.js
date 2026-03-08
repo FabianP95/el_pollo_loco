@@ -343,11 +343,12 @@ class World {
      */
     playWorldMusic() {
         if (!muteSound) {
-            console.log(1);
-            
-            this.backgroundMusic.volume = 0.01;
+            this.backgroundMusic.volume = 0.02;
             this.backgroundMusic.loop = true;
             this.backgroundMusic.play();
+        } else {
+            this.backgroundMusic.pause();
+            this.backgroundMusic.currentTime = 0;
         }
     }
 

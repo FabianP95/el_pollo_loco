@@ -18,6 +18,7 @@ let allowInput = true;
  */
 function startScreen() {
     start = new StartScreen(canvas);
+    checkMuteAtStart();
 }
 
 

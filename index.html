@@ -36,6 +36,7 @@
 
     <script src="classes/world.class.js"></script>
     <script src="classes/screens/startScreen.class.js"></script>
+    <script src="scripts/template.js"></script>
     <script src="classes/levels/level1.js" defer></script>
 
 
@@ -49,7 +50,7 @@
 
 </head>
 
-<body onload="startScreen(), applyMute(getMute()) ">
+<body onload="startScreen()">
     <header>
         <h1 class="game-title">El pollo loco</h1>
     </header>
@@ -62,21 +63,25 @@
             </div>
         </dialog>
         <div class="button-row">
-            <button onclick="setScreen()" class="button-settings">
-                Fullscreen
+            <button id="screenBtn" onclick="setScreen()" class="button-settings">
+                <svg class="fullscreen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="4 9 4 4 9 4" />
+                    <polyline points="15 4 20 4 20 9" />
+                    <polyline points="4 15 4 20 9 20" />
+                    <polyline points="20 15 20 20 15 20" />
+                </svg>
             </button>
-            <button id="muteBtn" onclick="setMute(!getMute())" class="button-settings">
-                Mute sound
+            <button id="muteBtn" onclick="applyMute(getMute())" class="button-settings">
+
             </button>
         </div>
         <div class="control-display">
             <h2>Controls:</h2>
             <div class="button-row">
-                <button id="btnA" class="button-control">
-                    A
+                <button id="btnA" class="button-control">A
                 </button>
-                <button id="btnD" class="button-control">
-                    D
+                <button id="btnD" class="button-control">D
                 </button>
                 <button id="btnSpace" class="button-control">
                     Space

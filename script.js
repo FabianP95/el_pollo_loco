@@ -1,8 +1,9 @@
 const modal = document.getElementById('startDialog');
 
 let gameStarted = false;
-let muteSound = false;
+let muteSound;
 let muteBtn = document.getElementById('muteBtn');
+let screenBtn = document.getElementById('screenBtn');
 
 /**
  * Initializes and starts the game.
@@ -23,27 +24,49 @@ function removeClasslist(id) {
     document.getElementById(id).classList.remove('hover');
 }
 
-function setScreen() {
-
-}
-
 function setMute(isMuted) {
     localStorage.setItem('isMuted', JSON.stringify(isMuted));
-    applyMute(isMuted);
 }
 
 function getMute() {
     return JSON.parse(localStorage.getItem('isMuted')) ?? false;
 }
 
+function checkMuteAtStart() {
+    muteSound = getMute();
+    if (muteSound == true) {
+        muteBtn.innerHTML = unmuteSVG();
+    }
+    if (muteSound == false) {
+        muteBtn.innerHTML = muteSVG();
+    }
+}
+
 function applyMute(isMuted) {
+    muteSound = !isMuted;
     switch (true) {
-        case isMuted: muteSound = !muteSound;
-            muteBtn.innerText = 'Mute sound';
-            return
-        case !isMuted: muteSound = !muteSound;
-            muteBtn.innerText = 'Unmute sound';
-            return
+        case !isMuted:
+            muteBtn.innerHTML = unmuteSVG();
+            break;
+        case isMuted:
+            muteBtn.innerHTML = muteSVG();
+            break;
+    }
+    setMute(!isMuted);
+}
+
+function setScreen() {
+    switch (true) {
+        case canvasHeight == 480:
+            canvas.style.height = '720px';
+            canvasHeight = 720;
+            screenBtn.innerHTML = goFullscreen();
+            break;
+        case canvasHeight >= 720:
+            canvas.style.height = '480px';
+            canvasHeight = 480;
+            screenBtn.innerHTML = goSmallScreen();
+            break;
     }
 }
 
