@@ -23,7 +23,6 @@ class World {
     statusBarBoss = new StatusBarBoss();
     backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
     gameEnd = new GameEndScreen();
-    // Flag to prevent switchToScreen from being called multiple times
     hasGameEnded = false;
 
     /**
@@ -369,22 +368,19 @@ class World {
      */
     switchToScreen(n) {
         if (this.hasGameEnded) {
-            return;
-        }
+            return;}
         this.hasGameEnded = true;
-        if (n == "won") {
-            this.switch = "won";
-        }
-        if (n == "lost") {
-            this.switch = "lost";
-        }
+        if (n == "won") 
+            {this.switch = "won";}
+        if (n == "lost") 
+            {this.switch = "lost";}
         allowInput = false;
         setTimeout(() => {
             this.stopGameAnimation();
         }, 200);
         setTimeout(() => {
             openRestartGame();
-        }, 400);
+        }, 2000);
     }
 
     /**
@@ -394,11 +390,9 @@ class World {
     distanceToEndboss() {
         let distance = this.endboss.x - this.character.x;
         if (distance >= 500) {
-            this.endboss.triggered = false;
-        }
+            this.endboss.triggered = false;}
         if (distance <= 500) {
-            this.endboss.triggered = true;
-        }
+            this.endboss.triggered = true;}
         if (distance <= 300) {
             this.endboss.attack = true;
             setTimeout(() => {
@@ -413,8 +407,7 @@ class World {
      * @returns {number} - Time passed in seconds (fixed to 1 decimal place)
      */
     timePassed(n) {
-        return ((Date.now() - n) / 1000).toFixed(1);
-    }
+        return ((Date.now() - n) / 1000).toFixed(1);}
 
     /**
      * Removes a collected item from the game world.

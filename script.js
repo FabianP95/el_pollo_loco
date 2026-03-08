@@ -31,6 +31,7 @@ function openRestartGame() {
     if (gameOverTimeoutId !== null) {
         return;
     }
+    muteSound = setMute();
     allowInput = true;
     gameOverTimeoutId = true; 
     startBtn.innerText = 'Restart the game';

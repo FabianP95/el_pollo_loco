@@ -7,6 +7,10 @@ let standardFps = 1000 / 60;
 let keyboard = new Keyboard();
 let lastInputTime = null;
 let allowInput = true;
+let btnLeft = document.getElementById('btnA');
+let btnRight = document.getElementById('btnD');
+let btnJump = document.getElementById('btnSpace');
+let btnThrow = document.getElementById('btnG');
 
 /**
  * Displays the start screen when the page loads.
@@ -90,5 +94,46 @@ document.addEventListener('keyup', (event) => {
             keyboard.throw = false;
             break;
     }
-
 });
+
+
+function accessMobileBtns() {
+    
+    
+    btnLeft.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+         console.log(1);
+        keyboard.Left = true;
+    })
+    btnLeft.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.Left = false;
+    })
+
+    btnRight.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.Right = true;
+    })
+    btnRight.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.Right = false;
+    })
+
+    btnJump.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.space = true;
+    })
+    btnJump.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.space = false;
+    })
+
+    btnThrow.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.throw = true;
+    })
+    btnThrow.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.throw = false;
+    })
+}

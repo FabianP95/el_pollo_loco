@@ -24,4 +24,12 @@
     .canvas {
         height: 100%;
     }
+
+    footer {
+        display: none;
+    }
+
+    .game-title {
+        display: none;
+    }
 }
