@@ -74,24 +74,23 @@ document.addEventListener('keydown', (event) => {
  * @returns {void}
  */
 document.addEventListener('keyup', (event) => {
-    if (allowInput) {
-        switch (event.code) {
-            case 'KeyA':
-                removeClasslist('btnA');
-                keyboard.left = false;
-                break;
-            case 'KeyD':
-                removeClasslist('btnD');
-                keyboard.right = false;
-                break;
-            case 'Space':
-                removeClasslist('btnSpace');
-                keyboard.space = false;
-                break;
-            case 'KeyG':
-                removeClasslist('btnG');
-                keyboard.throw = false;
-                break;
-        }
+    switch (event.code) {
+        case 'KeyA':
+            removeClasslist('btnA');
+            keyboard.left = false;
+            break;
+        case 'KeyD':
+            removeClasslist('btnD');
+            keyboard.right = false;
+            break;
+        case 'Space':
+            removeClasslist('btnSpace');
+            keyboard.space = false;
+            break;
+        case 'KeyG':
+            removeClasslist('btnG');
+            keyboard.throw = false;
+            break;
     }
+
 });

@@ -61,9 +61,10 @@ class World {
         this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.gameEnd);
         let self = this;
-        requestAnimationFrame(() => {
+        endAnimationId = requestAnimationFrame(() => {
             self.drawEndscreen();
         });
+
     }
 
     /**
@@ -85,7 +86,7 @@ class World {
         }
         this.playWorldMusic();
         let self = this;
-        requestAnimationFrame(() => {
+        drawAnimation = requestAnimationFrame(() => {
             self.draw();
         });
     };
@@ -181,8 +182,6 @@ class World {
      * Runs checks on events happening in the world.
      */
     runChecks() {
-
-
         this.runDamageChecks();
         this.runCollectingChecks();
         setInterval(() => {
@@ -327,7 +326,7 @@ class World {
      * Creates a new throwable object and updates bottle inventory.
      */
     checkThrow() {
-        if (this.keyboard.throw && this.bottleCounter > 0) {
+        if (this.keyboard.throw && this.bottleCounter > 0 && !this.character.isDead()) {
             let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.hitboxOffset.right - 10, this.character.y + (this.character.height * 0.5), this.character.otherDirection);
             this.collectedBottles.push(bottle);
             this.valueBottles -= 20;
@@ -363,7 +362,10 @@ class World {
         if (n == "lost") {
             this.switch = "lost";
         }
-        allowInput = false
+        allowInput = false;
+        setTimeout(() => {
+            openRestartGame();
+        }, 200);
     }
 
     /**

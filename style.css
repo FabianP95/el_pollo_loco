@@ -27,6 +27,7 @@ body {
     background-color: black;
     border-radius: 20px;
     border: 1px solid white;
+    display: block;
 }
 
 dialog[open] {
@@ -34,14 +35,34 @@ dialog[open] {
 }
 
 .dialogWindow {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     border: none;
     background-color: transparent;
-    margin-top: -335px;
+    transform: translate(-50%, -50%);
+}
+
+.canvas-area {
+    position: relative;
 }
 
 .close-modal {
     visibility: hidden;
     opacity: 0;
+}
+
+.settings-hud {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.control-hud {
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
 
 .modal {
@@ -105,14 +126,13 @@ dialog[open] {
     transition: background-color 0.2s ease;
 }
 
-.button-settings:hover{
+.button-settings:hover {
     background-color: rgba(128, 128, 128, 0.55);
 }
 
-.hover{
+.hover {
     box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.55);
 }
-
 
 .footer-link {
     color: black;
@@ -124,6 +144,6 @@ dialog[open] {
 }
 
 .fullscreen-icon {
-  width: 24px;
-  height: 24px;
+    width: 24px;
+    height: 24px;
 }

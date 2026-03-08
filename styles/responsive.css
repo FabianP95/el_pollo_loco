@@ -1,0 +1,27 @@
+@media (max-width: 850px) {
+    .button-settings {
+        padding: 5px 5px;
+    }
+
+    .button-control {
+        padding: 5px 5px;
+    }
+}
+
+@media (max-width: 500px) {
+    .modal {
+        height: 70px;
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    .canvas {
+        height: 100%;
+    }
+}
