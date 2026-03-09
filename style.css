@@ -130,6 +130,25 @@ dialog[open] {
     background-color: rgba(128, 128, 128, 0.55);
 }
 
+.control-img {
+    width: 24px;
+    height: 24px;
+}
+
+.controls-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .hover {
     box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.55);
 }

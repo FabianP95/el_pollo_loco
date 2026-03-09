@@ -15,6 +15,7 @@ let gameOverTimeoutId = null;
  */
 function startGame() {
     gameOverTimeoutId = null;
+    muteSound = getMute();
     startBtn.innerText = 'Start the game';
     gameStarted = true;
     loadLevel();
@@ -31,9 +32,9 @@ function openRestartGame() {
     if (gameOverTimeoutId !== null) {
         return;
     }
-    muteSound = setMute();
+    muteSound = setMute(getMute());
     allowInput = true;
-    gameOverTimeoutId = true; 
+    gameOverTimeoutId = true;
     startBtn.innerText = 'Restart the game';
     gameStarted = false;
     modal.classList.remove('close-modal');

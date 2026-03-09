@@ -112,7 +112,7 @@ class Character extends MovableObject {
         if (this.world.keyboard.right && !this.isAboveGround() && !this.isHit() && !this.isDead() || this.world.keyboard.left && !this.isAboveGround() && !this.isHit() && !this.isDead()) {
             this.handleWalkingAnimation();
         } else {
-            if (!this.isHit() && !this.isDead()) {
+            if (!this.isHit() && !this.isDead() && !this.isAboveGround()) {
                 this.handleIdleState();
             }
            
