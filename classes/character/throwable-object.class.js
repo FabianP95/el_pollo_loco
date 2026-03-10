@@ -6,17 +6,14 @@
  * @extends MovableObject
  */
 class ThrowableObject extends MovableObject {
-    /** @type {boolean} - Whether the bottle has shattered on impact */
     shattered = false
-
-    /** @type {string[]} - Array of bottle rotation animation frames */
     rotationImg = ['img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
     ];
 
-    /** @type {string[]} - Array of bottle splash/impact animation frames */
+    
     splashImg = ['img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
@@ -25,24 +22,18 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ];
 
-    /** @type {string[]} - Array of bottle resting image */
     bottleImg = ['img/6_salsa_bottle/salsa_bottle.png'];
-
-    /** @type {Object} - Hitbox offset values for collision detection */
     hitboxOffset = {
         top: 10,
         bottom: 10,
         left: 10,
         right: 10
     };
-
-    /** @type {number} - Damage dealt by the bottle when hitting enemies */
     damage = 50;
 
-    /** @type {Audio} - Sound played when bottle hits an object */
-    hitBottleSound = new Audio('/assets/audio/items/bottle-hit.mp3');
-    /** @type {Audio} - Sound played when bottle is thrown */
-    throwBottleSound = new Audio('/assets/audio/items/bottle-throw.mp3');
+    hitBottleSound = new Audio('assets/audio/items/bottle-hit.mp3');
+    
+    throwBottleSound = new Audio('assets/audio/items/bottle-throw.mp3');
 
 
 

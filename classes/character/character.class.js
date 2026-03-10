@@ -59,10 +59,10 @@ class Character extends MovableObject {
         right: 44
     };
 
-    jumpSound = new Audio('/assets/audio/pepe/pepe-jump.mp3');
-    hitSound = new Audio('/assets/audio/pepe/pepe-hit.mp3');
-    deadSound = new Audio('/assets/audio/pepe/pepe-dead.mp3');
-    walkSound = new Audio('/assets/audio/pepe/pepe-walk.mp3');
+    jumpSound = new Audio('assets/audio/pepe/pepe-jump.mp3');
+    hitSound = new Audio('assets/audio/pepe/pepe-hit.mp3');
+    deadSound = new Audio('assets/audio/pepe/pepe-dead.mp3');
+    walkSound = new Audio('assets/audio/pepe/pepe-walk.mp3');
 
     /**
      * Creates a new Character instance.

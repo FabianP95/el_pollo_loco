@@ -21,7 +21,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     statusBarBoss = new StatusBarBoss();
-    backgroundMusic = new Audio('/assets/audio/world/background-music.mp3');
+    backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
     gameEnd = new GameEndScreen();
     hasGameEnded = false;
 
@@ -342,7 +342,7 @@ class World {
      */
     playWorldMusic() {
         if (!muteSound) {
-            this.backgroundMusic.volume = 0.02;
+            this.backgroundMusic.volume = 0.01;
             this.backgroundMusic.loop = true;
             this.backgroundMusic.play();
         } else {
