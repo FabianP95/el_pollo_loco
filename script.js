@@ -9,6 +9,19 @@ let endAnimationId;
 let drawAnimation;
 let gameOverTimeoutId = null;
 const overlay = document.getElementById('rotate-overlay');
+
+
+function initializeStartPage() {
+    startScreen();
+    accessMobileBtns();
+    checkOrientation();
+    loadModalBtn();
+}
+
+function loadModalBtn() {
+    modal.innerHTML = startButton();
+}
+
 /**
  * Initializes and starts the game.
  * Sets the gameStarted flag, loads the level, closes the start dialog modal, and initializes the game world.
@@ -16,7 +29,6 @@ const overlay = document.getElementById('rotate-overlay');
 function startGame() {
     gameOverTimeoutId = null;
     muteSound = getMute();
-    startBtn.innerText = 'Start the game';
     gameStarted = true;
     loadLevel();
     modal.classList.add('close-modal');
@@ -35,8 +47,8 @@ function openRestartGame() {
     muteSound = setMute(getMute());
     allowInput = true;
     gameOverTimeoutId = true;
-    startBtn.innerText = 'Restart the game';
     gameStarted = false;
+    modal.innerHTML = restartButton();
     modal.classList.remove('close-modal');
 }
 
@@ -123,8 +135,6 @@ function checkOrientation() {
     overlay.classList.toggle('active', isPortrait);
 }
 
-// Check on load and on every resize/orientation change
-checkOrientation();
 window.addEventListener('resize', checkOrientation);
 window.addEventListener('orientationchange', checkOrientation);
 

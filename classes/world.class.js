@@ -21,7 +21,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     statusBarBoss = new StatusBarBoss();
-    backgroundMusic = new Audio('assets/audio/world/background-music.mp3');
+    backgroundMusic = new Audio('/assets/audio/world/background-music.mp3');
     gameEnd = new GameEndScreen();
     hasGameEnded = false;
 

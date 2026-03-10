@@ -14,9 +14,17 @@
     }
 }
 
-@media screen and (min-width: 600px) and (max-width: 1200px) {
+@media screen and (min-width: 600px) and (max-width: 1400px) and (max-height: 1200px) {
     .button-row {
         display: flex;
+    }
+
+    .controls-info {
+        display: none;
+    }
+
+    .controls {
+        display: none;
     }
 }
 
@@ -32,13 +40,7 @@
         height: 100%;
     }
 
-    .controls-info {
-        display: none;
-    }
 
-    .controls {
-        display: none;
-    }
 
     footer {
         display: none;

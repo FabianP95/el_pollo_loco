@@ -50,9 +50,9 @@ class Endboss extends MovableObject {
         right: 10
     }
 
-    introSound = new Audio('../assets/audio/enemies/boss/boss-intro.mp3');
-    hitSound = new Audio('../assets/audio/enemies/boss/boss-hit.wav');
-    deadSound = new Audio('../assets/audio/enemies/boss/boss-dead.mp3');
+    introSound = new Audio('/assets/audio/enemies/boss/boss-intro.mp3');
+    hitSound = new Audio('/assets/audio/enemies/boss/boss-hit.wav');
+    deadSound = new Audio('/assets/audio/enemies/boss/boss-dead.mp3');
 
     /**
      * Creates a new Endboss instance.

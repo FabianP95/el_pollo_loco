@@ -102,42 +102,80 @@ document.addEventListener('keyup', (event) => {
  * Enables touch input for left, right, jump, and throw buttons on mobile devices.
  */
 function accessMobileBtns() {
-    btnLeft.addEventListener('touchstart', (e) => {
+    addEventListenerStartLeftAndRight(btnLeft, btnRight);
+    addEventListenerEndLeftAndRight(btnLeft, btnRight);
+    addEventListenerStartJumpAndAttack(btnJump, btnThrow);
+    addEventListenerEndJumpAndAttack(btnJump, btnThrow);
+}
+
+/**
+ * Adds touchstart event listeners for left and right movement buttons.
+ * Sets keyboard.left and keyboard.right to true when buttons are touched.
+ * @function
+ * @param {HTMLElement} btn - The left button element
+ * @param {HTMLElement} btn2 - The right button element
+ */
+function addEventListenerStartLeftAndRight(btn, btn2) {
+    btn.addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.left = true;
     })
-    btnLeft.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        keyboard.left = false;
-    })
-
-    btnRight.addEventListener('touchstart', (e) => {
+    btn2.addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.right = true;
     })
-    btnRight.addEventListener('touchend', (e) => {
+}
+
+/**
+ * Adds touchend event listeners for left and right movement buttons.
+ * Sets keyboard.left and keyboard.right to false when buttons are released.
+ * @function
+ * @param {HTMLElement} btn - The left button element
+ * @param {HTMLElement} btn2 - The right button element
+ */
+function addEventListenerEndLeftAndRight(btn, btn2) {
+    btn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.left = false;
+    })
+    btn2.addEventListener('touchend', (e) => {
         e.preventDefault();
         keyboard.right = false;
     })
+}
 
-    btnJump.addEventListener('touchstart', (e) => {
+/**
+ * Adds touchstart event listeners for jump and attack buttons.
+ * Sets keyboard.space and keyboard.throw to true when buttons are touched.
+ * @function
+ * @param {HTMLElement} btn - The jump button element
+ * @param {HTMLElement} btn2 - The throw button element
+ */
+function addEventListenerStartJumpAndAttack(btn, btn2) {
+    btn.addEventListener('touchstart', (e) => {
         e.preventDefault();
         keyboard.space = true;
     })
-    btnJump.addEventListener('touchend', (e) => {
+    btn2.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.throw = true;
+    })
+}
+
+/**
+ * Adds touchend event listeners for jump and attack buttons.
+ * Sets keyboard.space and keyboard.throw to false when buttons are released.
+ * @function
+ * @param {HTMLElement} btn - The jump button element
+ * @param {HTMLElement} btn2 - The throw button element
+ * @returns {void}
+ */
+function addEventListenerEndJumpAndAttack(btn, btn2) {
+    btn.addEventListener('touchend', (e) => {
         e.preventDefault();
         keyboard.space = false;
     })
-
-    btnThrow.addEventListener('touchstart', (e) => {
-        console.log(keyboard.throw);
-
-        e.preventDefault();
-        keyboard.throw = true;
-        console.log(keyboard.throw);
-    })
-    btnThrow.addEventListener('touchend', (e) => {
-
+    btn2.addEventListener('touchend', (e) => {
         e.preventDefault();
         keyboard.throw = false;
     })

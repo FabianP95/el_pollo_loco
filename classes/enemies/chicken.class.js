@@ -19,7 +19,7 @@ class Chicken extends MovableObject {
         right: 0
     }
 
-    deadSound = new Audio('../assets/audio/enemies/chicken/chicken-die.wav');
+    deadSound = new Audio('/assets/audio/enemies/chicken/chicken-die.wav');
 
     /**
      * Creates a new Chicken enemy instance.

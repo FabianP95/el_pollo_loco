@@ -15,3 +15,12 @@ function unmuteSVG() {
                     <line x1="17" y1="9" x2="23" y2="15" />
                 </svg>`
 }
+
+function startButton() {
+    return `<button id="startBtn" class="start-btn" onclick="startGame()">Start the game</button>`
+}
+
+function restartButton() {
+    return `<button id="startBtn" class="start-btn" onclick="startGame()">Restart the game</button>
+            <button id="backToStart" class="start-btn" onclick="initializeStartPage()">Back to start</button>`
+}

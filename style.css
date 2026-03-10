@@ -168,7 +168,7 @@ dialog[open] {
     height: 24px;
 }
 
-/* Style for overlay */
+
 .svg-wrapper {
     position: relative;
     width: 110px;
@@ -233,7 +233,6 @@ dialog[open] {
     }
 }
 
-/* Re-loop trick: fade out then snap back */
 @keyframes rotatePhone {
     0% {
         transform: rotate(0deg);
@@ -271,7 +270,6 @@ dialog[open] {
     height: 56px;
 }
 
-/* Arrow arc */
 .arc-wrap {
     position: absolute;
     width: 110px;
@@ -328,7 +326,6 @@ dialog[open] {
     margin: 0;
 }
 
-/* Pill badge */
 .rotate-badge {
 
     font-size: 0.65rem;
@@ -342,7 +339,6 @@ dialog[open] {
 }
 
 .demo-label {
-
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.3);
     text-align: center;

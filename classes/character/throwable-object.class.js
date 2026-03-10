@@ -40,9 +40,9 @@ class ThrowableObject extends MovableObject {
     damage = 50;
 
     /** @type {Audio} - Sound played when bottle hits an object */
-    hitBottleSound = new Audio('../assets/audio/items/bottle-hit.mp3');
+    hitBottleSound = new Audio('/assets/audio/items/bottle-hit.mp3');
     /** @type {Audio} - Sound played when bottle is thrown */
-    throwBottleSound = new Audio('../assets/audio/items/bottle-throw.mp3');
+    throwBottleSound = new Audio('/assets/audio/items/bottle-throw.mp3');
 
 
 
