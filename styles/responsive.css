@@ -14,13 +14,20 @@
     }
 }
 
-@media only screen and (max-width: 1050px) {
-    .canvas {
-        width: 100%;
+@media screen and (min-width: 600px) and (max-width: 1200px) {
+    .button-row {
+        display: flex;
     }
 }
 
-@media only screen and (max-height: 480px) {
+@media screen and (max-width: 1050px) {
+    .canvas {
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-height: 480px) {
     .canvas {
         height: 100%;
     }

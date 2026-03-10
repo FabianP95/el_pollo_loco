@@ -1,6 +1,7 @@
 body {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
     font-family: 'Rye', 'Open Sans', 'Helvetica Neue', sans-serif;
     background-image: url('/assets/background-img/landscape.jpg');
@@ -95,7 +96,7 @@ dialog[open] {
 }
 
 .button-row {
-    display: flex;
+    display: none;
     gap: 14px;
     justify-content: center;
     align-items: center;
@@ -165,4 +166,185 @@ dialog[open] {
 .fullscreen-icon {
     width: 24px;
     height: 24px;
+}
+
+/* Style for overlay */
+.svg-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#rotate-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0a0a0f;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#rotate-overlay.active {
+    display: flex;
+}
+
+.rotate-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    z-index: 1;
+}
+
+.phone-wrap {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotatePhone 2.4s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+    transform-origin: center center;
+    filter: drop-shadow(0 0 18px rgba(99, 255, 200, 0.35));
+}
+
+@keyframes rotatePhone {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    35% {
+        transform: rotate(90deg);
+    }
+
+    65% {
+        transform: rotate(90deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+        opacity: 0.3;
+    }
+}
+
+/* Re-loop trick: fade out then snap back */
+@keyframes rotatePhone {
+    0% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+
+    40% {
+        transform: rotate(90deg);
+        opacity: 1;
+    }
+
+    70% {
+        transform: rotate(90deg);
+        opacity: 1;
+    }
+
+    85% {
+        transform: rotate(90deg);
+        opacity: 0;
+    }
+
+    86% {
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.phone-svg {
+    width: 56px;
+    height: 56px;
+}
+
+/* Arrow arc */
+.arc-wrap {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    animation: fadeArc 2.4s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+@keyframes fadeArc {
+    0% {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    20% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    65% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    85% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+}
+
+.text-block {
+    text-align: center;
+}
+
+.rotate-title {
+
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem;
+}
+
+.rotate-sub {
+
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* Pill badge */
+.rotate-badge {
+
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #63ffc8;
+    border: 1px solid rgba(99, 255, 200, 0.3);
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    background: rgba(99, 255, 200, 0.05);
+}
+
+.demo-label {
+
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    line-height: 1.8;
 }

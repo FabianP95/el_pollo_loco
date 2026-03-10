@@ -97,26 +97,27 @@ document.addEventListener('keyup', (event) => {
 });
 
 
+/**
+ * Sets up touch event listeners for mobile game controls.
+ * Enables touch input for left, right, jump, and throw buttons on mobile devices.
+ */
 function accessMobileBtns() {
-    
-    
     btnLeft.addEventListener('touchstart', (e) => {
         e.preventDefault();
-         console.log(1);
-        keyboard.Left = true;
+        keyboard.left = true;
     })
     btnLeft.addEventListener('touchend', (e) => {
         e.preventDefault();
-        keyboard.Left = false;
+        keyboard.left = false;
     })
 
     btnRight.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        keyboard.Right = true;
+        keyboard.right = true;
     })
     btnRight.addEventListener('touchend', (e) => {
         e.preventDefault();
-        keyboard.Right = false;
+        keyboard.right = false;
     })
 
     btnJump.addEventListener('touchstart', (e) => {
@@ -129,10 +130,14 @@ function accessMobileBtns() {
     })
 
     btnThrow.addEventListener('touchstart', (e) => {
+        console.log(keyboard.throw);
+
         e.preventDefault();
         keyboard.throw = true;
+        console.log(keyboard.throw);
     })
     btnThrow.addEventListener('touchend', (e) => {
+
         e.preventDefault();
         keyboard.throw = false;
     })

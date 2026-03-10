@@ -327,7 +327,7 @@ class World {
      * Creates a new throwable object and updates bottle inventory.
      */
     checkThrow() {
-        if (this.keyboard.throw && this.bottleCounter > 0 && !this.character.isDead() && this.character.idle && this.character.longIdle) {
+        if (this.keyboard.throw && this.bottleCounter > 0 && !this.character.isDead() && !this.character.idle && !this.character.longIdle) {
             let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.hitboxOffset.right - 10, this.character.y + (this.character.height * 0.5), this.character.otherDirection);
             this.collectedBottles.push(bottle);
             this.valueBottles -= 20;
