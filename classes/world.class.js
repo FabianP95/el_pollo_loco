@@ -150,7 +150,6 @@ class World {
         if (movableObj.otherDirection) {
             this.flipImg(movableObj)
         }
-        movableObj.drawHitbox(this.ctx);
         movableObj.draw(this.ctx);
         if (movableObj.otherDirection) {
             this.flipImgBack(movableObj)

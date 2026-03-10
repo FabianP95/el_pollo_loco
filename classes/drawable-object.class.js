@@ -49,21 +49,6 @@ class DrawableObject {
     }
 
     /**
-     * Draws a hitbox around the object for debugging purposes.
-     * Only draws hitbox for Character and Coin objects.
-     * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas
-     */
-    drawHitbox(ctx) {
-        if (this instanceof Character || this instanceof Coin) {
-            ctx.beginPath();
-            ctx.lineWidth = '1';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.x + this.hitboxOffset.left, this.y + this.hitboxOffset.top, this.width - this.hitboxOffset.right, this.height - this.hitboxOffset.bottom);
-            ctx.stroke();
-        }
-    }
-
-    /**
      * Plays an animation by cycling through images from the provided array.
      * Increments the currentImage index to show the next frame.
      * @param {string[]} images - Array of image paths to cycle through
