@@ -237,7 +237,7 @@ class Character extends MovableObject {
                 this.idle = true;
                 this.longIdle = false;
                 break;
-            case time == 8.0:
+            case time == 11.0:
                 this.idle = false;
                 this.longIdle = true;
                 break;

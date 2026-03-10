@@ -11,6 +11,10 @@ let gameOverTimeoutId = null;
 const overlay = document.getElementById('rotate-overlay');
 
 
+/**
+ * Initializes the start page.
+ * Sets up the start screen, mobile button controls, orientation check, and loads the modal.
+ */
 function initializeStartPage() {
     startScreen();
     accessMobileBtns();
@@ -18,6 +22,9 @@ function initializeStartPage() {
     loadModalBtn();
 }
 
+/**
+ * Loads the start button HTML into the modal dialog.
+ */
 function loadModalBtn() {
     modal.innerHTML = startButton();
 }
