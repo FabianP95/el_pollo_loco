@@ -11,7 +11,6 @@ class LittleChicken extends MovableObject {
         'img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
     deadImg = ['img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
-
     deadSound = new Audio('assets/audio/enemies/chicken/chicken-die.wav');
 
 

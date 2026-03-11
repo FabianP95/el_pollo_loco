@@ -199,9 +199,10 @@ class World {
             if (!this.endboss.isDead()) {
                 this.distanceToEndboss();
                 this.collisionThrow();
-                this.collisionWithEnemy();
+                this.collisionWithEnemy(); 
             }
         }, 50);
+        
     }
 
     /**
