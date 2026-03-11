@@ -308,16 +308,18 @@ class World {
             switch (true) {
                 case (this.character.isColliding(enemy) && this.character.isJumpingOn(enemy)):
                     if (enemy instanceof Endboss) {
-                        return
-                    } else {
+                        return} else {
                         enemy.energy = 0;
-                    }
-                    return;
+                    } return;
                 case (this.character.isColliding(enemy) && !this.character.isJumpingOn(enemy)):
-                    this.character.hit();
-                    this.statusBarHealth.setPercentage(this.character.energy);
-                    return;
-            }
+                    if (enemy instanceof Endboss) {
+                        this.character.energy = 0;
+                        this.statusBarHealth.setPercentage(this.character.energy);
+                    } else {
+                        this.character.hit();
+                        this.statusBarHealth.setPercentage(this.character.energy);
+                    }
+                    return;}
         })
     }
 
@@ -351,12 +353,11 @@ class World {
      */
     switchToScreen(n) {
         if (this.hasGameEnded) {
-            return;}
+            return;
+        }
         this.hasGameEnded = true;
-        if (n == "won") 
-            {this.switch = "won";}
-        if (n == "lost") 
-            {this.switch = "lost";}
+        if (n == "won") { this.switch = "won"; }
+        if (n == "lost") { this.switch = "lost"; }
         allowInput = false;
         setTimeout(() => {
             this.stopGameAnimation();
@@ -373,10 +374,12 @@ class World {
     distanceToEndboss() {
         let distance = this.endboss.x - this.character.x;
         if (distance >= 700) {
-            this.endboss.triggered = false;}
+            this.endboss.triggered = false;
+        }
         if (distance <= 700) {
-            this.endboss.triggered = true;}
-        if (distance <= 600) {
+            this.endboss.triggered = true;
+        }
+        if (distance <= 550) {
             this.endboss.attack = true;
             setTimeout(() => {
                 this.endboss.attack = false;
@@ -391,9 +394,10 @@ class World {
      */
     timePassed(n) {
         if (n == null) {
-            return 2            
+            return 2
         }
-        return ((Date.now() - n) / 1000).toFixed(1);}
+        return ((Date.now() - n) / 1000).toFixed(1);
+    }
 
     /**
      * Removes a collected item from the game world. 
