@@ -45,7 +45,13 @@ class DrawableObject {
      * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas
      */
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        try {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        } catch (error) {
+            console.warn('Error', error);
+             console.warn(this.img);
+        }
+        
     }
 
     /**

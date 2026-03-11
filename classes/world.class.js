@@ -185,7 +185,7 @@ class World {
         this.runDamageChecks();
         this.runCollectingChecks();
         setInterval(() => {
-            this.checkThrow();
+            this.character.checkThrow();
             this.character.setIdleSwitches();
         }, 100);
     }
@@ -322,21 +322,6 @@ class World {
     }
 
     /**
-     * Handles throwing a bottle when the throw key is pressed.
-     * Creates a new throwable object and updates bottle inventory.
-     */
-    checkThrow() {
-        if (this.keyboard.throw && this.bottleCounter > 0 && !this.character.isDead() && !this.character.idle && !this.character.longIdle) {
-            let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.hitboxOffset.right - 10, this.character.y + (this.character.height * 0.5), this.character.otherDirection);
-            this.collectedBottles.push(bottle);
-            this.valueBottles -= 20;
-            this.statusBarBottle.setPercentage(this.valueBottles);
-            this.bottleCounter--;
-            bottle.playSound(bottle.throwBottleSound, 0.3)
-        }
-    }
-
-    /**
      * Plays the background music for the game world.
      * Sets volume, enables looping, and starts playback.
      */
@@ -353,7 +338,6 @@ class World {
 
     /* *
      * Stops all game animation frames when the game ends.
-     * Cancels both the main draw loop and end screen animation.
      */
     stopGameAnimation() {
         cancelAnimationFrame(endAnimationId);
@@ -379,24 +363,24 @@ class World {
         }, 200);
         setTimeout(() => {
             openRestartGame();
+            this.backgroundMusic.pause();
         }, 2000);
     }
 
     /**
      * Calculates distance to the endboss and triggers appropriate actions.
-     * Triggers endboss behavior when character gets close enough.
      */
     distanceToEndboss() {
         let distance = this.endboss.x - this.character.x;
-        if (distance >= 500) {
+        if (distance >= 700) {
             this.endboss.triggered = false;}
-        if (distance <= 500) {
+        if (distance <= 700) {
             this.endboss.triggered = true;}
-        if (distance <= 300) {
+        if (distance <= 600) {
             this.endboss.attack = true;
             setTimeout(() => {
                 this.endboss.attack = false;
-            }, 500);
+            }, 190);
         }
     }
 
@@ -406,11 +390,13 @@ class World {
      * @returns {number} - Time passed in seconds (fixed to 1 decimal place)
      */
     timePassed(n) {
+        if (n == null) {
+            return 2            
+        }
         return ((Date.now() - n) / 1000).toFixed(1);}
 
     /**
-     * Removes a collected item from the game world.
-     * Removes coins or bottles from their respective arrays.
+     * Removes a collected item from the game world. 
      * @param {DrawableObject} element - The element to remove (Coin or Bottle)
      */
     removeElementfromArray(element) {

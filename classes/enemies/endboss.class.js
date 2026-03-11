@@ -96,7 +96,7 @@ class Endboss extends MovableObject {
                 default: this.handleEndbossWalking();
                     break;
             }
-        }, 100)
+        }, 180)
     }
 
     /**
@@ -113,7 +113,10 @@ class Endboss extends MovableObject {
      * Moves forward and plays attack animation.
      */
     handleAttack() {
-        this.x -= 40;
+        if (this.world.character.isDead()) {
+            return
+        }
+        this.x -= 60;
         this.playAnimation(this.attackImg);
         this.playSound(this.introSound, 0.15);
     }

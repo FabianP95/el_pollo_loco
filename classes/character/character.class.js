@@ -16,6 +16,8 @@ class Character extends MovableObject {
     falling = false;
     timeLastJump = null;
     timeOut = 1.5;
+    timeLastThrow = null;
+    timeOutThrow = 1.5;
 
     idleImg = ['img/2_character_pepe/1_idle/idle/I-1.png', 'img/2_character_pepe/1_idle/idle/I-2.png', 'img/2_character_pepe/1_idle/idle/I-3.png',
         'img/2_character_pepe/1_idle/idle/I-4.png', 'img/2_character_pepe/1_idle/idle/I-5.png', 'img/2_character_pepe/1_idle/idle/I-6.png',
@@ -37,14 +39,14 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-34.png'
     ];
 
-    jumpingDownImg = ['img/2_character_pepe/3_jump/J-35.png',  'img/2_character_pepe/3_jump/J-35.png', 'img/2_character_pepe/3_jump/J-36.png', 'img/2_character_pepe/3_jump/J-36.png', 
-        'img/2_character_pepe/3_jump/J-37.png', 'img/2_character_pepe/3_jump/J-37.png', 
+    jumpingDownImg = ['img/2_character_pepe/3_jump/J-35.png', 'img/2_character_pepe/3_jump/J-35.png', 'img/2_character_pepe/3_jump/J-36.png', 'img/2_character_pepe/3_jump/J-36.png',
+        'img/2_character_pepe/3_jump/J-37.png', 'img/2_character_pepe/3_jump/J-37.png',
         'img/2_character_pepe/3_jump/J-38.png', 'img/2_character_pepe/3_jump/J-39.png'];
 
     deadImg = ['img/2_character_pepe/5_dead/D-51.png', 'img/2_character_pepe/5_dead/D-52.png', 'img/2_character_pepe/5_dead/D-53.png',
-        'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-55.png', 
+        'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-54.png', 'img/2_character_pepe/5_dead/D-55.png',
         'img/2_character_pepe/5_dead/D-55.png', 'img/2_character_pepe/5_dead/D-55.png', 'img/2_character_pepe/5_dead/D-56.png', 'img/2_character_pepe/5_dead/D-56.png', 'img/2_character_pepe/5_dead/D-56.png',
-        
+
     ];
 
     hitImg = ['img/2_character_pepe/4_hurt/H-41.png',
@@ -92,7 +94,7 @@ class Character extends MovableObject {
         }, standardFps);
         setInterval(() => {
             this.decideAnimation();
-        }, 100);
+        }, 120);
     }
 
     /**
@@ -101,7 +103,7 @@ class Character extends MovableObject {
      */
     decideAnimation() {
         if (this.isHit() || this.isDead()) {
-            this.handleHurtState(); 
+            this.handleHurtState();
         }
         if (this.isAboveGround() && !this.falling) {
             this.handleJumpingUpAnimation();
@@ -115,7 +117,6 @@ class Character extends MovableObject {
             if (!this.isHit() && !this.isDead() && !this.isAboveGround()) {
                 this.handleIdleState();
             }
-           
         }
     }
 
@@ -125,7 +126,7 @@ class Character extends MovableObject {
      */
     handleIdleState() {
         if (this.idle) {
-            this.stopAtLastImage(this.idleImg);
+            this.playAnimation(this.idleImg);
         }
         if (this.longIdle) {
             this.playAnimation(this.idleLongImg);
@@ -138,7 +139,7 @@ class Character extends MovableObject {
      */
     handleWalkingAnimation() {
         this.playAnimation(this.walkingImg);
-         this.playSound(this.walkSound, 0.25);
+        this.playSound(this.walkSound, 0.25);
 
     }
 
@@ -233,18 +234,45 @@ class Character extends MovableObject {
     setIdleSwitches() {
         let time = this.world.timePassed(lastInputTime);
         switch (true) {
-            case time == 5.0:
+            case time >= 2.0 && time <= 10.9:
                 this.idle = true;
                 this.longIdle = false;
                 break;
-            case time == 11.0:
+            case time >= 11.0:
                 this.idle = false;
                 this.longIdle = true;
                 break;
-            case time <= 4.0: this.idle = false;
+            case time <= 1.0: this.idle = false;
                 this.longIdle = false;
                 break;
         }
+    }
+
+    /**
+     * Handles throwing a bottle when the throw key is pressed.
+     * Creates a new throwable object and updates bottle inventory.
+     */
+    checkThrow() {
+        this.timeOutThrow = this.world.timePassed(this.timeLastThrow);
+        if (this.allowThrow() && this.timeOutThrow >= 2) {
+            let bottle = new ThrowableObject(this.x + this.width - this.hitboxOffset.right - 10, this.y + (this.height * 0.5), this.otherDirection);
+            this.world.collectedBottles.push(bottle);
+            this.world.valueBottles -= 20;
+            this.world.statusBarBottle.setPercentage(this.world.valueBottles);
+            this.world.bottleCounter--;
+            bottle.playSound(bottle.throwBottleSound, 0.3)
+            this.timeLastThrow = Date.now();
+        }
+    }
+
+    /**
+     * Determines whether the character is allowed to throw a bottle.
+     * The character can only throw if the throw key is pressed, bottles are available,
+     * and the character is not dead or in an idle state.
+     * @returns {boolean} True if all throw conditions are met, false otherwise.
+     */
+    allowThrow() {
+        return this.world.keyboard.throw && this.world.bottleCounter > 0 && !this.isDead() && !this.idle && !this.longIdle;
     }
 
 }
