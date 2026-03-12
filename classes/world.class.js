@@ -86,9 +86,8 @@ class World {
                 break;
         }
         this.playWorldMusic();
-        let self = this;
         drawAnimation = requestAnimationFrame(() => {
-            self.draw();
+            this.draw();
         });
     };
 
@@ -187,7 +186,7 @@ class World {
         setInterval(() => {
             this.character.checkThrow();
             this.character.setIdleSwitches();
-        }, 100);
+        }, 20);
     }
 
     /**

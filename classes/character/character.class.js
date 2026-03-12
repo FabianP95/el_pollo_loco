@@ -94,7 +94,7 @@ class Character extends MovableObject {
         }, standardFps);
         setInterval(() => {
             this.decideAnimation();
-        }, 120);
+        }, 100);
     }
 
     /**

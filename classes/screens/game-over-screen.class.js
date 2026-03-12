@@ -4,12 +4,13 @@
  * @class
  * @extends DrawableObject
  */
-class GameEndScreen extends DrawableObject {
-    gameOver = 'img/9_intro_outro_screens/game_over/oh no you lost!.png';
-    gameWon = 'img/You won, you lost/You won A.png';
+class GameEndScreen extends MovableObject {
+    gameOver = ['img/9_intro_outro_screens/game_over/oh no you lost!.png', 'img/9_intro_outro_screens/game_over/oh no you lost!.png'];
+    gameWon = ['img/You won, you lost/You won A.png','img/You won, you lost/You won A.png'];
     height = canvasHeight;
     width = canvasWidth;
     world;
+    img;
     y = 0;
     x = 0;
     /**
@@ -18,20 +19,22 @@ class GameEndScreen extends DrawableObject {
      * @constructor
      */
     constructor() {
-        super().loadImg(this.gameWon);
-        this.loadImg(this.gameOver);
-        this.show()
+        super().loadImages(this.gameWon);
+        this.loadImages(this.gameOver);
+        this.stopAtLastImage(this.gameWon);
+        this.animate()        
     }
 
-    show() {
+    animate() {
         setInterval(() => {
-              if (this.world.switch == "won") {
-               this.loadImg(this.gameWon);
-              }
-              if (this.world.switch == "lost") {
-                this.loadImg(this.gameOver);
-              }
-        }, 50);
-        
+            if (this.world.switch == "won") {
+                this.stopAtLastImage(this.gameWon)
+            }
+            if (this.world.switch == "lost") {
+               this.stopAtLastImage(this.gameOver)
+            }
+        }, 100);
     }
+
+
 }
