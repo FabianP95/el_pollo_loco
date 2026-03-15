@@ -43,51 +43,52 @@
         <h1 class="game-title">El pollo loco</h1>
     </header>
     <main class="main-container">
-        <div class="canvas-area" id="gameArea">
+        <section class="canvas-area" id="gameArea" aria-label="Game canvas and controls area">
             <canvas id="canvas" class="canvas" width="1050px" height="480px">
                 Your browser does not support the canvas tag.
             </canvas>
-            <div class="settings-hud">
-                <button id="muteBtn" onclick="applyMute(getMute())" class="button-settings">
+            <nav class="settings-hud" aria-label="Game settings">
+                <button id="muteBtn" onclick="applyMute(getMute())" class="button-settings" aria-label="Toggle mute">
                 </button>
-            </div>
-            <div class="control-hud">
+            </nav>
+            <nav class="control-hud" aria-label="Game controls">
                 <div class="control-display">
-                    <div class="button-row">
-                        <button id="btnA" class="button-control"><img class="control-img"
+                    <fieldset class="button-row">
+                        <legend class="sr-only">Game Controls</legend>
+                        <button id="btnA" class="button-control" aria-label="Walk left (A)"><img class="control-img"
                                 src="./assets/icons/arrow_back_ios_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg"
                                 alt="walk left">
                         </button>
-                        <button id="btnD" class="button-control"><img class="control-img"
+                        <button id="btnD" class="button-control" aria-label="Walk right (D)"><img class="control-img"
                                 src="./assets/icons/arrow_forward_ios_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg"
                                 alt="walk right">
                         </button>
-                        <button id="btnSpace" class="button-control">
+                        <button id="btnSpace" class="button-control" aria-label="Jump (Spacebar)">
                             <img class="control-img"
                                 src="./assets/icons/keyboard_double_arrow_up_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg"
                                 alt="jump">
                         </button>
-                        <button id="btnG" class="button-control">
+                        <button id="btnG" class="button-control" aria-label="Throw bottle (G)">
                             <img class="control-img"
                                 src="./assets/icons/swords_40dp_FFFFFF_FILL0_wght400_GRAD0_opsz40.svg"
                                 alt="attack with a bottle">
                         </button>
-                    </div>
+                    </fieldset>
                 </div>
-            </div>
-            <dialog id="startDialog" class="dialogWindow modal" open>
+            </nav>
+            <dialog id="startDialog" class="dialogWindow modal" aria-label="Start game dialog" open>
                 
             </dialog>
-        </div>
-        <div class="controls-info">
+        </section>
+        <aside class="controls-info" aria-label="Game controls information">
             <h2>Controls</h2>
             <div class="controls">
                 <p>Walk: A or D</p>
                 <p>Jump: Spacebar</p>
                 <p>Throw: G</p>
             </div>
-        </div>
-        <div id="rotate-overlay">
+        </aside>
+        <div id="rotate-overlay" aria-label="Device rotation required">
             <div class="rotate-content">
                 <div class="svg-wrapper">
                     <svg class="arc-wrap" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
